@@ -34,7 +34,7 @@ class TopNav extends Component {
             {name: 'User Menu', iconClass: 'account-dropdown-logo', iconName: 'user circle', iconSize: 'big', content: null, clickFunction: null}
         ];
 
-        const mainLogoProps = {src: 'https://drintl.com/wp-content/uploads/2018/05/dr-footer.png', alt: 'D+R', height: '35'}
+        const mainLogoProps = {src: 'https://drintl.com/wp-content/uploads/2018/05/dr-footer.png', alt: 'D+R', height: '35', className: 'main-logo'}
 
         return (
         <>

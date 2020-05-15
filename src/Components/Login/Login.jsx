@@ -49,7 +49,7 @@ class Login extends Component {
       	<div className="login-container main-background-color">
 			<Menu className='main-nav main-background-color' fixed='top' size='massive'>
 				<div className='main-logo-container'>
-					<img src='https://drintl.com/wp-content/uploads/2018/05/dr-footer.png' alt="D+R" height='50'></img>
+					<img src='https://drintl.com/wp-content/uploads/2018/05/dr-footer.png' alt="D+R" height='35'></img>
 				</div>
 			</Menu>
 			<Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh', paddingTop: 0 }}>

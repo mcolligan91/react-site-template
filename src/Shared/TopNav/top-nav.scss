@@ -14,3 +14,14 @@
 .top-nav {
     height: 60px !important;
 }
+
+.main-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px
+}
+
+.main-logo:hover {
+    cursor: pointer;
+} 

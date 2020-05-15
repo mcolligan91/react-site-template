@@ -1,25 +1,58 @@
 import React, { Component } from 'react';
 import { Message, Button, Grid, Header, Icon, Menu, Table } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
+
+import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 
 import './dashboard.scss';
-
-import TopNav from '../../Shared/TopNav/TopNav';
-import BottomNav from '../../Shared/BottomNav/BottomNav'
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             showAnnouncements: true,
-            announcements: []
+            announcements: [],
+            tasks: [],
+            events: []
         }
     }
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
-        this.setState({ announcements: ['Example announcement 1', 'Example announcement 2', 'Example announcement 3'] });
+        //would be loaded from view or from ajax call
+        this.setState({ announcements: ['Example announcement 1', 'Example announcement 2', 'Example announcement 3', 'Example announcement 4'] });
+
+        //would be loaded from view or from ajax call
+        this.setState({ tasks: [
+            {summary: 'Please submit your POS data for Organization A, January 2020.', date: '2/6/2020'},
+            {summary: 'Please submit your POS data for Organization B, January 2020.', date: '2/6/2020'},
+            {summary: 'Please submit your POS data for Organization C, January 2020.', date: '2/6/2020'},
+            {summary: 'Please submit your POS data for Organization D, January 2020.', date: '2/5/2020'},
+            {summary: 'Please submit your POS data for Organization E, January 2020.', date: '2/5/2020'},
+            {summary: 'Please submit your POS data for Organization F, January 2020.', date: '2/5/2020'},
+            {summary: 'Please submit your POS data for Organization G, January 2020.', date: '2/5/2020'},
+            {summary: 'Please submit your POS data for Organization H, January 2020.', date: '2/5/2020'},
+            {summary: 'Please submit your POS data for Organization I, January 2020.', date: '2/5/2020'}
+        ] });
+
+        //would be loaded from view or from ajax call
+        this.setState({ events: [
+            {summary: 'User A added a new Branch.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+        ] });
     }
 
     handleHideAnnouncements = () => {
@@ -27,48 +60,62 @@ class Dashboard extends Component {
     } 
 
   render() {
-    const {showAnnouncements, announcements} = this.state;
+    const {showAnnouncements, announcements, tasks, events} = this.state;
+
+    const taskTable = {
+        title: 'My Tasks',
+        headers: [
+                {width: 14, text: 'Summary'},
+                {width: 2, text: 'Date'}
+            ],
+        cellData: [
+            {value: 'summary'},
+            {value: 'date'}
+        ]
+    };
+
+    const eventTable = {
+        title: 'Recent Activity',
+        headers: [
+                {width: 14, text: 'Summary'},
+                {width: 2, text: 'Date'}
+            ],
+        cellData: [
+            {value: 'summary'},
+            {value: 'date'}
+        ]
+    };
 
     return (
       <>
-        <TopNav location={this.props.location} />
-        <Grid className='dashboard-main-container'>
-            {showAnnouncements ? (
-            <Grid.Row>
-                <Grid.Column width={16}>
-                    <Grid padded>
-                        <Grid.Column>
-                            <Header as='h3'>Announcements</Header>
-                            <Message info onDismiss={this.handleHideAnnouncements}>
-                                <Message.List items={announcements} />
-                            </Message>
-                        </Grid.Column>
-                    </Grid>
-                </Grid.Column>
-            </Grid.Row>
-            ) : (
-                null
-            )}
-            <Grid.Row columns={2}>
-                <Grid.Column computer={10} tablet={16} mobile={16}>
-                    <Grid padded>
-                        <Grid.Column>
-                            <Header as='h3'>My Tasks</Header>
-                            My Tasks
-                        </Grid.Column>
-                    </Grid>
-                </Grid.Column>
-                <Grid.Column computer={6} tablet={16} mobile={16}>
-                    <Grid padded>
-                        <Grid.Column>
-                            <Header as='h3'>Recent Activiy</Header>
-                            Recent Activiy
-                        </Grid.Column>
-                    </Grid>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-        <BottomNav />
+        {showAnnouncements ? (
+        <Grid.Row className='dash-contetnt-row'>
+            <Grid.Column width={16}>
+                <Grid padded>
+                    <Grid.Column>
+                        <Header as='h3'>Announcements</Header>
+                        <Message info onDismiss={this.handleHideAnnouncements}>
+                            <Message.List items={announcements} />
+                        </Message>
+                    </Grid.Column>
+                </Grid>
+            </Grid.Column>
+        </Grid.Row>
+        ) : (
+            null
+        )}
+        <Grid.Row className='dash-contetnt-row' columns={2}>
+            <Grid.Column computer={10} tablet={16} mobile={16}>
+                <Grid padded>
+                    <ModuleTable tableInfo={taskTable} tableData={tasks} />
+                </Grid>
+            </Grid.Column>
+            <Grid.Column computer={6} tablet={16} mobile={16}>
+                <Grid padded>
+                    <ModuleTable tableInfo={eventTable} tableData={events} />
+                </Grid>
+            </Grid.Column>
+        </Grid.Row>
       </>
     );
   }
