@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Message, Button, Grid, Header, Icon, Menu, Table, Divider } from 'semantic-ui-react';
+import { Message, Button, Grid, Header, Icon, Menu, Table, Segment } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
@@ -56,9 +56,11 @@ class ManageData extends Component {
             ) : (
                 null
             )}
-            <Grid>
+            <Grid className='manage-data-content-container'>
                 <Grid.Column>
-                    content
+                    <Segment>
+                        Please select a year from the POS Data Summary menu to view or upload data.
+                    </Segment>
                 </Grid.Column>
             </Grid>
         </>
