@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import { Switch, Route } from 'react-router-dom'
-import { Grid } from 'semantic-ui-react'
+import React, {Component} from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
 
 import TopNav from '../Shared/TopNav/TopNav';
 import BottomNav from '../Shared/BottomNav/BottomNav';

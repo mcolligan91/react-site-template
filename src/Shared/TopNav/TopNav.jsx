@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Form, Button, Grid, Header, Icon, Menu, Segment } from 'semantic-ui-react';
+import { Form, Button, Grid, Header, Icon, Menu, Segment, Responsive } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom'
 
 import './top-nav.scss'
@@ -38,7 +38,7 @@ class TopNav extends Component {
 
         return (
         <>
-            <Menu className='main-nav top-nav main-background-color' size='massive' borderless stackable>
+            <Responsive as={Menu} className='main-nav top-nav main-background-color' size='massive' minWidth={796} borderless>
                 <div className='main-logo-container'>
                     <img {...mainLogoProps} onClick={() => this.props.history.push('/home')}></img>
                 </div>
@@ -53,7 +53,22 @@ class TopNav extends Component {
                         )
                     })}
                 </Menu.Menu>
-            </Menu>
+            </Responsive>
+            <Responsive as={Menu} className='main-nav top-nav main-background-color' size='massive' maxWidth={795} icon borderless>
+                <div className='main-logo-container'>
+                    <img {...mainLogoProps} onClick={() => this.props.history.push('/home')}></img>
+                </div>
+                <Menu.Menu position='right'>
+                    {menuItems.map((item, i) => {
+                        let currentItem = item.name;
+                        return (
+                            <Menu.Item key={i} className='top-nav-link' name={currentItem} active={item.url === pathname} onClick={e => this.handleItemClick(item)}>
+                                <Icon className={item.iconClass} name={item.iconName} size={item.iconSize} onClick={item.clickFunction}></Icon>
+                            </Menu.Item>
+                        )
+                    })}
+                </Menu.Menu>
+            </Responsive>
         </>
         );
     }

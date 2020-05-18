@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Message, Button, Grid, Header, Icon, Menu, Table } from 'semantic-ui-react';
+import { Message, Button, Grid, Header, Icon, Menu, Table, Divider } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
+import SideNav from './../../Shared/SideNav/SideNav';
+import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 
 import './manage-data.scss';
 
@@ -10,10 +12,7 @@ class ManageData extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showAnnouncements: true,
-            announcements: [],
-            tasks: [],
-            events: []
+            activeItemMain: 'POS'
         }
     }
 
@@ -22,59 +21,46 @@ class ManageData extends Component {
 
     }
 
-    handleHideAnnouncements = () => {
-        this.setState({ showAnnouncements: false });
-    } 
+    handleItemClickMain = (e, { name }) => {
+        this.setState({ activeItemMain: name })
+    }
+
+    handleSecondaryItemClick = () => {
+        debugger;
+    }
 
   render() {
-    const {showAnnouncements, announcements, tasks, events} = this.state;
+    const {activeItemMain} = this.state;
 
-    const taskTable = {
-        title: 'My Tasks',
-        headers: [
-                {width: 14, text: 'Summary'},
-                {width: 2, text: 'Date'}
-            ],
-        cellData: [
-            {value: 'summary'},
-            {value: 'date'}
-        ]
-    };
+    const mainSideNavInfo = [
+        {name: 'POS', iconName: 'shopping cart'},
+        {name: 'Branch', iconName: 'map marker alternate'},
+        {name: 'Product', iconName: 'grid layout'},
+        {name: 'Customer', iconName: 'users'}
+    ];
 
-    const eventTable = {
-        title: 'Recent Activity',
-        headers: [
-                {width: 14, text: 'Summary'},
-                {width: 2, text: 'Date'}
-            ],
-        cellData: [
-            {value: 'summary'},
-            {value: 'date'}
-        ]
-    };
+    const secondarySideNavInfo = [
+        {title: '2020', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+        {title: '2019', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+        {title: '2018', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+        {title: '2017', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+        {title: '2016', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+        {title: '2015', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]}
+    ];
 
     return (
         <>
-            <Menu icon='labeled' vertical>
-                <Menu.Item>
-                    <Icon name='shopping cart'></Icon>
-                    POS
-                </Menu.Item>
-                <Menu.Item>
-                    <Icon name='shopping cart'></Icon>
-                    POS
-                </Menu.Item>
-                <Menu.Item>
-                    <Icon name='shopping cart'></Icon>
-                    POS
-                </Menu.Item>
-                <Menu.Item>
-                    <Icon name='shopping cart'></Icon>
-                    POS
-                </Menu.Item>
-            </Menu>
-                
-
+            <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
+            {activeItemMain === 'POS' ? (
+                <SecondarySideNav menuInfo={secondarySideNavInfo} handleItemClick={this.handleSecondaryItemClick}/>
+            ) : (
+                null
+            )}
+            <Grid>
+                <Grid.Column>
+                    content
+                </Grid.Column>
+            </Grid>
         </>
     );
   }

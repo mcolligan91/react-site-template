@@ -35,7 +35,7 @@ class BottomNav extends Component {
         return (
         <>
             <Menu className='main-nav main-background-color main-bottom-nav' size='massive'>
-                <Grid className='bottom-nav-container' columns={2}>
+                <Grid className='bottom-nav-container' columns={2} stackable doubling>
                     <Grid.Column textAlign='left' verticalAlign='middle' floated='left'>
                         <div style={{ paddingLeft: '15px' }}>
                             {companyInfo}
