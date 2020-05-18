@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Message, Button, Grid, Header, Icon, Menu, Table, Segment } from 'semantic-ui-react';
+import { Search, Button, Grid, Header, Icon, Menu, Table, Segment, Divider, Pagination } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
@@ -57,11 +57,92 @@ class ManageData extends Component {
                 null
             )}
             <Grid className='manage-data-content-container'>
-                <Grid.Column>
-                    <Segment>
-                        Please select a year from the POS Data Summary menu to view or upload data.
-                    </Segment>
-                </Grid.Column>
+                {activeItemMain === 'POS' ? (
+                    <Grid.Column>
+                        <Segment>
+                            Please select a year from the POS Data Summary menu to view or upload data.
+                        </Segment>
+                    </Grid.Column>
+                ) : (
+                    null
+                )}
+                {activeItemMain === 'Branch' ? (
+                    <Grid.Column>
+                        <Grid stackable style={{ padding: '15px' }}>
+                            <Grid.Column width={16}>
+                                <Header as='h2'>Manage Branch Data</Header>
+                                <Divider fitted />
+                            </Grid.Column>
+                            <Grid.Column width={6}>
+                                <Search input={{ fluid: true }} />
+                            </Grid.Column>
+                            <Grid.Column width={10} textAlign='right'>
+                                <Button icon labelPosition='left'>
+                                    <Icon name='pause' />
+                                    Button
+                                </Button>
+                                <Button icon labelPosition='left'>
+                                    <Icon name='pause' />
+                                    Button
+                                </Button>
+                                <Button icon labelPosition='left'>
+                                    <Icon name='pause' />
+                                    Button
+                                </Button>
+                                <Button icon labelPosition='left'>
+                                    <Icon name='pause' />
+                                    Button
+                                </Button>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                paging
+                            </Grid.Column>
+                            <Grid.Column width={8} textAlign='right'>
+                                <Pagination
+                                boundaryRange={0}
+                                defaultActivePage={1}
+                                siblingRange={1}
+                                totalPages={10}
+                                />
+                            </Grid.Column>
+                            <Grid.Column width={16}>
+                                <Table selectable striped>
+                                    <Table.Header>
+                                        <Table.Row>
+                                            <Table.HeaderCell>
+                                                title
+                                            </Table.HeaderCell>
+                                        </Table.Row>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                content
+                                            </Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                content
+                                            </Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                content
+                                            </Table.Cell>
+                                        </Table.Row>
+                                        <Table.Row>
+                                            <Table.Cell>
+                                                content
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    </Table.Body>
+                                </Table>
+                            </Grid.Column>
+                        </Grid>
+                    </Grid.Column>
+                ) : (
+                    null
+                )}
             </Grid>
         </>
     );
