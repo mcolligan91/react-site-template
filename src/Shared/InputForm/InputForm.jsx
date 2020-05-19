@@ -12,7 +12,6 @@ class InputForm extends Component {
         }
     }
 
-
     componentWillReceiveProps(nextProps) {
         this.setState({ data: nextProps.formData, isLoading: false });  
     }   
@@ -40,7 +39,7 @@ class InputForm extends Component {
                     <Form onSubmit={this.handleSubmit}>
                     {formInfo.inputs.map((input, i) => {
                         return (
-                            <Form.Input key={i} label={input.label} placeholder={input.placeholder} name={input.name} value={data[input.name]} onChange={this.handleChange} /> 
+                            <Form.Input key={i} label={input.label} placeholder={input.placeholder} name={input.name} type={input.type} value={data[input.name]} onChange={this.handleChange} /> 
                         )
                     })}
                     <Button fluid type='submit'>

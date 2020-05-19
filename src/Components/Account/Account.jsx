@@ -12,7 +12,8 @@ class Account extends Component {
         super(props);
         this.state = {
             activeItemMain: 'My Account',
-            userData: null
+            userData: null,
+            passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''}
         }
     }
 
@@ -33,8 +34,12 @@ class Account extends Component {
         debugger;
     }
 
+    handleUpdatePasswordInformation = () => {
+        debugger;
+    }
+
   render() {
-    const {activeItemMain, userData} = this.state;
+    const {activeItemMain, userData, passwordData} = this.state;
 
     const mainSideNavInfo = [
         {name: 'My Account', iconName: 'user'},
@@ -43,8 +48,8 @@ class Account extends Component {
     ];
 
     const userInfo = {
-        title: 'User Information',
-        submitFunction: this.handleUpdateUserInformation,
+        title: 'Password Information',
+        submitFunction: this.handleUpdatePasswordInformation,
         buttonText: 'Update User Information',
         buttonIcon: 'user',
         inputs: [
@@ -54,7 +59,19 @@ class Account extends Component {
             {label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
             {label: 'Location', placeholder: 'Location', name: 'location'}
         ]
-    }
+    };
+
+    const passwordInfo = {
+        title: 'Update Password',
+        submitFunction: this.handleUpdateUserInformation,
+        buttonText: 'Update Password',
+        buttonIcon: 'ellipsis horizontal',
+        inputs: [
+            {label: 'Current Password', placeholder: 'Current Password', name: 'currentPassword', type: 'password'},
+            {label: 'Enter New Password', placeholder: 'Enter New Password', name: 'newPassword', type: 'password'},
+            {label: 'Confirm New Password', placeholder: 'Confirm New Password', name: 'confirmedPassword', type: 'password'}
+        ]
+    };
 
     return (
         <>
@@ -70,6 +87,11 @@ class Account extends Component {
                         <Grid.Row centered>
                             <Grid.Column width={8}>
                                 <InputForm formInfo={userInfo} formData={userData} />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row centered>
+                            <Grid.Column width={8}>
+                                <InputForm formInfo={passwordInfo} formData={passwordData} />
                             </Grid.Column>
                         </Grid.Row>
                     </>
