@@ -5,20 +5,46 @@ import { Link, withRouter } from 'react-router-dom';
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
+import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
 
 import './manage-data.scss';
+
 
 class ManageData extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItemMain: 'POS'
+            activeItemMain: 'POS',
+            branchData: []
         }
     }
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
+        //will pull with ajax call 
+        this.setState({ branchData: [
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'}
+        ]})
     }
 
     handleItemClickMain = (e, { name }) => {
@@ -29,8 +55,24 @@ class ManageData extends Component {
         debugger;
     }
 
+    handleAddBranch = () => {
+        debugger;
+    }
+    
+    handleBulkUpload = () => {
+        debugger;
+    }
+    
+    handleDownloadAll = () => {
+        debugger;
+    }
+    
+    handleBranchUploadTemplate = () => {
+        debugger;
+    }
+
   render() {
-    const {activeItemMain} = this.state;
+    const {activeItemMain, branchData} = this.state;
 
     const mainSideNavInfo = [
         {name: 'POS', iconName: 'shopping cart'},
@@ -47,6 +89,37 @@ class ManageData extends Component {
         {title: '2016', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
         {title: '2015', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]}
     ];
+
+    const branchPageInfo = {
+        title: 'Manage Branch Data',
+        headerButtons: [
+            {content: 'Add Branch', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddBranch},
+            {content: 'Bulk Upload', iconName: 'download', className: 'inner-button', clickFunction: this.handleBulkUpload},
+            {content: 'Download All', iconName: 'upload', className: 'inner-button', clickFunction: this.handleDownloadAll},
+            {content: 'Branch Upload Template', iconName: 'file excel outline', className: '', clickFunction: this.handleBranchUploadTemplate}
+        ],
+        pagingUnits: 'Branches',
+        tableInfo: {
+            headers: [
+                {text: 'Branch ID'},
+                {text: 'City'},
+                {text: 'State'},
+                {text: 'Zip Code'},
+                {text: 'Status'},
+                {text: 'Date Added'},
+                {text: 'Details'}
+            ],
+            cellData: [
+                {value: 'branchId'},
+                {value: 'city'},
+                {value: 'state'},
+                {value: 'zipCode'},
+                {value: 'status'},
+                {value: 'dateAdded'},
+                {value: 'details'}
+            ]
+        }
+    };
 
     return (
         <>
@@ -67,79 +140,7 @@ class ManageData extends Component {
                     null
                 )}
                 {activeItemMain === 'Branch' ? (
-                    <Grid.Column>
-                        <Grid stackable style={{ padding: '15px' }}>
-                            <Grid.Column width={16}>
-                                <Header as='h2'>Manage Branch Data</Header>
-                                <Divider fitted />
-                            </Grid.Column>
-                            <Grid.Column width={6}>
-                                <Search input={{ fluid: true }} />
-                            </Grid.Column>
-                            <Grid.Column width={10} textAlign='right'>
-                                <Button icon labelPosition='left'>
-                                    <Icon name='pause' />
-                                    Button
-                                </Button>
-                                <Button icon labelPosition='left'>
-                                    <Icon name='pause' />
-                                    Button
-                                </Button>
-                                <Button icon labelPosition='left'>
-                                    <Icon name='pause' />
-                                    Button
-                                </Button>
-                                <Button icon labelPosition='left'>
-                                    <Icon name='pause' />
-                                    Button
-                                </Button>
-                            </Grid.Column>
-                            <Grid.Column width={8}>
-                                paging
-                            </Grid.Column>
-                            <Grid.Column width={8} textAlign='right'>
-                                <Pagination
-                                boundaryRange={0}
-                                defaultActivePage={1}
-                                siblingRange={1}
-                                totalPages={10}
-                                />
-                            </Grid.Column>
-                            <Grid.Column width={16}>
-                                <Table selectable striped>
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>
-                                                title
-                                            </Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        <Table.Row>
-                                            <Table.Cell>
-                                                content
-                                            </Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>
-                                                content
-                                            </Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>
-                                                content
-                                            </Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>
-                                                content
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    </Table.Body>
-                                </Table>
-                            </Grid.Column>
-                        </Grid>
-                    </Grid.Column>
+                    <InteractiveTableLayout pageInfo={branchPageInfo} tableContent={branchData}/>
                 ) : (
                     null
                 )}
