@@ -12,16 +12,21 @@ class Account extends Component {
         super(props);
         this.state = {
             activeItemMain: 'My Account',
-            userData: [{firstName: 'Michael'}, {lastName: 'Colligan'}]
+            userData: null
         }
     }
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
+
+        //will load from ajax call
+        setTimeout(() => {
+            this.setState({ userData: {firstName: 'Michael', lastName: 'Colligan', email: 'abc@gmail.com', phone: '(123) 456-7890', location: 'Washington, DC' } });
+          }, 2000);
     }
 
     handleItemClickMain = (e, { name }) => {
-        this.setState({ activeItemMain: name })
+        this.setState({ activeItemMain: name });
     }
 
     handleUpdateUserInformation = () => {
@@ -50,7 +55,7 @@ class Account extends Component {
             {label: 'Location', placeholder: 'Location', name: 'location'}
         ]
     }
-        
+
     return (
         <>
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
