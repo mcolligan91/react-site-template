@@ -18,9 +18,8 @@ class TopNav extends Component {
         }
     }
         
-
     handleAccountDropdown = () => {
-        alert('user dropdown');
+        this.props.history.push('/account');
     }
 
     render() {

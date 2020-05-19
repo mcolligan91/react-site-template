@@ -53,7 +53,7 @@ class FAQs extends Component {
             <SecondarySideNav menuInfo={secondarySideNavInfo} handleItemClick={this.handleSecondaryItemClick}/>
             <Grid className='manage-data-content-container'>
                 <Grid.Column>
-                    <Grid centerd verticalAlign='middle'>
+                    <Grid centered verticalAlign='middle'>
                         <Grid.Row centered>
                             <Grid.Column width={12}>
                                 <Segment basic textAlign='center'>
