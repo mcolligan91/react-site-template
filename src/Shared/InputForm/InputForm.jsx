@@ -12,6 +12,13 @@ class InputForm extends Component {
         }
     }
 
+    componentDidMount = () => {
+        const {formData} = this.props;
+        if (formData !== null) {
+            this.setState({ data: formData, isLoading: false });
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         this.setState({ data: nextProps.formData, isLoading: false });  
     }   
