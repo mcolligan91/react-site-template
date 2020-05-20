@@ -7,8 +7,7 @@ class InteractiveTableLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pageAmount: 20,
-            activePage: 1,
+            pageLength: 20,
             tableData: [] 
         }
     }
@@ -18,9 +17,23 @@ class InteractiveTableLayout extends Component {
         this.setState({ tableData: tableContent });
     }
 
+    handleUpdatePageLength = (option) => {
+        this.setState({ pageLength: option });
+    }
+
+    handleItemClick = (e, data) => {
+        if (e.target.nodeName === 'I') {
+            this.props.handleTableButtonClick(e.target.getAttribute('functionreference'), data);
+        }
+    }
+
     render() {
-        const {pageAmount, activePage, tableData} = this.state;
+        const {pageLength, tableData} = this.state;
         const {pageInfo} = this.props;
+
+        const pageAmountOptions = [10, 20, 50];
+
+        //pagination not configured
         
         return (
             <Grid.Column>
@@ -43,15 +56,11 @@ class InteractiveTableLayout extends Component {
                         })}
                     </Grid.Column>
                     <Grid.Column width={8} verticalAlign='bottom'>
-                        <Button icon>
-                            10
-                        </Button>           
-                        <Button icon>
-                            20
-                        </Button>
-                        <Button icon>
-                            50
-                        </Button>
+                        {pageAmountOptions.map((option, i) => {
+                            return (
+                                <Button key={i} icon content={option} className={pageLength !== option ? 'inactive-paging-button' : ''} color={pageLength === option ? 'teal' : null} onClick={() => this.handleUpdatePageLength(option)} />  
+                            )
+                        })}
                         <span className='paging-label'>{pageInfo.pagingUnits} / Page</span>
                     </Grid.Column>
                     <Grid.Column width={8} textAlign='right'>
@@ -59,7 +68,7 @@ class InteractiveTableLayout extends Component {
                         boundaryRange={0}
                         defaultActivePage={1}
                         siblingRange={1}
-                        totalPages={10}
+                        totalPages={3}
                         />
                     </Grid.Column>
                     <Grid.Column width={16}>
@@ -76,12 +85,12 @@ class InteractiveTableLayout extends Component {
                             <Table.Body>
                                 {tableData.map((tableData, i) => {
                                     return (
-                                        <Table.Row key={i}>
-                                            {pageInfo.tableInfo.cellData.map((data, i) => {
+                                        <Table.Row key={i} onClick={pageInfo.tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
+                                            {pageInfo.tableInfo.cellData.map((data, j) => {
                                                 return data.type === 'text' ? (
-                                                    <Table.Cell key={i}>{tableData[data.value]}</Table.Cell>
-                                                ) : data.type === 'component' ? (
-                                                    <Table.Cell key={i}>{data.content}</Table.Cell>
+                                                    <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
+                                                ) : data.type === 'clickItem' ? (
+                                                    <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
                                                 ) : (
                                                     null
                                                 )
