@@ -69,8 +69,8 @@ class Dashboard extends Component {
                 {width: 2, text: 'Date'}
             ],
         cellData: [
-            {value: 'summary'},
-            {value: 'date'}
+            {type: 'text', value: 'summary'},
+            {type: 'text', value: 'date'}
         ]
     };
 
@@ -81,8 +81,8 @@ class Dashboard extends Component {
                 {width: 2, text: 'Date'}
             ],
         cellData: [
-            {value: 'summary'},
-            {value: 'date'}
+            {type: 'text', value: 'summary'},
+            {type: 'text', value: 'date'}
         ]
     };
 

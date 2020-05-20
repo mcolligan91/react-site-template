@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Search, Button, Grid, Header, Icon, Table, Divider, Pagination } from 'semantic-ui-react';
 
-
 import './interactive-table-layout.scss';
 
 class InteractiveTableLayout extends Component {
@@ -79,8 +78,12 @@ class InteractiveTableLayout extends Component {
                                     return (
                                         <Table.Row key={i}>
                                             {pageInfo.tableInfo.cellData.map((data, i) => {
-                                                return  (
+                                                return data.type === 'text' ? (
                                                     <Table.Cell key={i}>{tableData[data.value]}</Table.Cell>
+                                                ) : data.type === 'component' ? (
+                                                    <Table.Cell key={i}>{data.content}</Table.Cell>
+                                                ) : (
+                                                    null
                                                 )
                                             })}
                                         </Table.Row>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Header, Table } from 'semantic-ui-react';
+import { Grid, Icon, Table, Button } from 'semantic-ui-react';
 
 import './module-table.scss'
 
@@ -8,13 +8,24 @@ class ModuleTable extends Component {
         super(props);
     }
 
+    handleItemClick = (e, data) => {
+        if (e.target.nodeName === 'I') {
+            this.props.handleTableButtonClick(e.target.getAttribute('functionreference'), data);
+        }
+    }
+
     render() {
         const {tableInfo, tableData} = this.props;
 
         return (
             <>
                 <Grid.Column>
-                    <Header as='h3'>{tableInfo.title}</Header>
+                    <h3 className='table-header'>{tableInfo.title}</h3>
+                    {tableInfo.button ? (
+                        <Button content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' />
+                    ) : (
+                        null
+                    )}
                     <Table selectable striped>
                         <Table.Header>
                             <Table.Row>
@@ -28,10 +39,14 @@ class ModuleTable extends Component {
                         <Table.Body>
                             {tableData.map((tableData, i) => {
                                 return (
-                                    <Table.Row key={i}>
-                                        {tableInfo.cellData.map((data, i) => {
-                                            return  (
-                                                <Table.Cell key={i}>{tableData[data.value]}</Table.Cell>
+                                    <Table.Row key={i} onClick={tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
+                                        {tableInfo.cellData.map((data, j) => {
+                                            return data.type === 'text' ? (
+                                                <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
+                                            ) : data.type === 'clickItem' ? (
+                                                <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
+                                            ) : (
+                                                null
                                             )
                                         })}
                                     </Table.Row>

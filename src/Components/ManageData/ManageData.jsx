@@ -113,13 +113,13 @@ class ManageData extends Component {
                 {text: 'Details'}
             ],
             cellData: [
-                {value: 'branchId'},
-                {value: 'city'},
-                {value: 'state'},
-                {value: 'zipCode'},
-                {value: 'status'},
-                {value: 'dateAdded'},
-                {value: 'details'}
+                {type: 'text', value: 'branchId'},
+                {type: 'text', value: 'city'},
+                {type: 'text', value: 'state'},
+                {type: 'text', value: 'zipCode'},
+                {type: 'text', value: 'status'},
+                {type: 'text', value: 'dateAdded'},
+                {type: 'text', value: 'details'}
             ]
         }
     };
