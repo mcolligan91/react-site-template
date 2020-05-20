@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Search, Button, Grid, Header, Icon, Menu, Table, Segment, Divider, Pagination } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Search, Grid, Header, Segment, Divider } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 

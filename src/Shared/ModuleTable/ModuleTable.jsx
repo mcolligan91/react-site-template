@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Message, Button, Grid, Header, Icon, Menu, Table } from 'semantic-ui-react';
+import { Grid, Header, Table } from 'semantic-ui-react';
 
 import './module-table.scss'
 

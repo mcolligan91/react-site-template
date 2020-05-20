@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, Grid, Header, Icon, Menu, Table, Segment, Divider, Message, Label } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Dropdown, Button, Grid, Header, Message } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
-import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 import SideNav from './../../Shared/SideNav/SideNav';
-import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 
 import './reporting.scss';
-
 
 class Reporting extends Component {
     constructor(props) {
@@ -31,6 +28,23 @@ class Reporting extends Component {
     const mainSideNavInfo = [
         {name: 'Data Exports', iconName: 'file alternate'},
         {name: 'Custom Query', iconName: 'search'}
+    ];
+
+    //placeholder
+    let dropdownYears = [
+        {key: 1, text: '2015', value: 2015},
+        {key: 2, text: '2016', value: 2016},
+        {key: 3, text: '2017', value: 2017},
+        {key: 4, text: '2018', value: 2018},
+        {key: 5, text: '2019', value: 2019},
+        {key: 6, text: '2010', value: 2020},
+    ];
+
+    //placeholder
+    let dropdownOrgs = [
+        {key: 1, text: 'Org A', value: 1},
+        {key: 2, text: 'Org B', value: 2},
+        {key: 3, text: 'Org C', value: 3},
     ];
 
     return (
@@ -63,7 +77,7 @@ class Reporting extends Component {
                                     <Header as='h2' style={{marginBottom: 0}}>Update Data Exports</Header>
                                     <Grid.Row>
                                         <Grid.Column width={8}>
-                                            <Dropdown placeholder='Please select...' fluid selection />
+                                            <Dropdown placeholder='Please select...' fluid selection options={dropdownOrgs} />
                                         </Grid.Column>
                                         <Grid.Column width={8}>
                                             <Button fluid>Update</Button>
@@ -79,11 +93,11 @@ class Reporting extends Component {
                                     <Grid.Row>
                                         <Grid.Column width={8}>
                                             <span>Monthly Data Exports</span>
-                                            <Dropdown style={{marginTop: '5px'}} placeholder='Please select...' fluid selection />
+                                            <Dropdown style={{marginTop: '5px'}} placeholder='Please select...' fluid selection options={dropdownYears} />
                                         </Grid.Column>
                                         <Grid.Column width={8}>
                                             <span>Quarterly Data Exports</span>
-                                            <Dropdown style={{marginTop: '5px'}} placeholder='Please select...' fluid selection />
+                                            <Dropdown style={{marginTop: '5px'}} placeholder='Please select...' fluid selection options={dropdownYears} />
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>

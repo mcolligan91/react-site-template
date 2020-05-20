@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Form, Button, Grid, Header, Icon, Menu, Segment, Responsive } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom'
+import { Icon, Menu, Responsive } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom'
 
 import './top-nav.scss'
 
@@ -33,13 +33,13 @@ class TopNav extends Component {
             {name: 'User Menu', iconClass: 'account-dropdown-logo', iconName: 'user circle', iconSize: 'big', content: null, clickFunction: null}
         ];
 
-        const mainLogoProps = {src: 'https://drintl.com/wp-content/uploads/2018/05/dr-footer.png', alt: 'D+R', height: '35', className: 'main-logo'}
+        const mainLogoProps = {src: 'https://drintl.com/wp-content/uploads/2018/05/dr-footer.png', height: '35', className: 'main-logo'}
 
         return (
         <>
             <Responsive as={Menu} className='main-nav top-nav main-background-color' size='massive' minWidth={796} borderless>
                 <div className='main-logo-container'>
-                    <img {...mainLogoProps} onClick={() => this.props.history.push('/home')}></img>
+                    <img {...mainLogoProps} alt='Logo' onClick={() => this.props.history.push('/home')}></img>
                 </div>
                 <Menu.Menu position='right'>
                     {menuItems.map((item, i) => {
@@ -55,7 +55,7 @@ class TopNav extends Component {
             </Responsive>
             <Responsive as={Menu} className='main-nav top-nav main-background-color' size='massive' maxWidth={795} icon borderless>
                 <div className='main-logo-container'>
-                    <img {...mainLogoProps} onClick={() => this.props.history.push('/home')}></img>
+                    <img {...mainLogoProps} alt='Logo' onClick={() => this.props.history.push('/home')}></img>
                 </div>
                 <Menu.Menu position='right'>
                     {menuItems.map((item, i) => {

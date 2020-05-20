@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Form, Button, Grid, Header, Icon, Menu, Segment } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom'
+import { Grid, Menu } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom'
 
 import './bottom-nav.scss'
 
@@ -30,7 +30,8 @@ class BottomNav extends Component {
 			{name: 'Contact Us', content: 'Contact Us'}
 		];
 		
-		const companyInfo = '© 2020 - D+R International';
+		//will be specific to site
+		let companyInfo = '© 2020 - D+R International';
 
         return (
         <>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Search, Button, Grid, Header, Icon, Menu, Table, Segment, Divider, Pagination } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Search, Button, Grid, Header, Icon, Table, Divider, Pagination } from 'semantic-ui-react';
 
 
 import './interactive-table-layout.scss';
@@ -19,7 +18,6 @@ class InteractiveTableLayout extends Component {
         const {tableContent} = this.props;
         this.setState({ tableData: tableContent });
     }
-
 
     render() {
         const {pageAmount, activePage, tableData} = this.state;

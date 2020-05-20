@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Button, Grid, Header, Icon, Menu, Table, Segment, Divider, Message, Label } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Grid, Header } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
 import InputForm from './../../Shared/InputForm/InputForm';

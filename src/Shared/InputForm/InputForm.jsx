@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Header, Grid, Form, Icon, Button, Dimmer } from 'semantic-ui-react';
+import { Header, Form, Icon, Button, Dimmer } from 'semantic-ui-react';
  
 import './input-form.scss';
 
@@ -46,7 +46,7 @@ class InputForm extends Component {
                     <Form onSubmit={this.handleSubmit}>
                     {formInfo.inputs.map((input, i) => {
                         return (
-                            <Form.Input key={i} label={input.label} placeholder={input.placeholder} name={input.name} type={input.type} value={data[input.name]} onChange={this.handleChange} /> 
+                            <Form.Input key={i} label={input.label} placeholder={input.placeholder} name={input.name} type={input.type} value={data[input.name] || ''} onChange={this.handleChange} /> 
                         )
                     })}
                     <Button fluid type='submit'>

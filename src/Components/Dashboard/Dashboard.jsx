@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Message, Button, Grid, Header, Icon, Menu, Table } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Message, Grid, Header } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 

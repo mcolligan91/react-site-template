@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Search, Button, Grid, Header, Icon, Menu, Table, Segment, Divider, Pagination } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import { Grid, Segment } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 
-import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
