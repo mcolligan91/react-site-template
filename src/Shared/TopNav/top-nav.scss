@@ -25,3 +25,19 @@
 .main-logo:hover {
     cursor: pointer;
 } 
+
+.last-login-text {
+    font-weight: lighter;
+    color: lightgrey;
+}
+
+.ui.dropdown .menu>.divider.logout-divider {
+    margin-bottom: 0;
+}
+
+.logout-button-container {
+    padding: 10px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+}

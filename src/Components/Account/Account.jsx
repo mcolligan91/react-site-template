@@ -24,7 +24,11 @@ class Account extends Component {
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
-        this.setState({ activeItemMain: 'My Account' });
+        const {pathTarget} = this.props.history.location.state;
+
+        this.setState({ activeItemMain: pathTarget === undefined ? 'My Account' : pathTarget});
+        
+        
         //will load from ajax call
         setTimeout(() => {
             this.setState({ 
@@ -115,14 +119,14 @@ class Account extends Component {
         };
 
         const adminTable = {
-            title: 'Recent Activity',
+            title: 'Admin Users',
             hasClickEvents: true,
             headers: [
                     {text: 'Name'},
                     {text: 'Email'},
                     {text: 'Phone'},
-                    {text: 'Edit'},
-                    {text: 'Remove'}
+                    {text: 'Edit', props: {textAlign: 'center'}},
+                    {text: 'Remove', props: {textAlign: 'center'}}
                 ],
             cellData: [
                 {type: 'text', value: 'name'},
@@ -152,8 +156,8 @@ class Account extends Component {
                     {text: 'Email'},
                     {text: 'Role'},
                     {text: 'Last Login'},
-                    {text: 'Edit'},
-                    {text: 'Delete'}
+                    {text: 'Edit', props: {textAlign: 'center'}},
+                    {text: 'Delete', props: {textAlign: 'center'}}
                 ],
                 cellData: [
                     {type: 'text', value: 'name'},

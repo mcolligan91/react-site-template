@@ -136,7 +136,7 @@ class ManageData extends Component {
                 {activeItemMain === 'POS' ? (
                     <Grid.Column>
                         <Segment>
-                            Please select a year from the POS Data Summary menu to view or upload data.
+                            Please select a year from the Data Summary menu to view or upload data.
                         </Segment>
                     </Grid.Column>
                 ) : (

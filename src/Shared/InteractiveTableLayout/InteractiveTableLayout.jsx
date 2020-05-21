@@ -72,12 +72,12 @@ class InteractiveTableLayout extends Component {
                         />
                     </Grid.Column>
                     <Grid.Column width={16}>
-                        <Table selectable striped>
-                        <Table.Header>
+                        <Table selectable striped fixed>
+                            <Table.Header>
                                 <Table.Row>
                                     {pageInfo.tableInfo.headers.map((columnData, i) => {
                                         return (
-                                            <Table.HeaderCell key={i}>{columnData.text}</Table.HeaderCell>
+                                            <Table.HeaderCell key={i} {...columnData.props}>{columnData.text}</Table.HeaderCell>
                                         )
                                     })}
                                 </Table.Row>
