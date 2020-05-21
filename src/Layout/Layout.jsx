@@ -20,7 +20,8 @@ class Layout extends Component {
     render() {
         return (
             <>
-                <TopNav location={this.props.location} />
+            <div id='app'>
+            <TopNav location={this.props.location} />
                 <Grid className='main-content-container'>
                     <Switch>
                         <Route path='/home' component={Dashboard}></Route>
@@ -31,6 +32,18 @@ class Layout extends Component {
                     </Switch>
                 </Grid>
                 <BottomNav />
+            </div>
+                {/* <TopNav location={this.props.location} />
+                <Grid className='main-content-container'>
+                    <Switch>
+                        <Route path='/home' component={Dashboard}></Route>
+                        <Route path='/manage-data' component={ManageData}></Route>
+                        <Route path='/reporting' component={Reporting}></Route>
+                        <Route path='/faqs' component={FAQs}></Route>
+                        <Route path='/account' component={Account}></Route>
+                    </Switch>
+                </Grid>
+                <BottomNav /> */}
             </>
         )
     }

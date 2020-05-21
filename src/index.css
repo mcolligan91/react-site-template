@@ -1,9 +1,7 @@
-html, body {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  margin: 0 !important;
-  padding: 0 !important;
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 body {
@@ -12,7 +10,7 @@ body {
 
 .main-content-container {
   padding: 0 15px !important;
-  height: 100% !important;
+  flex-grow: 1 !important;
 }
 
 .main-background-color {

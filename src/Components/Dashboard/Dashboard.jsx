@@ -89,7 +89,7 @@ class Dashboard extends Component {
     return (
       <>
         {showAnnouncements ? (
-        <Grid.Row className='dash-contetnt-row'>
+        <Grid.Row>
             <Grid.Column width={16}>
                 <Grid padded>
                     <Grid.Column>
@@ -104,7 +104,7 @@ class Dashboard extends Component {
         ) : (
             null
         )}
-        <Grid.Row className='dash-contetnt-row' columns={2}>
+        <Grid.Row columns={2}>
             <Grid.Column computer={10} tablet={16} mobile={16}>
                 <Grid padded>
                     <ModuleTable tableInfo={taskTable} tableData={tasks} />

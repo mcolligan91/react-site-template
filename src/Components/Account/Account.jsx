@@ -173,17 +173,17 @@ class Account extends Component {
             <Grid className='manage-data-content-container'>
                 {activeItemMain === 'My Account' ? (
                     <>
-                        <Grid.Row centered style={{margin: '45px 0 -45px 0'}}>
+                        <Grid.Row className='my-account-header-container' centered>
                             <Grid.Column width={8}>
                                 <Header as='h2' style={{marginBottom: 0}}>My Account</Header>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row centered>
+                        <Grid.Row className='my-account-form-container' centered>
                             <Grid.Column width={8}>
                                 <InputForm formInfo={userInfo} formData={userData} />
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row centered>
+                        <Grid.Row className='my-account-form-container' centered>
                             <Grid.Column width={8}>
                                 <InputForm formInfo={passwordInfo} formData={passwordData} />
                             </Grid.Column>
