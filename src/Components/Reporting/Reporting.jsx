@@ -65,7 +65,7 @@ class Reporting extends Component {
                                             </Message>
                                         </Grid.Column>
                                         <Grid.Column width={8}>
-                                            <Button fluid>Update</Button>
+                                            <Button className='main-button-color' fluid>Update</Button>
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
@@ -80,7 +80,7 @@ class Reporting extends Component {
                                             <Dropdown placeholder='Please select...' fluid selection options={dropdownOrgs} />
                                         </Grid.Column>
                                         <Grid.Column width={8}>
-                                            <Button fluid>Update</Button>
+                                            <Button className='main-button-color' fluid>Update</Button>
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>

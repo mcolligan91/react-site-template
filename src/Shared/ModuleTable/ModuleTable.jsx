@@ -38,7 +38,7 @@ class ModuleTable extends Component {
                         <Grid.Column width={16} className='table-header-container module-table-container-column'>
                         <h3 className={`table-header ${!tableInfo.button ? 'table-header-no-button' : ''}`}>{tableInfo.title}</h3>
                         {tableInfo.button ? (
-                            <Button content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' />
+                            <Button className='main-button-color' content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' />
                         ) : (
                             null
                         )}

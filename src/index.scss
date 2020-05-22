@@ -1,4 +1,13 @@
 $main-color: #29598D;
+$main-button-color: #5AABC5;
+
+.main-background-color {
+  background-color: $main-color !important;
+}
+
+.main-color {
+  color: $main-color !important;
+}
 
 #app {
   display: flex;
@@ -14,25 +23,22 @@ h1, h2, h3, h4, h5, .ui.header {
   color: #757680;
 }
 
-.main-content-container {
-  padding: 0 15px !important;
-  flex-grow: 1 !important;
+.ui.grid.main-content-container {
+  padding: 0 15px;
+  flex-grow: 1;
 }
 
-.main-background-color {
-  background-color: $main-color!important;
+.ui.button.main-button-color {
+  background-color: $main-button-color;
+  color: #fff;
 }
 
-.main-color {
-  color: $main-color !important;
+.ui.button.main-button-color:hover {
+  background-color: darken($main-button-color, 10%);
 }
 
-.main-secondary-blue {
-  background-color: #5AABC5 !important;
-}
-
-.main-secondary-blue:hover {
-  background-color: rgb(80, 146, 168) !important;
+.ui.button.main-button-color:active {
+  background-color: darken($main-button-color, 20%);
 }
 
 .ui.menu.side-nav {

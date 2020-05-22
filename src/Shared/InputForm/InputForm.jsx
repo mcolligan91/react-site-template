@@ -49,7 +49,7 @@ class InputForm extends Component {
                             <Form.Input key={i} label={input.label} placeholder={input.placeholder} name={input.name} type={input.type} value={data[input.name] || ''} onChange={this.handleChange} /> 
                         )
                     })}
-                    <Button fluid type='submit'>
+                    <Button className='main-button-color' fluid type='submit'>
                         <Icon name={formInfo.buttonIcon}></Icon>
                         {formInfo.buttonText}
                     </Button>

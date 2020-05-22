@@ -88,7 +88,7 @@ class BottomNav extends Component {
 						<Form.TextArea label='Message' name='message' value={message} onChange={this.handleChange} />
 					</Modal.Content>
 					<Modal.Actions>
-						<Button type='submit' content='Submit' />
+						<Button className='main-button-color' type='submit' content='Submit' />
 					</Modal.Actions>
 				</Modal>
 			) : (

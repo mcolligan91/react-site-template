@@ -76,7 +76,7 @@ class Login extends Component {
 										value={password}
 										onChange={this.handleChange}
 										/>
-										<Button className="login-button-bg main-secondary-blue" fluid size='large' onClick={this.handleSubmit}>
+										<Button className="login-button-bg main-button-color" fluid size='large' onClick={this.handleSubmit}>
 											<Icon className='login-icon' name='sign-in'></Icon>
 											Login
 										</Button>

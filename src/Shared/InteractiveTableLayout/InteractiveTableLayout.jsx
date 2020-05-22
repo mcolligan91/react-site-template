@@ -54,7 +54,7 @@ class InteractiveTableLayout extends Component {
                     <Grid.Column width={10} textAlign='right' verticalAlign='middle'>
                         {pageInfo.headerButtons.map((button, i) => {
                             return (
-                                <Button key={i} className={button.className} icon size='tiny' labelPosition='left' color='teal' onClick={button.clickFunction}>
+                                <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
                                     <Icon name={button.iconName} />
                                     {button.content}
                                 </Button>
@@ -64,7 +64,7 @@ class InteractiveTableLayout extends Component {
                     <Grid.Column width={8} verticalAlign='bottom'>
                         {pageAmountOptions.map((option, i) => {
                             return (
-                                <Button key={i} icon content={option} className={pageLength !== option ? 'inactive-paging-button' : ''} color={pageLength === option ? 'teal' : null} onClick={() => this.handleUpdatePageLength(option)} />  
+                                <Button key={i} icon content={option} className={pageLength !== option ? 'inactive-paging-button' : 'main-button-color'} onClick={() => this.handleUpdatePageLength(option)} />  
                             )
                         })}
                         <span className='paging-label'>{pageInfo.pagingUnits} / Page</span>
