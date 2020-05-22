@@ -37,7 +37,7 @@ class SecondarySideNav extends Component {
                             <Menu.Item key={i}>
                                 {mainData.content && mainData.content.length > 0 ? (
                                     <Accordion styled>
-                                        <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' active=    {activeIndex === i} index={i} onClick={this.handleClick}>
+                                        <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' active={activeIndex === i} index={i} onClick={this.handleClick}>
                                             {mainData.content && mainData.content.length > 0 ? (
                                                 <Icon name='dropdown' />
                                             ) : (
@@ -49,7 +49,7 @@ class SecondarySideNav extends Component {
                                             <List relaxed selection>
                                                 {mainData.content.map((data, i) => {
                                                     return (
-                                                        <List.Item key={i} className='second-side-nav-list-item' onClick={handleItemClick}>
+                                                        <List.Item key={i} className='second-side-nav-list-item' onClick={(e) => handleItemClick(e, data)}>
                                                             {data.month}
                                                         </List.Item>
                                                     )

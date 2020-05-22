@@ -3,7 +3,23 @@
     padding-top: 1rem;
 }
 
+.table-header-no-button {
+    margin-bottom: .5rem !important;
+}
+
 .table-row-icon-button:hover {
     cursor: pointer !important;
     font-weight: bold !important;
+}
+
+.module-table-container-column {
+    padding: 0 1rem !important;
+}
+
+.table-header-container {
+    margin-bottom: -20px !important;
+}
+
+.module-table-contatiner {
+    margin-top: 10px;
 }

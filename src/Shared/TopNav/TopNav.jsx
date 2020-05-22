@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Icon, Menu, Responsive, Dropdown, Button, Grid } from 'semantic-ui-react';
+import { Icon, Menu, Responsive, Dropdown, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom'
 
 import './top-nav.scss'
@@ -98,10 +98,34 @@ class TopNav extends Component {
                 </div>
                 <Menu.Menu position='right'>
                     {menuItems.map((item, i) => {
-                        return (
+                       return item.type === 'pageLink' ? (
                             <Menu.Item key={i} className='top-nav-link' name={item.name} active={item.url === pathname} onClick={e => this.handleItemClick(item)}>
                                 <Icon className={item.iconClass} name={item.iconName} size={item.iconSize} onClick={item.clickFunction}></Icon>
                             </Menu.Item>
+                        ) : item.type === 'dropdown' ? (
+                            <Menu.Item key={i} className='top-nav-link' name={item.name} active={item.url === pathname}>
+                                <Dropdown icon={{name: item.iconName, size: item.iconSize, className: item.iconClass}} pointing='top right'>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Header>
+                                            <span>{item.dropdownMenuItems.userData.username}</span>
+                                            <br />
+                                            <span className='last-login-text'>{item.dropdownMenuItems.userData.lastLogin}</span>
+                                        </Dropdown.Header>
+                                        <Dropdown.Divider />
+                                        {item.dropdownMenuItems.menuLinks.map((data, i) => {
+                                            return (
+                                                <Dropdown.Item key={i} icon={{name: data.icon, className: 'main-color'}} text={data.text} onClick={(e) => this.handleAccountMenuClick(data.pathTarget)} />
+                                            )
+                                        })}
+                                        <Dropdown.Divider className='logout-divider' />
+                                        <div className='logout-button-container'>
+                                            <Button onClick={this.handleLogOut}>Log Out</Button>
+                                        </div>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Menu.Item>
+                        ) : (
+                            null
                         )
                     })}
                 </Menu.Menu>

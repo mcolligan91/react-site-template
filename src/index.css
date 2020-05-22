@@ -34,3 +34,7 @@ body {
   box-shadow: none !important;
   border-radius: 0 !important;
 }
+
+.loading-dimmer-container {
+  min-height: 250px;
+}

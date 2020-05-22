@@ -24,10 +24,13 @@ class Account extends Component {
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
-        const {pathTarget} = this.props.history.location.state;
+        let activePage = 'My Account'
+        if (this.props.history.location.state) {
+            const {pathTarget} = this.props.history.location.state;
+            activePage = pathTarget === undefined ? 'My Account' : pathTarget;
+        }
 
-        this.setState({ activeItemMain: pathTarget === undefined ? 'My Account' : pathTarget});
-        
+        this.setState({ activeItemMain: activePage});
         
         //will load from ajax call
         setTimeout(() => {

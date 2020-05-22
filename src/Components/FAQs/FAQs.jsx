@@ -59,7 +59,11 @@ class FAQs extends Component {
                                 <Segment basic textAlign='center'>
                                     <Header as='h2'>Frequently Asked Questions (FAQs)</Header>
                                     <Divider fitted />
-                                    <Search input={{ fluid: true }} style={{marginTop: '15px'}} />
+                                    <Grid centered>
+                                        <Grid.Column width={10}>
+                                            <Search input={{ fluid: true }} style={{marginTop: '15px'}} />  
+                                        </Grid.Column>
+                                    </Grid>
                                 </Segment>
                             </Grid.Column>
                         </Grid.Row>
