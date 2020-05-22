@@ -3,21 +3,21 @@
     padding-top: 1rem;
 }
 
-.table-header-no-button {
-    margin-bottom: .5rem !important;
+h3.table-header-no-button {
+    margin-bottom: .5rem;
 }
 
 .table-row-icon-button:hover {
-    cursor: pointer !important;
-    font-weight: bold !important;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.module-table-container-column {
-    padding: 0 1rem !important;
+.ui.grid>.column:not(.row).module-table-container-column {
+    padding: 0 1rem;
 }
 
 .table-header-container {
-    margin-bottom: -20px !important;
+    margin-bottom: -20px;
 }
 
 .module-table-contatiner {

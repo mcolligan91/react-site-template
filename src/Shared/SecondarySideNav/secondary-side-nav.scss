@@ -1,24 +1,20 @@
-.secondary-side-nav {
-    background-color: #F1F1F1 !important;
+.ui.menu.secondary-side-nav {
+    background-color: #F1F1F1;
 }
 
-.secondary-side-nav-header {
-    padding: 15px !important;
-    margin-bottom: 0 !important;
+.ui.header.secondary-side-nav-header {
+    padding: 15px;
+    margin-bottom: 0;
 }
 
-.second-side-nav-menu-item {
-    color: #fff !important;
+.ui.accordion .title:not(.ui).second-side-nav-menu-item, 
+.ui.button.second-side-nav-menu-item {
+    color: #fff;
 }
 
 .second-side-nav-content-options {
-    width: fit-content !important;
+    width: fit-content;
 }
-
-// .second-side-nav-list-item:hover {
-//     cursor: pointer !important;
-//     background: rgba(0,0,0,.05) !important;
-// }
 
 .ui.menu .ui.list>.item.second-side-nav-list-item:last-child {
     padding-bottom: .21428571em;

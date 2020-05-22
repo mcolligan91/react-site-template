@@ -1,19 +1,19 @@
-img.header-image{
-    margin-left: 30px !important;
-    width: 100% !important;
+img.header-image {
+    margin-left: 30px;
+    width: 100%;
 }
 
-.login-button-bg{
-    color: #fff !important;
+.ui.button.login-button-bg {
+    color: #fff;
 }
 
-.login-checkbox{
+.login-checkbox {
     float: left;
     padding: 20px 0;
 }
 
-.login-icon {
-    margin-right: 2px !important;
+.ui.button:not(.icon)>.icon:not(.button):not(.dropdown).login-icon {
+    margin-right: 2px;
 }
 
 .main-logo-container {
@@ -23,10 +23,6 @@ img.header-image{
     padding: 0 15px;
 }
 
-.login-header-text {
-    color: #505050 !important;
-}
-
 .bottom-nav {
     color: hsla(0, 0%, 100%, 0.8);
 }
@@ -34,4 +30,15 @@ img.header-image{
 .bottom-nav-link:hover {
     cursor: pointer;
     color: #fff;
+}
+
+.ui.grid.login-content-container {
+    padding-top: 0;
+    flex-grow: 1;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

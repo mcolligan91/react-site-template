@@ -61,7 +61,7 @@ class FAQs extends Component {
                                     <Divider fitted />
                                     <Grid centered>
                                         <Grid.Column width={10}>
-                                            <Search input={{ fluid: true }} style={{marginTop: '15px'}} />  
+                                            <Search className='faq-search-bar' input={{ fluid: true }} />  
                                         </Grid.Column>
                                     </Grid>
                                 </Segment>

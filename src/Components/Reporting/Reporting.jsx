@@ -55,8 +55,8 @@ class Reporting extends Component {
                     <>
                         <Grid.Row centered>
                             <Grid.Column width={12}>
-                                <Grid stackable doubling style={{marginTop: '45px'}}>
-                                    <Header as='h2' style={{marginBottom: 0}}>Update Custom Report Tables</Header>
+                                <Grid className='data-exports-top-row' stackable doubling>
+                                    <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
                                     <Grid.Row>
                                         <Grid.Column width={8}>
                                             <Message info>
@@ -73,8 +73,8 @@ class Reporting extends Component {
                         </Grid.Row>
                         <Grid.Row centered>
                             <Grid.Column width={12}>
-                                <Grid stackable doubling style={{marginTop: '30px'}}>
-                                    <Header as='h2' style={{marginBottom: 0}}>Update Data Exports</Header>
+                                <Grid className='data-exports-middle-row' stackable doubling>
+                                    <Header as='h2' className='data-exports-header'>Update Data Exports</Header>
                                     <Grid.Row>
                                         <Grid.Column width={8}>
                                             <Dropdown placeholder='Please select...' fluid selection options={dropdownOrgs} />
@@ -88,16 +88,16 @@ class Reporting extends Component {
                         </Grid.Row>
                         <Grid.Row centered>
                             <Grid.Column width={12}>
-                                <Grid stackable doubling style={{marginBottom: '45px', marginTop: '30px'}}>
-                                    <Header as='h2' style={{marginBottom: 0}}>Update Custom Report Tables</Header>
+                                <Grid className='data-exports-bottom-row' stackable doubling>
+                                    <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
                                     <Grid.Row>
                                         <Grid.Column width={8}>
                                             <span>Monthly Data Exports</span>
-                                            <Dropdown style={{marginTop: '5px'}} placeholder='Please select...' fluid selection options={dropdownYears} />
+                                            <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
                                         </Grid.Column>
                                         <Grid.Column width={8}>
                                             <span>Quarterly Data Exports</span>
-                                            <Dropdown style={{marginTop: '5px'}} placeholder='Please select...' fluid selection options={dropdownYears} />
+                                            <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>

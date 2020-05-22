@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
 import { Form, Button, Grid, Header, Icon, Menu, Segment } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
+
+import BottomNav from '../../Shared/BottomNav/BottomNav';
 
 import './login.scss';
 
@@ -16,7 +18,9 @@ class Login extends Component {
     }
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  	handleChange = (e, { name, value }) => {
+		this.setState({ [name]: value });
+	}	
 
   handleSubmit = () => {
     // const { email, password } = this.state
@@ -37,7 +41,7 @@ class Login extends Component {
     //     me.errorModal.handleOpenModal(msg);
 	//   });
 
-
+	sessionStorage.setItem('loggedIn', true);
 	this.props.history.push('/home');
   }
 
@@ -52,11 +56,11 @@ class Login extends Component {
 					<img src='https://drintl.com/wp-content/uploads/2018/05/dr-footer.png' alt="D+R" height='35'></img>
 				</div>
 			</Menu>
-			<Grid textAlign='center' verticalAlign='middle' style={{ height: '100vh', paddingTop: 0 }}>
-				<Grid.Column style={{ maxWidth: 450 }}>
+			<Grid className='login-content-container' textAlign='center' verticalAlign='middle' doubling>
+				<Grid.Column computer={6} tablet={8} mobile={12}>
 					<Form size='large'>
 						<Segment padded>
-							<Header className='login-header-text' as='h2' textAlign='left'>
+							<Header as='h2' textAlign='left'>
 								Please log in to continue
 								</Header>
 								<Grid>
@@ -82,34 +86,7 @@ class Login extends Component {
 						</Form>
 					</Grid.Column>
 			</Grid>
-			<Menu className='main-nav main-background-color bottom-nav' fixed='bottom' size='massive'>
-				<Grid columns={2} style={{ width: '100%' }}>
-					<Grid.Column textAlign='left' verticalAlign='middle' floated='left'>
-						<div style={{ paddingLeft: '15px' }}>
-							© 2020 - D+R International
-						</div>
-					</Grid.Column>
-					<Grid.Column textAlign='right' verticalAlign='middle' floated='right'>
-						<Grid columns={3}>
-							<Grid.Column>
-								<div onClick={() => this.props.history.push('/terms-and-conditions')}>
-									<span className='bottom-nav-link'>Terms and Conditions</span>
-								</div>
-							</Grid.Column>
-							<Grid.Column>
-								<div as={Link} to={'/privacy-policy'}>
-									<span className='bottom-nav-link'>Privacy Policy</span>
-								</div>
-							</Grid.Column>
-							<Grid.Column>
-								<div>
-									<span className='bottom-nav-link'>Contact Us</span>
-								</div>
-							</Grid.Column>
-						</Grid>
-					</Grid.Column>
-				</Grid>
-			</Menu>
+			<BottomNav />
 		</div>
       </>
     );

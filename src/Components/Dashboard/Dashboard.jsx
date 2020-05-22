@@ -104,7 +104,7 @@ class Dashboard extends Component {
         ) : (
             null
         )}
-        <Grid.Row columns={2}>
+        <Grid.Row columns={2} className='dashboard-tables-container'>
             <Grid.Column computer={10} tablet={16} mobile={16}>
                 <Grid padded>
                     <ModuleTable tableInfo={taskTable} tableData={tasks} />

@@ -182,7 +182,7 @@ class Account extends Component {
                     <>
                         <Grid.Row className='my-account-header-container' centered>
                             <Grid.Column width={8}>
-                                <Header as='h2' style={{marginBottom: 0}}>My Account</Header>
+                                <Header as='h2' className='my-account-header'>My Account</Header>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className='my-account-form-container' centered>
@@ -206,7 +206,7 @@ class Account extends Component {
                 )}
                 {activeItemMain === 'Manage Organization' ? (
                     <Grid.Column >
-                        <Grid stackable style={{ padding: '15px' }}>
+                        <Grid className='manage-organization-container' stackable>
                             <Grid.Column width={16}>
                                 <Header as='h2'>Manage Organization</Header>
                                 <Divider fitted />

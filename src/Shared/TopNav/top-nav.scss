@@ -1,18 +1,19 @@
-.top-nav-link {
-    color: #fff !important;
+.ui.menu .item.top-nav-link,
+.ui.menu .item.top-nav-link:hover {
+    color: #fff;
 }
 
-.active.top-nav-link {
-    background-color: #D4DEE8 !important;
-    color: #29598D !important;
+.ui.menu .item.active.top-nav-link {
+    background-color: #D4DEE8;
+    color: #29598D;
 }
 
-.account-dropdown-logo {
-    margin: 0 !important;
+i.icon.account-dropdown-logo {
+    margin: 0;
 }
 
-.top-nav {
-    height: 60px !important;
+.ui.menu.top-nav {
+    height: 60px;
 }
 
 .main-logo-container {

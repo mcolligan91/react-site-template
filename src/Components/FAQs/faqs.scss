@@ -1,4 +1,8 @@
-.faq-container {
-    margin: 30px 0 !important;
-    background-color: #ECECEC !important;
+.ui.segment.faq-container {
+    margin: 30px 0;
+    background-color: #ECECEC;
 }
+
+.ui.search.faq-search-bar {
+    margin-top: 15px;
+} 

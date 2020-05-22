@@ -1,5 +1,5 @@
 .org-form-container {
-    margin-bottom: 45px !important;
+    margin-bottom: 45px;
 }
 
 .my-account-header-container {
@@ -8,4 +8,12 @@
 
 .my-account-form-container {
     margin-bottom: 30px;
+}
+
+.ui.header.my-account-header {
+    margin-bottom: 10px;
+}
+
+.ui.grid.manage-organization-container {
+    padding: 15px;
 }
