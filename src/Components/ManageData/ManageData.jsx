@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
+import InputForm from './../../Shared/InputForm/InputForm';
 
 import './manage-data.scss';
 
@@ -104,6 +105,10 @@ class ManageData extends Component {
         debugger;
     }
 
+    handleDownloadProducts = (data) => {
+        console.log(data);
+    }
+
   render() {
     const {activeItemMain, branchData, selectedDate, productData, productUploadData} = this.state;
 
@@ -182,6 +187,93 @@ class ManageData extends Component {
         }
     };
 
+    const productDownloadInfo = {
+        title: 'Product Download',
+        submitFunction: this.handleDownloadProducts,
+        buttonText: 'Download',
+        buttonIcon: 'download',
+        fields: [
+            {
+                fieldType: 'dropdown', 
+                options: [
+                    { key: 50, value: 50, text: 50 },
+                    { key: 100, value: 100, text: 100 },
+                    { key: 500, value: 500, text: 500 },
+                    { key: 1000, value: 1000, text: 1000 }
+                ], 
+                label: 'Number of Products to Return', 
+                placeholder: 'Please select...',
+                name: 'returnProductsAmount'
+            },
+            {
+                fieldType: 'dropdown', 
+                options: [
+                    { key: 'All', value: 'All', text: 'All' },
+                    { key: '75%', value: '75%', text: '75%' },
+                    { key: '50%', value: '50%', text: '50%' },
+                    { key: '25%', value: '25%', text: '25%' }
+                ], 
+                label: 'Total Invoiced Percentile', 
+                placeholder: 'Please select...', 
+                name: 'totalInvoiced'
+            },
+            {
+                fieldType: 'dropdown', 
+                options: [
+                    { key: 'All', value: 'All', text: 'All' },
+                    { key: 'Complete', value: 'Complete', text: 'Complete' },
+                    { key: 'Inomplete', value: 'Inomplete', text: 'Inomplete' }
+                ], label: 'Product Status', 
+                placeholder: 'Please select...', 
+                name: 'productStatus'
+            },
+            {
+                fieldType: 'dropdown', 
+                options: [
+                    { key: 'All', value: 'All', text: 'All' },
+                    { key: 'Distributor A', value: 'Distributor A', text: 'Distributor A' },
+                    { key: 'Distributor B', value: 'Distributor B', text: 'Distributor B' }
+                ], 
+                label: 'Distributor', 
+                placeholder: 'Please select...', 
+                name: 'distributor'
+            },
+            {
+                fieldType: 'dropdown', 
+                options: [
+                    { key: 'All', value: 'All', text: 'All' },
+                    { key: 2020, value: 2020, text: 2020 },
+                    { key: 2019, value: 2019, text: 2019 },
+                    { key: 2018, value: 2018, text: 2018 }
+                ], 
+                label: 'Year', 
+                placeholder: 'Please select...', 
+                name: 'year'
+            },
+            {
+                fieldType: 'dropdown', 
+                options: [
+                    { key: 'All', value: 'All', text: 'All' },
+                    { key: 'January', value: 'January', text: 'January' },
+                    { key: 'February', value: 'February', text: 'February' },
+                    { key: 'March', value: 'March', text: 'March' }
+                ], 
+                label: 'Month', 
+                placeholder: 'Please select...', 
+                name: 'month'
+            },
+        ]
+    };
+
+    const productDownloadFormData = {
+        returnProductsAmount: 50, 
+        totalInvoiced: 'All',
+        productStatus: 'All',
+        distributor: 'All',
+        year: 'All',
+        month: 'All'
+    };
+
     const dataSummary = selectedDate !== null ? (
         <p>date</p>
     ) : (
@@ -216,7 +308,19 @@ class ManageData extends Component {
                     null
                 )}
                 {activeItemMain === 'Product' ? (
-                    <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
+                   <>
+                        <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
+                        <Grid.Column width={16}>
+                            <Grid stackable doubling padded>
+                                <Grid.Column width={8}>
+                                    upload table
+                                </Grid.Column>
+                                <Grid.Column width={8}>
+                                    <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
+                                </Grid.Column>
+                            </Grid>
+                        </Grid.Column>
+                    </>                   
                 ) : (
                     null
                 )}

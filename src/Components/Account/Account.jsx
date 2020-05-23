@@ -87,12 +87,12 @@ class Account extends Component {
             submitFunction: this.handleUpdatePasswordInformation,
             buttonText: 'Update User Information',
             buttonIcon: 'user',
-            inputs: [
-                {label: 'First Name', placeholder: 'First Name', name: 'firstName'},
-                {label: 'Last Name', placeholder: 'Last Name', name: 'lastName'},
-                {label: 'Email Address', placeholder: 'Email Address', name: 'email'},
-                {label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
-                {label: 'Location', placeholder: 'Location', name: 'location'}
+            fields: [
+                {fieldType: 'input', label: 'First Name', placeholder: 'First Name', name: 'firstName'},
+                {fieldType: 'input', label: 'Last Name', placeholder: 'Last Name', name: 'lastName'},
+                {fieldType: 'input', label: 'Email Address', placeholder: 'Email Address', name: 'email'},
+                {fieldType: 'input', label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
+                {fieldType: 'input', label: 'Location', placeholder: 'Location', name: 'location'}
             ]
         };
 
@@ -101,10 +101,10 @@ class Account extends Component {
             submitFunction: this.handleUpdateUserInformation,
             buttonText: 'Update Password',
             buttonIcon: 'ellipsis horizontal',
-            inputs: [
-                {label: 'Current Password', placeholder: 'Current Password', name: 'currentPassword', type: 'password'},
-                {label: 'Enter New Password', placeholder: 'Enter New Password', name: 'newPassword', type: 'password'},
-                {label: 'Confirm New Password', placeholder: 'Confirm New Password', name: 'confirmedPassword', type: 'password'}
+            fields: [
+                {fieldType: 'input', label: 'Current Password', placeholder: 'Current Password', name: 'currentPassword', type: 'password'},
+                {fieldType: 'input', label: 'Enter New Password', placeholder: 'Enter New Password', name: 'newPassword', type: 'password'},
+                {fieldType: 'input', label: 'Confirm New Password', placeholder: 'Confirm New Password', name: 'confirmedPassword', type: 'password'}
             ]
         };
 
@@ -113,11 +113,11 @@ class Account extends Component {
             submitFunction: this.handleUpdateUserInformation,
             buttonText: 'Update Organization',
             buttonIcon: 'compass',
-            inputs: [
-                {label: 'Address', placeholder: 'Address', name: 'address'},
-                {label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
-                {label: 'Email Address', placeholder: 'Email Address', name: 'email'},
-                {label: 'Website', placeholder: 'Website', name: 'website'}
+            fields: [
+                {fieldType: 'input', label: 'Address', placeholder: 'Address', name: 'address'},
+                {fieldType: 'input', label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
+                {fieldType: 'input', label: 'Email Address', placeholder: 'Email Address', name: 'email'},
+                {fieldType: 'input', label: 'Website', placeholder: 'Website', name: 'website'}
             ]
         };
 
@@ -132,11 +132,11 @@ class Account extends Component {
                     {text: 'Remove', props: {textAlign: 'center'}}
                 ],
             cellData: [
-                {type: 'text', value: 'name'},
-                {type: 'text', value: 'email'},
-                {type: 'text', value: 'phone'},
-                {type: 'clickItem', iconName: 'edit', cellFunction: 'editAdmin'},
-                {type: 'clickItem', iconName: 'user delete', cellFunction: 'deleteAdmin'}
+                {fieldType: 'text', value: 'name'},
+                {fieldType: 'text', value: 'email'},
+                {fieldType: 'text', value: 'phone'},
+                {fieldType: 'clickItem', iconName: 'edit', cellFunction: 'editAdmin'},
+                {fieldType: 'clickItem', iconName: 'user delete', cellFunction: 'deleteAdmin'}
             ],
             button: {
                 content: 'Add Admin',
@@ -163,13 +163,13 @@ class Account extends Component {
                     {text: 'Delete', props: {textAlign: 'center'}}
                 ],
                 cellData: [
-                    {type: 'text', value: 'name'},
-                    {type: 'text', value: 'organization'},
-                    {type: 'text', value: 'email'},
-                    {type: 'text', value: 'role'},
-                    {type: 'text', value: 'lastLogin'},
-                    {type: 'clickItem', iconName: 'edit', cellFunction: 'editUser'},
-                    {type: 'clickItem', iconName: 'trash alternate', cellFunction: 'deleteUser'}
+                    {fieldType: 'text', value: 'name'},
+                    {fieldType: 'text', value: 'organization'},
+                    {fieldType: 'text', value: 'email'},
+                    {fieldType: 'text', value: 'role'},
+                    {fieldType: 'text', value: 'lastLogin'},
+                    {fieldType: 'clickItem', iconName: 'edit', cellFunction: 'editUser'},
+                    {fieldType: 'clickItem', iconName: 'trash alternate', cellFunction: 'deleteUser'}
                 ]
             }
         };

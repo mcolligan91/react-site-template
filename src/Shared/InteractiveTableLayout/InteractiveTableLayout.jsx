@@ -45,92 +45,95 @@ class InteractiveTableLayout extends Component {
         //pagination not yet configured
         
         return (
-            <Grid.Column>
-                <Grid stackable style={{ padding: '15px' }}>
-                    <Grid.Column width={16}>
-                        <Header as='h2'>{pageInfo.title}</Header>
-                        <Divider fitted />
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                        <Search size='tiny' input={{ fluid: true }} />
-                    </Grid.Column>
-                    <Grid.Column width={12} verticalAlign='middle'>
-                        <Grid stackable doubling>
-                            {pageInfo.filters ? (
-                                <Grid.Column textAlign='left' verticalAlign='middle'>
-                                    <Button>placeholder</Button>
-                                    <Button>placeholder</Button>
-                                </Grid.Column>
-                            ) : (
-                                null
-                            )}
-                            {pageInfo.headerButtons ? (
-                            <Grid.Column textAlign='right' verticalAlign='middle'>
-                                {pageInfo.headerButtons.map((button, i) => {
-                                    return (
-                                        <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
-                                            <Icon name={button.iconName} />
-                                            {button.content}
-                                        </Button>
-                                    )
-                                })}
-                            </Grid.Column>
-                            ) : (
-                                null
-                            )}
-                        </Grid>
-                    </Grid.Column>
-                    <Grid.Column width={8} verticalAlign='bottom'>
-                        {pageAmountOptions.map((option, i) => {
-                            return (
-                                <Button key={i} icon content={option} className={pageLength !== option ? 'inactive-paging-button' : 'main-button-color'} onClick={() => this.handleUpdatePageLength(option)} />  
-                            )
-                        })}
-                        <span className='paging-label'>{pageInfo.pagingUnits} / Page</span>
-                    </Grid.Column>
-                    <Grid.Column width={8} textAlign='right'>
-                        <Pagination
-                        boundaryRange={0}
-                        defaultActivePage={1}
-                        siblingRange={1}
-                        totalPages={3}
-                        />
-                    </Grid.Column>
-                    <Grid.Column width={16}>
-                        <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
-                            <Dimmer active={isLoading} />
-                            <Table selectable striped fixed>
-                                <Table.Header>
-                                    <Table.Row>
-                                        {pageInfo.tableInfo.headers.map((columnData, i) => {
-                                            return (
-                                                <Table.HeaderCell key={i} {...columnData.props}>{columnData.text}</Table.HeaderCell>
-                                            )
-                                        })}
-                                    </Table.Row>
-                                </Table.Header>
-                                <Table.Body>
-                                    {tableData.map((tableData, i) => {
+            <Grid>
+                <Grid.Column>
+                    <Grid stackable style={{ padding: '15px' }}>
+                        <Grid.Column width={16}>
+                            <Header as='h2'>{pageInfo.title}</Header>
+                            <Divider fitted />
+                        </Grid.Column>
+                        <Grid.Column width={4}>
+                            <Search size='tiny' input={{ fluid: true }} />
+                        </Grid.Column>
+                        <Grid.Column width={12} verticalAlign='middle'>
+                            <Grid stackable doubling>
+                                {pageInfo.filters ? (
+                                    <Grid.Column textAlign='left' verticalAlign='middle'>
+                                        <Button>placeholder</Button>
+                                        <Button>placeholder</Button>
+                                    </Grid.Column>
+                                ) : (
+                                    null
+                                )}
+                                {pageInfo.headerButtons ? (
+                                <Grid.Column textAlign='right' verticalAlign='middle'>
+                                    {pageInfo.headerButtons.map((button, i) => {
                                         return (
-                                            <Table.Row key={i} onClick={pageInfo.tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
-                                                {pageInfo.tableInfo.cellData.map((data, j) => {
-                                                    return data.type === 'text' ? (
-                                                        <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
-                                                    ) : data.type === 'clickItem' ? (
-                                                        <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
-                                                    ) : (
-                                                        null
-                                                    )
-                                                })}
-                                            </Table.Row>
+                                            <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
+                                                <Icon name={button.iconName} />
+                                                {button.content}
+                                            </Button>
                                         )
                                     })}
-                                </Table.Body>
-                            </Table>
-                        </Dimmer.Dimmable>
-                    </Grid.Column>
-                </Grid>
-            </Grid.Column>
+                                </Grid.Column>
+                                ) : (
+                                    null
+                                )}
+                            </Grid>
+                        </Grid.Column>
+                        <Grid.Column width={8} verticalAlign='bottom'>
+                            {pageAmountOptions.map((option, i) => {
+                                return (
+                                    <Button key={i} icon content={option} className={pageLength !== option ? 'inactive-paging-button' : 'main-button-color'} onClick={() => this.handleUpdatePageLength(option)} />  
+                                )
+                            })}
+                            <span className='paging-label'>{pageInfo.pagingUnits} / Page</span>
+                        </Grid.Column>
+                        <Grid.Column width={8} textAlign='right'>
+                            <Pagination
+                            boundaryRange={0}
+                            defaultActivePage={1}
+                            siblingRange={1}
+                            totalPages={3}
+                            />
+                        </Grid.Column>
+                        <Grid.Column width={16}>
+                            <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
+                                <Dimmer active={isLoading} />
+                                <Table selectable striped fixed>
+                                    <Table.Header>
+                                        <Table.Row>
+                                            {pageInfo.tableInfo.headers.map((columnData, i) => {
+                                                return (
+                                                    <Table.HeaderCell key={i} {...columnData.props}>{columnData.text}</Table.HeaderCell>
+                                                )
+                                            })}
+                                        </Table.Row>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        {tableData.map((tableData, i) => {
+                                            return (
+                                                <Table.Row key={i} onClick={pageInfo.tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
+                                                    {pageInfo.tableInfo.cellData.map((data, j) => {
+                                                        return data.type === 'text' ? (
+                                                            <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
+                                                        ) : data.type === 'clickItem' ? (
+                                                            <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
+                                                        ) : (
+                                                            null
+                                                        )
+                                                    })}
+                                                </Table.Row>
+                                            )
+                                        })}
+                                    </Table.Body>
+                                </Table>
+                            </Dimmer.Dimmable>
+                        </Grid.Column>
+                    </Grid>
+                </Grid.Column>
+            </Grid>
+            
         )
     }
 
