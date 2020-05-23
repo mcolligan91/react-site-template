@@ -132,11 +132,11 @@ class Account extends Component {
                     {text: 'Remove', props: {textAlign: 'center'}}
                 ],
             cellData: [
-                {fieldType: 'text', value: 'name'},
-                {fieldType: 'text', value: 'email'},
-                {fieldType: 'text', value: 'phone'},
-                {fieldType: 'clickItem', iconName: 'edit', cellFunction: 'editAdmin'},
-                {fieldType: 'clickItem', iconName: 'user delete', cellFunction: 'deleteAdmin'}
+                {type: 'text', value: 'name'},
+                {type: 'text', value: 'email'},
+                {type: 'text', value: 'phone'},
+                {type: 'clickItem', iconName: 'edit', cellFunction: 'editAdmin'},
+                {type: 'clickItem', iconName: 'user delete', cellFunction: 'deleteAdmin'}
             ],
             button: {
                 content: 'Add Admin',
@@ -163,13 +163,13 @@ class Account extends Component {
                     {text: 'Delete', props: {textAlign: 'center'}}
                 ],
                 cellData: [
-                    {fieldType: 'text', value: 'name'},
-                    {fieldType: 'text', value: 'organization'},
-                    {fieldType: 'text', value: 'email'},
-                    {fieldType: 'text', value: 'role'},
-                    {fieldType: 'text', value: 'lastLogin'},
-                    {fieldType: 'clickItem', iconName: 'edit', cellFunction: 'editUser'},
-                    {fieldType: 'clickItem', iconName: 'trash alternate', cellFunction: 'deleteUser'}
+                    {type: 'text', value: 'name'},
+                    {type: 'text', value: 'organization'},
+                    {type: 'text', value: 'email'},
+                    {type: 'text', value: 'role'},
+                    {type: 'text', value: 'lastLogin'},
+                    {type: 'clickItem', iconName: 'edit', cellFunction: 'editUser'},
+                    {type: 'clickItem', iconName: 'trash alternate', cellFunction: 'deleteUser'}
                 ]
             }
         };

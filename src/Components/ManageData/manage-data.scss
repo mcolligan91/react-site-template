@@ -3,3 +3,32 @@
     flex: 1;
 }
 
+h3.product-upload-header {
+    float: left;
+    margin: 0;
+}
+
+.product-upload-header-container {
+    padding-bottom: 0;
+}
+
+.ui.grid>.column:not(.row).product-file-upload {
+    margin: -5px 0 -10px 0;
+}
+
+.product-page-bottom-content {
+    margin-bottom: 30px;
+}
+
+.download-link-text {
+    float: right;
+}
+
+.download-link-text:hover {
+    color: #29598D;
+    cursor: pointer;
+}
+
+.ui.grid>.column:not(.row).bottom-content-container {
+    padding: 1.5rem;
+}

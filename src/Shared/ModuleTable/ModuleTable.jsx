@@ -35,14 +35,18 @@ class ModuleTable extends Component {
             <>
                 <Grid.Column>
                     <Grid>
-                        <Grid.Column width={16} className='table-header-container module-table-container-column'>
-                        <h3 className={`table-header ${!tableInfo.button ? 'table-header-no-button' : ''}`}>{tableInfo.title}</h3>
-                        {tableInfo.button ? (
-                            <Button className='main-button-color' content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' />
+                        {tableInfo.title ? (
+                            <Grid.Column width={16} className='table-header-container module-table-container-column'>
+                            <h3 className={`table-header ${!tableInfo.button ? 'table-header-no-button' : ''}`}>{tableInfo.title}</h3>
+                            {tableInfo.button ? (
+                                <Button className='main-button-color' content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' />
+                            ) : (
+                                null
+                            )}
+                            </Grid.Column>
                         ) : (
                             null
                         )}
-                        </Grid.Column>
                         <Grid.Column width={16} className='module-table-container-column module-table-contatiner'>
                         <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
                             <Dimmer active={isLoading} />

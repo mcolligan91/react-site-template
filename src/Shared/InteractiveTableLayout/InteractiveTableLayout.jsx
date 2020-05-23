@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Search, Button, Grid, Header, Icon, Table, Divider, Pagination, Dimmer } from 'semantic-ui-react';
+import { Search, Button, Grid, Header, Icon, Table, Divider, Pagination, Dimmer, Select } from 'semantic-ui-react';
 
 import './interactive-table-layout.scss';
 
@@ -47,7 +47,7 @@ class InteractiveTableLayout extends Component {
         return (
             <Grid>
                 <Grid.Column>
-                    <Grid stackable style={{ padding: '15px' }}>
+                    <Grid className='interactive-table-container' stackable>
                         <Grid.Column width={16}>
                             <Header as='h2'>{pageInfo.title}</Header>
                             <Divider fitted />
@@ -59,8 +59,12 @@ class InteractiveTableLayout extends Component {
                             <Grid stackable doubling>
                                 {pageInfo.filters ? (
                                     <Grid.Column textAlign='left' verticalAlign='middle'>
-                                        <Button>placeholder</Button>
-                                        <Button>placeholder</Button>
+                                        <span className='filter-label-text'>Filter By:</span>
+                                        {pageInfo.filters.map((filter, i) => {
+                                            return (
+                                                <Select key={i} className='table-filter' compact name={filter.name} options={filter.options} defaultValue={filter.defaultValue} onChange={filter.clickFunction} /> 
+                                            )
+                                        })}
                                     </Grid.Column>
                                 ) : (
                                     null

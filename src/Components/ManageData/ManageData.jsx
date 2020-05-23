@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Grid, Segment, Button, Input, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
 import InputForm from './../../Shared/InputForm/InputForm';
+import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 
 import './manage-data.scss';
 
+let yearOptions = [
+    {key: 'All Years', value: 'All Years', text: 'All Years'},
+    {key: 2020, value: 2020, text: 2020},
+    {key: 2019, value: 2019, text: 2019},
+    {key: 2018, value: 2018, text: 2018}
+];
+
+let monthOptions = [
+    {key: 'All Months', value: 'All Months', text: 'All Months'},
+    {key: 'Jan', value: 'Jan', text: 'Jan'},
+    {key: 'Feb', value: 'Feb', text: 'Feb'},
+    {key: 'March', value: 'March', text: 'March'}
+];
 
 class ManageData extends Component {
     constructor(props) {
@@ -68,7 +82,15 @@ class ManageData extends Component {
                            
                         ], 
                         productUploadData: [
-
+                            {fileName: 'Product_v1.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v2.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v3.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v4.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v5.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v6.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v7.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v8.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
+                            {fileName: 'Product_v9.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'}
                         ]
                     });
                     //load product data
@@ -107,6 +129,14 @@ class ManageData extends Component {
 
     handleDownloadProducts = (data) => {
         console.log(data);
+    }
+
+    handleFilterProductData = (e, data) => {
+        debugger;
+    }
+
+    handleDownloadProductUpload = () => {
+        debugger;
     }
 
   render() {
@@ -165,7 +195,10 @@ class ManageData extends Component {
 
     const productInfo = {
         title: 'Product Data',
-        filters: {},
+        filters: [
+            {name: 'year', defaultValue: 'All Years', options: yearOptions, clickFunction: this.handleFilterProductData},
+            {name: 'month', defaultValue: 'All Months', options: monthOptions, clickFunction: this.handleFilterProductData}
+        ],
         pagingUnits: 'Products',
         tableInfo: {
             headers: [
@@ -280,6 +313,21 @@ class ManageData extends Component {
         null
     );
 
+    const productUploadTable = {
+        headers: [
+                {text: 'File Name'},
+                {text: 'Product Amount'},
+                {text: 'Products With Category'},
+                {text: 'Date Uploaded'}
+            ],
+        cellData: [
+            {type: 'text', value: 'fileName'},
+            {type: 'text', value: 'productAmount'},
+            {type: 'text', value: 'prodCategoryAmount'},
+            {type: 'text', value: 'dateUploaded'}
+        ]
+    };
+
     return (
         <>
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
@@ -310,12 +358,23 @@ class ManageData extends Component {
                 {activeItemMain === 'Product' ? (
                    <>
                         <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
-                        <Grid.Column width={16}>
+                        <Grid.Column width={16} className='product-page-bottom-content'>
                             <Grid stackable doubling padded>
-                                <Grid.Column width={8}>
-                                    upload table
+                                <Grid.Column width={8} className='bottom-content-container'>
+                                    <Grid>
+                                        <Grid.Column width={16}>
+                                            <h3 className='product-upload-header'>Product Uploads</h3>
+                                            <span className='download-link-text' onClick={this.handleDownloadProductUpload}>Download Template</span>
+                                        </Grid.Column>
+                                        <Grid.Column width={16} className='product-file-upload'>
+                                            <Input fluid type='file' />
+                                        </Grid.Column>
+                                        <Grid.Column width={16}>
+                                            <ModuleTable tableInfo={productUploadTable} tableData={productUploadData} />
+                                        </Grid.Column>
+                                    </Grid>
                                 </Grid.Column>
-                                <Grid.Column width={8}>
+                                <Grid.Column width={8} className='bottom-content-container'>
                                     <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
                                 </Grid.Column>
                             </Grid>
