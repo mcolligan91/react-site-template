@@ -20,7 +20,10 @@ class InteractiveTableLayout extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        this.setState({ tableData: newProps.tableContent, isLoading: false });
+        const {tableData} = this.state;
+        if (tableData !== []) {
+            this.setState({ tableData: newProps.tableContent, isLoading: false });
+        }
     }
 
     handleUpdatePageLength = (option) => {
@@ -39,7 +42,7 @@ class InteractiveTableLayout extends Component {
 
         const pageAmountOptions = [10, 20, 50];
 
-        //pagination not configured
+        //pagination not yet configured
         
         return (
             <Grid.Column>
@@ -48,18 +51,34 @@ class InteractiveTableLayout extends Component {
                         <Header as='h2'>{pageInfo.title}</Header>
                         <Divider fitted />
                     </Grid.Column>
-                    <Grid.Column width={6}>
+                    <Grid.Column width={4}>
                         <Search size='tiny' input={{ fluid: true }} />
                     </Grid.Column>
-                    <Grid.Column width={10} textAlign='right' verticalAlign='middle'>
-                        {pageInfo.headerButtons.map((button, i) => {
-                            return (
-                                <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
-                                    <Icon name={button.iconName} />
-                                    {button.content}
-                                </Button>
-                            )
-                        })}
+                    <Grid.Column width={12} verticalAlign='middle'>
+                        <Grid stackable doubling>
+                            {pageInfo.filters ? (
+                                <Grid.Column textAlign='left' verticalAlign='middle'>
+                                    <Button>placeholder</Button>
+                                    <Button>placeholder</Button>
+                                </Grid.Column>
+                            ) : (
+                                null
+                            )}
+                            {pageInfo.headerButtons ? (
+                            <Grid.Column textAlign='right' verticalAlign='middle'>
+                                {pageInfo.headerButtons.map((button, i) => {
+                                    return (
+                                        <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
+                                            <Icon name={button.iconName} />
+                                            {button.content}
+                                        </Button>
+                                    )
+                                })}
+                            </Grid.Column>
+                            ) : (
+                                null
+                            )}
+                        </Grid>
                     </Grid.Column>
                     <Grid.Column width={8} verticalAlign='bottom'>
                         {pageAmountOptions.map((option, i) => {
