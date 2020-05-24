@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Search, Grid, Header, Segment, Divider } from 'semantic-ui-react';
+import { Search, Grid, Header, Segment, Divider, Menu, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
@@ -10,30 +10,39 @@ import './faqs.scss';
 class FAQs extends Component {
     constructor(props) {
         super(props);
-
     }
 
     componentDidMount = () => {
         window.scrollTo(0, 0);        
     }
 
-    handleSecondaryItemClick = () => {
-        debugger;
-    }
-
   render() {
+
+    let sideNavMenuInfo = [
+        {title: 'Anti-Trust', link: 'anti-trust'},
+        {title: 'Security and Confidentiality', link: 'security-and-confidentiality'},
+        {title: 'Account Set-Up', link: 'account-set-up'},
+        {title: 'Data Submission', link: 'data-submission'},
+        {title: 'Reporting', link: 'reporting'},
+        {title: 'Data Export', link: 'data-export'}
+    ];
+
+    const secondSideNavContent = (
+        <>
+            {sideNavMenuInfo.map((data, i) => {
+                return (
+                    <Menu.Item key={i}>
+                        <Button href={`#${data.link}`} className='second-side-nav-menu-item main-background-color' fluid>{data.title}</Button>
+                    </Menu.Item>
+                )
+            })} 
+        </>
+    );
     
     const secondarySideNavInfo = {
         title: 'Content',
         initialIndex: null,
-        menuItems: [
-            {title: 'Anti-Trust', link: 'anti-trust'},
-            {title: 'Security and Confidentiality', link: 'security-and-confidentiality'},
-            {title: 'Account Set-Up', link: 'account-set-up'},
-            {title: 'Data Submission', link: 'data-submission'},
-            {title: 'Reporting', link: 'reporting'},
-            {title: 'Data Export', link: 'data-export'}
-        ]
+        menuItems: secondSideNavContent
     };
 
     let placeholder = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
@@ -49,8 +58,7 @@ class FAQs extends Component {
 
     return (
         <>
-
-            <SecondarySideNav menuInfo={secondarySideNavInfo} handleItemClick={this.handleSecondaryItemClick}/>
+            <SecondarySideNav menuInfo={secondarySideNavInfo} />
             <Grid className='manage-data-content-container'>
                 <Grid.Column>
                     <Grid centered verticalAlign='middle'>

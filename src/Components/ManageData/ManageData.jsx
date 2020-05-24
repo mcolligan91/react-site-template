@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Button, Input, Icon } from 'semantic-ui-react';
+import { Grid, Segment, Button, Input, Icon, Menu, Accordion, List } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
@@ -28,16 +28,37 @@ class ManageData extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            sideNavActiveIndex: null,
             activeItemMain: 'POS',
+            posData: [],
             branchData: [],
             productData: [],
             productUploadData: [],
-            selectedDate: null
+            selectedDate: null,
         }
     }
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
+
+        //will load from view or api call
+        let posData = [
+            {title: '2020', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+            {title: '2019', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+            {title: '2018', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+            {title: '2017', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+            {title: '2016', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
+            {title: '2015', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]}
+        ]
+        this.setState({ posData: posData, sideNavActiveIndex: 0 });
+    }
+
+    handleSideNavMenuClick = (e, titleProps) => {
+        const {index} = titleProps,
+            {sideNavActiveIndex} = this.state,
+            newIndex = sideNavActiveIndex === index ? -1 : index;
+    
+        this.setState({ sideNavActiveIndex: newIndex })
     }
 
     handleItemClickMain = (e, { name }) => {
@@ -96,10 +117,6 @@ class ManageData extends Component {
                     //load product data
                     break;
 
-                case 'Customer': 
-                    //load customer data
-                    break;
-
                 default:
                     //error message
             }
@@ -140,26 +157,46 @@ class ManageData extends Component {
     }
 
   render() {
-    const {activeItemMain, branchData, selectedDate, productData, productUploadData} = this.state;
+    const {activeItemMain, sideNavActiveIndex, branchData, selectedDate, productData, productUploadData, posData} = this.state;
 
     const mainSideNavInfo = [
         {name: 'POS', iconName: 'shopping cart'},
         {name: 'Branch', iconName: 'map marker alternate'},
-        {name: 'Product', iconName: 'grid layout'},
-        {name: 'Customer', iconName: 'address book'}
+        {name: 'Product', iconName: 'grid layout'}
     ];
 
+    const secondSideNavContent = (
+        <>
+            {posData.map((data, i) => {
+                return (
+                    <Menu.Item key={i}>
+                        <Accordion styled>
+                            <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' active={sideNavActiveIndex === i} index={i} onClick={this.handleSideNavMenuClick}>
+                                <Icon name='dropdown' />
+                                {data.title}
+                            </Accordion.Title>
+                            <Accordion.Content active={sideNavActiveIndex === i}>
+                                <List relaxed selection>
+                                    {data.content.map((data, i) => {
+                                        return (
+                                            <List.Item key={i} className='second-side-nav-list-item' onClick={(e) => this.handleSecondaryItemClick(e, data)}>
+                                                {data.month}
+                                            </List.Item>
+                                        )
+                                    })}
+                                </List>
+                            </Accordion.Content>
+                        </Accordion> 
+                    </Menu.Item>
+                )
+            })}
+        </>
+    );
+        
     const secondarySideNavInfo = {
         title: 'Data Summary',
         initialIndex: 0,
-        menuItems: [
-            {title: '2020', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2019', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2018', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2017', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2016', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2015', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]}
-        ]
+        menuItems: secondSideNavContent
     };
 
     const branchPageInfo = {
@@ -332,7 +369,7 @@ class ManageData extends Component {
         <>
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
             {activeItemMain === 'POS' ? (
-                <SecondarySideNav menuInfo={secondarySideNavInfo} handleItemClick={this.handleSecondaryItemClick}/>
+                <SecondarySideNav menuInfo={secondarySideNavInfo} />
             ) : (
                 null
             )}
