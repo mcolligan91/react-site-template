@@ -41,7 +41,6 @@ class FAQs extends Component {
     
     const secondarySideNavInfo = {
         title: 'Content',
-        initialIndex: null,
         menuItems: secondSideNavContent
     };
 

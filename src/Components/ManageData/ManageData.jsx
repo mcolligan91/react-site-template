@@ -195,7 +195,6 @@ class ManageData extends Component {
         
     const secondarySideNavInfo = {
         title: 'Data Summary',
-        initialIndex: 0,
         menuItems: secondSideNavContent
     };
 
