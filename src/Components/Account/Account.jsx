@@ -51,9 +51,9 @@ class Account extends Component {
                     website: 'example.com'
                 },
                 adminData: [
-                    {name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
-                    {name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
-                    {name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}
+                    {id: 1, name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
+                    {id: 2, name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
+                    {id: 3, name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}
                 ],
                 userTableData: [
                     {id: 1, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {id: 2, name: 'User B', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 3, name: 'User C', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 4, name: 'User D', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 5, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 6, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 7, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 8, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 9, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 10, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 11, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 12, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 13, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 14, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 15, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}
@@ -75,7 +75,15 @@ class Account extends Component {
     }
 
     handleAdminTableButtonClick = (button, data) => {
-        debugger;
+        if (button === 'editAdmin') {
+            this.editAdminModal.handleOpenModal(data);
+        } else if (button === 'deleteAdmin') {
+            let modalData = {
+                id: data.id,
+                message: 'Are you sure you want to delete this Admin user?'
+            };
+            this.confirmDeleteAdminModal.handleOpenModal(modalData);
+        }
     }
 
     handleAddUserButtonClick = () => {
@@ -89,7 +97,7 @@ class Account extends Component {
 
     handleUserTableButtonClick = (button, data) => {        
         if (button === 'editUser') {
-            this.editModal.handleOpenModal(data);
+            this.editUserModal.handleOpenModal(data);
         } else if (button === 'deleteUser') {
             let modalData = {
                 id: data.id,
@@ -107,6 +115,17 @@ class Account extends Component {
                 user = newData.find(d => d.id === data.id);
             Object.assign(user, data);
             return {userTableData: newData};
+        });
+    }
+
+    handleEditAdmin = (data) => {
+        //would fire ajax call and update state based on response, instead of 'data' param
+
+        this.setState((prevState) => {
+            let newData = prevState.adminData,
+                user = newData.find(d => d.id === data.id);
+            Object.assign(user, data);
+            return {adminData: newData};
         });
     }
 
@@ -243,7 +262,7 @@ class Account extends Component {
             {key: 'Data Analyst', value: 'Data Analyst', text: 'Data Analyst'}
         ];
 
-        const editModalInfo = {
+        const editUserModalInfo = {
             title: 'Edit User',
             fields: [
                 {name: 'name', label: 'Name', type: 'input'},
@@ -253,7 +272,7 @@ class Account extends Component {
             ]
         };
 
-        const editModal = <ModalForm ref={(editModal) => { this.editModal = editModal; }} modalInfo={editModalInfo} handleSubmit={this.handleEditUser} />;
+        const editUserModal = <ModalForm ref={(editUserModal) => { this.editUserModal = editUserModal; }} modalInfo={editUserModalInfo} handleSubmit={this.handleEditUser} />;
 
         const addModalInfo = {
             title: 'Add New User',
@@ -267,13 +286,25 @@ class Account extends Component {
 
         const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addModalInfo} handleSubmit={this.handleAddUser} />;
 
+        const editAdminModalInfo = {
+            title: 'Edit Admin User',
+            fields: [
+                {name: 'name', label: 'Name', type: 'input'},
+                {name: 'email', label: 'Email Address', type: 'input'},
+                {name: 'phone', label: 'Phone', type: 'input'}
+            ]
+        };
+
+        const editAdminModal = <ModalForm ref={(editAdminModal) => { this.editAdminModal = editAdminModal; }} modalInfo={editAdminModalInfo} handleSubmit={this.handleEditAdmin} />;
+
         const confirmDeleteModal = <ConfirmationModal ref={(confirmDeleteModal) => { this.confirmDeleteModal = confirmDeleteModal; }} handleConfirm={this.handleDeleteUser} />;
 
     return (
         <>
-            {editModal}
+            {editUserModal}
             {addUserModal}
             {confirmDeleteModal}
+            {editAdminModal}
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
             <Grid className='manage-data-content-container'>
                 {activeItemMain === 'My Account' ? (
