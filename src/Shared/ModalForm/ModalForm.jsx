@@ -13,7 +13,7 @@ class ModalForm extends Component {
     }
 
     handleOpenModal = (data) => {
-        this.setState({ isOpen: true, formData: data });
+        this.setState({ isOpen: true, formData: {...data} });
     }
 
     handleCloseModal = () => {
@@ -21,7 +21,9 @@ class ModalForm extends Component {
     }
 
     handleSubmit = () => {
-        debugger;
+        const {formData} = this.state;
+        this.props.handleSubmit(formData);
+        this.setState({ isOpen: false });
     }
 
     
@@ -41,8 +43,12 @@ class ModalForm extends Component {
                 <Header content={modalInfo.title} />
                 <Modal.Content>
                     {modalInfo.fields.map((field, i) => {
-                        return (
+                        return field.type === 'input' ? (
                             <Form.Input key={i} fluid label={field.label} name={field.name} value={formData[field.name]} onChange={this.handleChange} />
+                        ) : field.type === 'select' ? (
+                            <Form.Select key={i} fluid label={field.label} name={field.name} value={formData[field.name]} options={field.options} onChange={this.handleChange} />
+                        ) : (
+                            null
                         )
                     })}
                 </Modal.Content>

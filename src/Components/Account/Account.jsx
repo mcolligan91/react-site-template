@@ -36,10 +36,27 @@ class Account extends Component {
         //will load from ajax call
         setTimeout(() => {
             this.setState({ 
-                userData: {firstName: 'Michael', lastName: 'Colligan', email: 'abc@gmail.com', phone: '(123) 456-7890', location: 'Washington, DC' },
-                orgData: {address: '123 Main Street', phone: '(123) 456-7890', email: 'abc@gmail.com', website: 'example.com'},
-                adminData: [{name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, {name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, {name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}],
-                userTableData: [{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {name: 'User B', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User C', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User D', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}]
+                userData: {
+                    firstName: 'Michael', 
+                    lastName: 'Colligan', 
+                    email: 'abc@gmail.com', 
+                    phone: '(123) 456-7890', 
+                    location: 'Washington, DC' 
+                },
+                orgData: {
+                    address: '123 Main Street', 
+                    phone: '(123) 456-7890', 
+                    email: 'abc@gmail.com', 
+                    website: 'example.com'
+                },
+                adminData: [
+                    {name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
+                    {name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
+                    {name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}
+                ],
+                userTableData: [
+                    {id: 1, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {id: 2, name: 'User B', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 3, name: 'User C', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 4, name: 'User D', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 5, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 6, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 7, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 8, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 9, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 10, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 11, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 12, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 13, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 14, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 15, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}
+                ]
             });
           }, 2000);
     }
@@ -78,6 +95,16 @@ class Account extends Component {
         this.editModal.handleOpenModal(data);
     }
 
+    handleEditUser = (data) => {
+        //would fire ajax call and update state based on response, instead of 'data' param
+
+        this.setState((prevState) => {
+            let newData = prevState.userTableData;
+            let user = newData.find(d => d.id === data.id);
+            Object.assign(user, data);
+            return {userTableData: newData};
+        });
+    }
     
     render() {
         const {activeItemMain, userData, passwordData, orgData, adminData, userTableData} = this.state;
@@ -191,7 +218,8 @@ class Account extends Component {
         //placeholder, will be retrieved from database
         let roles = [
             {key: 'Admin', value: 'Admin', text: 'Admin'},
-            {key: 'Site Admin', value: 'Site Admin', text: 'Site Admin'}
+            {key: 'Site Admin', value: 'Site Admin', text: 'Site Admin'},
+            {key: 'Data Analyst', value: 'Data Analyst', text: 'Data Analyst'}
         ];
 
         const editModalInfo = {
@@ -204,7 +232,7 @@ class Account extends Component {
             ]
         };
 
-        const editModal = <ModalForm ref={(editModal) => { this.editModal = editModal; }} modalInfo={editModalInfo} />;
+        const editModal = <ModalForm ref={(editModal) => { this.editModal = editModal; }} modalInfo={editModalInfo} handleSubmit={this.handleEditUser} />;
 
     return (
         <>
