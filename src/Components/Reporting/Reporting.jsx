@@ -68,15 +68,17 @@ class Reporting extends Component {
 
     handleSecondaryItemClick = (e, data) => {
         const {queryFilterCriteria} = this.state;
-        
-        if (queryFilterCriteria[data.category].includes(data.value)) {
-            queryFilterCriteria[data.category].pop(data.value);
-        } else {
-            queryFilterCriteria[data.category].push(data.value);
-        }
 
-        this.setState({ queryFilterCriteria });
-        console.log(this.state.queryFilterCriteria);
+        if (data) {
+            if (queryFilterCriteria[data.category].includes(data.value)) {
+                queryFilterCriteria[data.category].pop(data.value);
+            } else {
+                queryFilterCriteria[data.category].push(data.value);
+            }
+    
+            this.setState({ queryFilterCriteria });
+            console.log(this.state.queryFilterCriteria);
+        }
     }
 
     handleSideNavMenuClick = (e, titleProps) => {

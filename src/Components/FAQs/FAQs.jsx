@@ -6,7 +6,6 @@ import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 
 import './faqs.scss';
 
-
 class FAQs extends Component {
     constructor(props) {
         super(props);

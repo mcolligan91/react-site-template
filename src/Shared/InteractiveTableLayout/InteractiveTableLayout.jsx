@@ -32,7 +32,7 @@ class InteractiveTableLayout extends Component {
 
     handleItemClick = (e, data) => {
         if (e.target.nodeName === 'I') {
-            this.props.handleTableButtonClick(e.target.getAttribute('functionreference'), data);
+            this.props.tableRowClickFunction(e.target.getAttribute('functionreference'), data);
         }
     }
 

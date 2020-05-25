@@ -6,6 +6,7 @@ import SideNav from './../../Shared/SideNav/SideNav';
 import InputForm from './../../Shared/InputForm/InputForm';
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
+import ModalForm from './../../Shared/ModalForm/ModalForm';
 
 import './account.scss';
 
@@ -38,7 +39,7 @@ class Account extends Component {
                 userData: {firstName: 'Michael', lastName: 'Colligan', email: 'abc@gmail.com', phone: '(123) 456-7890', location: 'Washington, DC' },
                 orgData: {address: '123 Main Street', phone: '(123) 456-7890', email: 'abc@gmail.com', website: 'example.com'},
                 adminData: [{name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, {name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, {name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}],
-                userTableData: [{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}]
+                userTableData: [{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {name: 'User B', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User C', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User D', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{name: 'User A', organization: 'Distributor A', email: 'example@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}]
             });
           }, 2000);
     }
@@ -68,7 +69,13 @@ class Account extends Component {
     }
 
     handleUserTableButtonClick = (button, data) => {
-        debugger;
+        if (button === 'editUser') {
+            this.handleOpenEditModal(data);
+        }
+    }
+
+    handleOpenEditModal = (data) => {
+        this.editModal.handleOpenModal(data);
     }
 
     
@@ -163,10 +170,10 @@ class Account extends Component {
                     {text: 'Delete', props: {textAlign: 'center'}}
                 ],
                 cellData: [
-                    {type: 'text', value: 'name'},
-                    {type: 'text', value: 'organization'},
-                    {type: 'text', value: 'email'},
-                    {type: 'text', value: 'role'},
+                    {type: 'text', value: 'name', isEditable: true, fieldType: 'input'},
+                    {type: 'text', value: 'organization', isEditable: true, fieldType: 'select'},
+                    {type: 'text', value: 'email', isEditable: true, fieldType: 'input'},
+                    {type: 'text', value: 'role', isEditable: true, fieldType: 'select'},
                     {type: 'text', value: 'lastLogin'},
                     {type: 'clickItem', iconName: 'edit', cellFunction: 'editUser'},
                     {type: 'clickItem', iconName: 'trash alternate', cellFunction: 'deleteUser'}
@@ -174,8 +181,34 @@ class Account extends Component {
             }
         };
 
+        //placeholder, will be retrieved from database
+        let orgs = [
+            {key: 'Distributor A', value: 'Distributor A', text: 'Distributor A'},
+            {key: 'Distributor B', value: 'Distributor B', text: 'Distributor B'},
+            {key: 'Distributor C', value: 'Distributor C', text: 'Distributor C'}
+        ];
+
+        //placeholder, will be retrieved from database
+        let roles = [
+            {key: 'Admin', value: 'Admin', text: 'Admin'},
+            {key: 'Site Admin', value: 'Site Admin', text: 'Site Admin'}
+        ];
+
+        const editModalInfo = {
+            title: 'Edit User',
+            fields: [
+                {name: 'name', label: 'Name', type: 'input'},
+                {name: 'organization', label: 'Organization', type: 'select', options: orgs},
+                {name: 'email', label: 'Email Address', type: 'input'},
+                {name: 'role', label: 'Role', type: 'select', options: roles}
+            ]
+        };
+
+        const editModal = <ModalForm ref={(editModal) => { this.editModal = editModal; }} modalInfo={editModalInfo} />;
+
     return (
         <>
+            {editModal}
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
             <Grid className='manage-data-content-container'>
                 {activeItemMain === 'My Account' ? (
@@ -200,7 +233,7 @@ class Account extends Component {
                     null
                 )}
                 {activeItemMain === 'Manage Users' ? (
-                    <InteractiveTableLayout pageInfo={usersPageInfo} tableContent={userTableData} handleTableButtonClick={this.handleUserTableButtonClick}/>
+                    <InteractiveTableLayout pageInfo={usersPageInfo} tableContent={userTableData} tableRowClickFunction={this.handleUserTableButtonClick}/>
                 ) : (
                     null
                 )}
