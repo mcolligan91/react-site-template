@@ -23,7 +23,7 @@ class ModalForm extends Component {
     handleSubmit = () => {
         const {formData} = this.state;
         this.props.handleSubmit(formData);
-        this.setState({ isOpen: false });
+        this.handleCloseModal();
     }
 
     

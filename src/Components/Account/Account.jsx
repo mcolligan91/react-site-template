@@ -7,6 +7,7 @@ import InputForm from './../../Shared/InputForm/InputForm';
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
 import ModalForm from './../../Shared/ModalForm/ModalForm';
+import ConfirmationModal from './../../Shared/ConfirmationModal/ConfirmationModal';
 
 import './account.scss';
 
@@ -86,9 +87,15 @@ class Account extends Component {
         debugger;
     }
 
-    handleUserTableButtonClick = (button, data) => {
+    handleUserTableButtonClick = (button, data) => {        
         if (button === 'editUser') {
             this.editModal.handleOpenModal(data);
+        } else if (button === 'deleteUser') {
+            let modalData = {
+                id: data.id,
+                message: 'Are you sure you want to delete this user?'
+            };
+            this.confirmDeleteModal.handleOpenModal(modalData);
         }
     }
 
@@ -103,11 +110,19 @@ class Account extends Component {
         });
     }
 
+    handleDeleteUser = (id) => {
+        //would fire ajax call and update state based on response, instead of 'id' param
+        
+        this.setState((prevState) => ({
+            userTableData: prevState.userTableData.filter(user => user.id !== id)
+        }));
+    }
+
     handleAddUser = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
 
         let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
             userTableData: [newUser, ...prevState.userTableData ]
         }));
     }
@@ -252,10 +267,13 @@ class Account extends Component {
 
         const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addModalInfo} handleSubmit={this.handleAddUser} />;
 
+        const confirmDeleteModal = <ConfirmationModal ref={(confirmDeleteModal) => { this.confirmDeleteModal = confirmDeleteModal; }} handleConfirm={this.handleDeleteUser} />;
+
     return (
         <>
             {editModal}
             {addUserModal}
+            {confirmDeleteModal}
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
             <Grid className='manage-data-content-container'>
                 {activeItemMain === 'My Account' ? (
