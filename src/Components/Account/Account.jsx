@@ -77,8 +77,9 @@ class Account extends Component {
         debugger;
     }
 
-    handleAddUser = () => {
-        debugger;
+    handleAddUserButtonClick = () => {
+        let formData = {name: '', organization: '', email: '', role: ''};
+        this.addUserModal.handleOpenModal(formData);
     }
 
     handleDownloadUsers = () => {
@@ -87,23 +88,28 @@ class Account extends Component {
 
     handleUserTableButtonClick = (button, data) => {
         if (button === 'editUser') {
-            this.handleOpenEditModal(data);
+            this.editModal.handleOpenModal(data);
         }
-    }
-
-    handleOpenEditModal = (data) => {
-        this.editModal.handleOpenModal(data);
     }
 
     handleEditUser = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
 
         this.setState((prevState) => {
-            let newData = prevState.userTableData;
-            let user = newData.find(d => d.id === data.id);
+            let newData = prevState.userTableData,
+                user = newData.find(d => d.id === data.id);
             Object.assign(user, data);
             return {userTableData: newData};
         });
+    }
+
+    handleAddUser = (data) => {
+        //would fire ajax call and update state based on response, instead of 'data' param
+
+        let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
+        this.setState(prevState => ({
+            userTableData: [newUser, ...prevState.userTableData ]
+        }));
     }
     
     render() {
@@ -181,7 +187,7 @@ class Account extends Component {
         const usersPageInfo = {
             title: 'Manage Users',
             headerButtons: [
-                {content: 'Add User', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddUser},
+                {content: 'Add User', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddUserButtonClick},
                 {content: 'Download', iconName: 'download', className: 'inner-button', clickFunction: this.handleDownloadUsers}
             ],
             pagingUnits: 'Users',
@@ -234,9 +240,22 @@ class Account extends Component {
 
         const editModal = <ModalForm ref={(editModal) => { this.editModal = editModal; }} modalInfo={editModalInfo} handleSubmit={this.handleEditUser} />;
 
+        const addModalInfo = {
+            title: 'Add New User',
+            fields: [
+                {name: 'name', label: 'Name', type: 'input'},
+                {name: 'organization', label: 'Organization', type: 'select', options: orgs},
+                {name: 'email', label: 'Email Address', type: 'input'},
+                {name: 'role', label: 'Role', type: 'select', options: roles}
+            ]
+        };
+
+        const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addModalInfo} handleSubmit={this.handleAddUser} />;
+
     return (
         <>
             {editModal}
+            {addUserModal}
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
             <Grid className='manage-data-content-container'>
                 {activeItemMain === 'My Account' ? (
