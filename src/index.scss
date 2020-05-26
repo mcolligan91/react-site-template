@@ -31,6 +31,10 @@ h1, h2, h3, h4, h5, .ui.header {
   flex-grow: 1;
 }
 
+.main-button-color {
+  color: $main-button-color;
+}
+
 .ui.button.main-button-color {
   background-color: $main-button-color;
   color: $main-button-content-color;

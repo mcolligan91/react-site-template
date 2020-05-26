@@ -77,7 +77,7 @@ class TopNav extends Component {
                             ) : item.type === 'dropdown' ? (
                                 <Menu.Item key={i} className='top-nav-link' name={item.name} active={item.url === pathname}>
                                     <Dropdown icon={{name: item.iconName, size: item.iconSize, className: item.iconClass}} pointing='top right'>
-                                        <Dropdown.Menu>
+                                        <Dropdown.Menu className='account-dropdown-menu-content'>
                                             <Dropdown.Header>
                                                 <span>{item.dropdownMenuItems.userData.username}</span>
                                                 <br />

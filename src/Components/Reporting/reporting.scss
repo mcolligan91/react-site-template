@@ -23,3 +23,16 @@
     cursor: pointer;
     font-weight: bolder;
 }
+
+.ui.dimmer.custom-query-dimmer>.content {
+    position: fixed;
+}
+
+.ui.top.right.pointing.dropdown>.menu.account-dropdown-menu-content {
+    z-index: 10001;
+}
+
+.dimmer-clear-graphs-text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

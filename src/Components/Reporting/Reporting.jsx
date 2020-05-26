@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider } from 'semantic-ui-react';
+import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
@@ -176,6 +176,11 @@ class Reporting extends Component {
         this.setState({ queryFilterCriteria });
     }
 
+    handleUpdateGraphs = () => {
+        //ajax call to update data in back-end 
+        this.setState( {isQueryEdited: false });
+    }
+
   render() {
     const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
 
@@ -245,6 +250,58 @@ class Reporting extends Component {
         menuItems: secondSideNavContent
     };
 
+    //using image placeholders instead of real data for now
+    const customQueryGraphs = [
+        {
+            graphs: [
+                {
+                    title: 'Year-Over-Year Sales Growth',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                },
+                {
+                    title: 'Year-Over-Year Market Sales Growth',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                }
+            ]
+        },
+        {
+            graphs: [
+                {
+                    title: 'Market Sales by Product Type',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                },
+                {
+                    title: 'Estimated Market Sales by Product Type',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                }
+            ]
+        },
+        {
+            graphs: [
+                {
+                    title: 'Market Sales by Customer Segment',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                },
+                {
+                    title: 'Estimated Market Sales by Customer Segment',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                }
+            ]
+        },
+        {
+            graphs: [
+                {
+                    title: 'Market Sales by Geographic Region',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                },
+                {
+                    title: 'Estimated Market Sales by Geographic Region',
+                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                }
+            ]
+        }
+    ];
+
     return (
         <>
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
@@ -312,15 +369,48 @@ class Reporting extends Component {
                 )}
                 {activeItemMain === 'Custom Query' ? (
                     <>
-                        <Grid.Column textAlign='right'>
-                            {isQueryEdited ? (
-                                <Button className='inner-button' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
-                            ) : (
-                                null
-                            )}
-                            <Button className='main-button-color' icon='save' labelPosition='left' content='Save Search' />
-                            <Divider />
-                        </Grid.Column>
+                        <Grid columns={2}>
+                            <Grid.Column textAlign='right' width={16}>
+                                {isQueryEdited ? (
+                                    <Button className='inner-button' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
+                                ) : (
+                                    null
+                                )}
+                                <Button className='main-button-color' icon='save' labelPosition='left' content='Save Search' />
+                                <Divider />
+                            </Grid.Column>
+                            <Grid.Column width={16}>
+                                <Dimmer.Dimmable blurring dimmed={isQueryEdited}>
+                                    <Dimmer className='custom-query-dimmer' inverted verticalAlign='top' active={isQueryEdited}>
+                                        <Grid centered>
+                                            <Grid.Column width={8}>
+                                                <Header as='h3'>You have changed the filter inputs so that they no longer match the graphs. Click <span className='dimmer-clear-graphs-text main-button-color' onClick={this.handleClearFilters}>here</span> to undo your changes.</Header>
+                                                <Button className='main-button-color' fluid onClick={this.handleUpdateGraphs}>
+                                                    <Icon name='chart bar' />
+                                                    Update Graphs
+                                                </Button>
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Dimmer>
+                                    <Grid stackable doubling padded relaxed>
+                                        {customQueryGraphs.map((row, i) => {
+                                            return (
+                                                <Grid.Row key={i}>
+                                                    {row.graphs.map((graph, j) => {
+                                                        return (
+                                                            <Grid.Column key={j} width={8} textAlign='center'>
+                                                                <Header as='h3'>{graph.title}</Header>
+                                                                {graph.data}
+                                                            </Grid.Column>
+                                                        )
+                                                    })}
+                                                </Grid.Row>
+                                            )
+                                        })}
+                                    </Grid>
+                                </Dimmer.Dimmable>
+                            </Grid.Column>
+                        </Grid>
                     </>
                 ) : (
                     null
