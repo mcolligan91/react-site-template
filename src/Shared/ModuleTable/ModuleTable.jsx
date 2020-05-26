@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Icon, Table, Button, Dimmer } from 'semantic-ui-react';
+import { Grid, Icon, Table, Button, Dimmer, Loader, Pagination } from 'semantic-ui-react';
 
 import './module-table.scss'
 
@@ -30,7 +30,7 @@ class ModuleTable extends Component {
     render() {
         const {tableContent, isLoading} = this.state;
         const {tableInfo, buttonClickFunction} = this.props;
-
+        
         return (
             <>
                 <Grid.Column>
@@ -49,7 +49,9 @@ class ModuleTable extends Component {
                         )}
                         <Grid.Column width={16} className='module-table-container-column module-table-contatiner'>
                         <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
-                            <Dimmer active={isLoading} />
+                            <Dimmer active={isLoading}>
+                                <Loader>Loading</Loader>
+                            </Dimmer>
                             <Table selectable striped>
                                 <Table.Header>
                                     <Table.Row>
@@ -78,13 +80,15 @@ class ModuleTable extends Component {
                                     })}
                                 </Table.Body>
                             </Table>
+                            {tableContent.length > 5 ? (
+                                //pagination not set up
+                                <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} />
+                            ) : (
+                                null
+                            )}
                         </Dimmer.Dimmable>
                         </Grid.Column>
                     </Grid>
-
-    
-                            
-
                 </Grid.Column>
             </>
         )

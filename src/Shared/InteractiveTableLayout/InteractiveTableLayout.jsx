@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Search, Button, Grid, Header, Icon, Table, Divider, Pagination, Dimmer, Select } from 'semantic-ui-react';
+import { Search, Button, Grid, Header, Icon, Table, Divider, Pagination, Dimmer, Select, Loader } from 'semantic-ui-react';
 
 import './interactive-table-layout.scss';
 
@@ -52,10 +52,10 @@ class InteractiveTableLayout extends Component {
                             <Header as='h2'>{pageInfo.title}</Header>
                             <Divider fitted />
                         </Grid.Column>
-                        <Grid.Column width={4}>
+                        <Grid.Column largeScreen={6} computer={5}>
                             <Search size='tiny' input={{ fluid: true }} />
                         </Grid.Column>
-                        <Grid.Column width={12} verticalAlign='middle'>
+                        <Grid.Column largeScreen={10} computer={11} verticalAlign='middle'>
                             <Grid stackable doubling>
                                 {pageInfo.filters ? (
                                     <Grid.Column textAlign='left' verticalAlign='middle'>
@@ -94,16 +94,13 @@ class InteractiveTableLayout extends Component {
                             <span className='paging-label'>{pageInfo.pagingUnits} / Page</span>
                         </Grid.Column>
                         <Grid.Column width={8} textAlign='right'>
-                            <Pagination
-                            boundaryRange={0}
-                            defaultActivePage={1}
-                            siblingRange={1}
-                            totalPages={3}
-                            />
+                            <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} />
                         </Grid.Column>
                         <Grid.Column width={16}>
                             <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
-                                <Dimmer active={isLoading} />
+                                <Dimmer active={isLoading}>
+                                    <Loader>Loading</Loader>
+                                </Dimmer>
                                 <Table selectable striped fixed>
                                     <Table.Header>
                                         <Table.Row>

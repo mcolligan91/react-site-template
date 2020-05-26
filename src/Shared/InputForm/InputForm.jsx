@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Header, Form, Icon, Button, Dimmer } from 'semantic-ui-react';
+import { Header, Form, Icon, Button, Dimmer, Loader } from 'semantic-ui-react';
  
 import './input-form.scss';
 
@@ -42,10 +42,12 @@ class InputForm extends Component {
             <>
                 <Header as='h3'>{formInfo.title}</Header>
                 <Dimmer.Dimmable blurring dimmed={isLoading}>
-                    <Dimmer active={isLoading} />
-                        <Form onSubmit={this.handleSubmit}>
-                            {formInfo.fields.map((field, i) => {
-                                return field.fieldType === 'input' ? (
+                    <Dimmer active={isLoading}>
+                        <Loader>Loading</Loader>
+                    </Dimmer>
+                    <Form onSubmit={this.handleSubmit}>
+                        {formInfo.fields.map((field, i) => {
+                            return field.fieldType === 'input' ? (
                                     <Form.Input key={i} label={field.label} placeholder={field.placeholder} name={field.name} type={field.type} value={data[field.name] || ''} onChange={this.handleChange} /> 
                                 ) : field.fieldType === 'dropdown' ? (
                                     <Form.Select key={i} label={field.label} placeholder={field.placeholder} name={field.name} options={field.options} value={data[field.name] || ''} onChange={this.handleChange}/>

@@ -33,7 +33,8 @@ class Dashboard extends Component {
             {summary: 'Please submit your POS data for Organization F, January 2020.', date: '2/5/2020'},
             {summary: 'Please submit your POS data for Organization G, January 2020.', date: '2/5/2020'},
             {summary: 'Please submit your POS data for Organization H, January 2020.', date: '2/5/2020'},
-            {summary: 'Please submit your POS data for Organization I, January 2020.', date: '2/5/2020'}
+            {summary: 'Please submit your POS data for Organization I, January 2020.', date: '2/5/2020'},
+            {summary: 'Please submit your POS data for Organization J, January 2020.', date: '2/5/2020'}
         ] });
 
         //would be loaded from view or from ajax call
@@ -47,11 +48,7 @@ class Dashboard extends Component {
             {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
             {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
             {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
+            {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'}
         ] });
     }
 
