@@ -1,12 +1,15 @@
-$main-color: #29598D;
+$main-theme-color: #29598D;
+$main-background-color: #FBFBFB;
 $main-button-color: #5AABC5;
+$main-button-content-color: #fff;
+$main-header-color: #757680;
 
 .main-background-color {
-  background-color: $main-color !important;
+  background-color: $main-theme-color !important;
 }
 
 .main-color {
-  color: $main-color !important;
+  color: $main-theme-color !important;
 }
 
 #app {
@@ -16,11 +19,11 @@ $main-button-color: #5AABC5;
 }
 
 body {
-  background-color: #FBFBFB;
+  background-color: $main-background-color;
 }
 
 h1, h2, h3, h4, h5, .ui.header {
-  color: #757680;
+  color: $main-header-color;
 }
 
 .ui.grid.main-content-container {
@@ -30,7 +33,7 @@ h1, h2, h3, h4, h5, .ui.header {
 
 .ui.button.main-button-color {
   background-color: $main-button-color;
-  color: #fff;
+  color: $main-button-content-color;
 }
 
 .ui.button.main-button-color:hover {

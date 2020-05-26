@@ -91,6 +91,11 @@ class Account extends Component {
         this.addUserModal.handleOpenModal(formData);
     }
 
+    handleAddAdminButtonClick = () => {
+        let formData = {name: '', email: '', phone: ''};
+        this.addAdminModal.handleOpenModal(formData);
+    }
+
     handleDownloadUsers = () => {
         debugger;
     }
@@ -103,7 +108,7 @@ class Account extends Component {
                 id: data.id,
                 message: 'Are you sure you want to delete this user?'
             };
-            this.confirmDeleteModal.handleOpenModal(modalData);
+            this.confirmDeleteUserModal.handleOpenModal(modalData);
         }
     }
 
@@ -137,12 +142,29 @@ class Account extends Component {
         }));
     }
 
+    handleDeleteAdmin = (id) => {
+        //would fire ajax call and update state based on response, instead of 'id' param
+        
+        this.setState((prevState) => ({
+            adminData: prevState.adminData.filter(user => user.id !== id)
+        }));
+    }
+
     handleAddUser = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
 
         let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
         this.setState((prevState) => ({
-            userTableData: [newUser, ...prevState.userTableData ]
+            userTableData: [newUser, ...prevState.userTableData]
+        }));
+    }
+
+    handleAddAdmin = (data) => {
+        //would fire ajax call and update state based on response, instead of 'data' param
+
+        let newUser = {id: 4, name: data.name, email: data.email, phone: data.phone};
+        this.setState((prevState) => ({
+            adminData: [newUser, ...prevState.adminData]
         }));
     }
     
@@ -274,7 +296,7 @@ class Account extends Component {
 
         const editUserModal = <ModalForm ref={(editUserModal) => { this.editUserModal = editUserModal; }} modalInfo={editUserModalInfo} handleSubmit={this.handleEditUser} />;
 
-        const addModalInfo = {
+        const addUserModalInfo = {
             title: 'Add New User',
             fields: [
                 {name: 'name', label: 'Name', type: 'input'},
@@ -284,7 +306,18 @@ class Account extends Component {
             ]
         };
 
-        const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addModalInfo} handleSubmit={this.handleAddUser} />;
+        const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addUserModalInfo} handleSubmit={this.handleAddUser} />;
+
+        const addAdminModalInfo = {
+            title: 'Add New Admin User',
+            fields: [
+                {name: 'name', label: 'Name', type: 'input'},
+                {name: 'email', label: 'Email Address', type: 'input'},
+                {name: 'phone', label: 'Phone Number', type: 'input'}
+            ]
+        };
+
+        const addAdminModal = <ModalForm ref={(addAdminModal) => { this.addAdminModal = addAdminModal; }} modalInfo={addAdminModalInfo} handleSubmit={this.handleAddAdmin} />;
 
         const editAdminModalInfo = {
             title: 'Edit Admin User',
@@ -297,14 +330,18 @@ class Account extends Component {
 
         const editAdminModal = <ModalForm ref={(editAdminModal) => { this.editAdminModal = editAdminModal; }} modalInfo={editAdminModalInfo} handleSubmit={this.handleEditAdmin} />;
 
-        const confirmDeleteModal = <ConfirmationModal ref={(confirmDeleteModal) => { this.confirmDeleteModal = confirmDeleteModal; }} handleConfirm={this.handleDeleteUser} />;
+        const confirmDeleteUserModal = <ConfirmationModal ref={(confirmDeleteUserModal) => { this.confirmDeleteUserModal = confirmDeleteUserModal; }} handleConfirm={this.handleDeleteUser} />;
+
+        const confirmDeleteAdminModal = <ConfirmationModal ref={(confirmDeleteAdminModal) => { this.confirmDeleteAdminModal = confirmDeleteAdminModal; }} handleConfirm={this.handleDeleteAdmin} />;
 
     return (
         <>
             {editUserModal}
             {addUserModal}
-            {confirmDeleteModal}
+            {confirmDeleteUserModal}
             {editAdminModal}
+            {confirmDeleteAdminModal}
+            {addAdminModal}
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
             <Grid className='manage-data-content-container'>
                 {activeItemMain === 'My Account' ? (
@@ -347,7 +384,7 @@ class Account extends Component {
                             </Grid.Row>
                             <Grid.Row centered>
                                 <Grid.Column width={8}>
-                                    <ModuleTable tableInfo={adminTable} tableData={adminData} handleTableButtonClick={this.handleAdminTableButtonClick} />
+                                    <ModuleTable tableInfo={adminTable} tableData={adminData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
