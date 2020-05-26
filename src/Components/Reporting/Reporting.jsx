@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox } from 'semantic-ui-react';
+import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
@@ -14,6 +14,7 @@ class Reporting extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isQueryEdited: false,
             menuItemLimit: 10,
             sideNavActiveIndexes: [0, 1, 2],
             activeItemMain: 'Data Exports',
@@ -93,7 +94,8 @@ class Reporting extends Component {
     }
 
     handleSecondaryItemClick = (e, data) => {
-        
+        this.setState( {isQueryEdited: true });
+
         const {queryFilterCriteria} = this.state;
         let category = queryFilterCriteria[data.category].selected,
             allSelected = queryFilterCriteria[data.category].allSelected,
@@ -115,6 +117,8 @@ class Reporting extends Component {
     }
 
     handleSecondaryItemSelectAll = (e, info, data) => {
+        this.setState( {isQueryEdited: true });
+
         const {queryFilterCriteria, queryFilterMenuData} = this.state;
         
         if (info.checked) {
@@ -159,8 +163,21 @@ class Reporting extends Component {
         this.setState({ queryFilterMenuData });
     }
 
+    handleClearFilters = () => {
+        this.setState( {isQueryEdited: false });
+
+        const {queryFilterCriteria} = this.state;
+        let filters = Object.values(queryFilterCriteria);
+        
+        for (let i = 0; i < filters.length; i++) {
+            filters[i].selected = [];
+            filters[i].allSelected = false;
+        }
+        this.setState({ queryFilterCriteria });
+    }
+
   render() {
-    const {menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
+    const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
 
     const mainSideNavInfo = [
         {name: 'Data Exports', iconName: 'file alternate'},
@@ -231,6 +248,11 @@ class Reporting extends Component {
     return (
         <>
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
+            {activeItemMain === 'Custom Query' ? (
+                <SecondarySideNav menuInfo={secondarySideNavInfo} />
+            ) : (
+                null
+            )}
             <Grid className='manage-data-content-container'>
                 {activeItemMain === 'Data Exports' ? (
                     <>
@@ -290,8 +312,15 @@ class Reporting extends Component {
                 )}
                 {activeItemMain === 'Custom Query' ? (
                     <>
-                        <SecondarySideNav menuInfo={secondarySideNavInfo} />
-                        <p>custom query</p>
+                        <Grid.Column textAlign='right'>
+                            {isQueryEdited ? (
+                                <Button className='inner-button' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
+                            ) : (
+                                null
+                            )}
+                            <Button className='main-button-color' icon='save' labelPosition='left' content='Save Search' />
+                            <Divider />
+                        </Grid.Column>
                     </>
                 ) : (
                     null
