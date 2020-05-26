@@ -14,6 +14,7 @@ class Reporting extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            menuItemLimit: 10,
             sideNavActiveIndexes: [0, 1, 2],
             activeItemMain: 'Data Exports',
             queryFilterMenuData: [],
@@ -42,14 +43,16 @@ class Reporting extends Component {
                     {value: 2016, category: 'timePeriod'},
                     {value: 2015, category: 'timePeriod'}
                 ],
-                showAll: true
+                showAll: true,
+                limitData: false
             },
             {
                 //cutting list short for this site template
                 title: 'Location',
                 category: 'location',
                 content: statesList,
-                showAll: false
+                showAll: false,
+                limitData: true
             },
             {
                 title: 'Customer Segment',
@@ -62,7 +65,8 @@ class Reporting extends Component {
                     {value: 'Utility', category: 'segment'},
                     {value: 'Unclassified', category: 'segment'}
                 ],
-                showAll: true
+                showAll: true,
+                limitData: false
             }
         ];
 
@@ -147,8 +151,16 @@ class Reporting extends Component {
         this.setState({ sideNavActiveIndexes: newIndex });
     }
 
+    handleExpandMenu = (e, data) => {
+        const {queryFilterMenuData} = this.state;
+        let targetMenu = queryFilterMenuData.find((obj => obj.category === data.category));
+
+        targetMenu.showAll = !targetMenu.showAll;
+        this.setState({ queryFilterMenuData });
+    }
+
   render() {
-    const {activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
+    const {menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
 
     const mainSideNavInfo = [
         {name: 'Data Exports', iconName: 'file alternate'},
@@ -175,6 +187,7 @@ class Reporting extends Component {
     const secondSideNavContent = (
         <>
             {queryFilterMenuData.map((data, i) => {
+                let content = data.showAll ? data.content : data.content.slice(0, menuItemLimit);
                 return (
                     <Menu.Item key={i}>
                         <Accordion styled>
@@ -184,16 +197,23 @@ class Reporting extends Component {
                             </Accordion.Title>
                             <Accordion.Content active={sideNavActiveIndexes.includes(i)}>
                                 <List relaxed>
-                                    <List.Item key={i}>
+                                    <List.Item>
                                         <Checkbox label='Select All' checked={queryFilterCriteria[data.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, data)} />
                                     </List.Item>
-                                    {data.content.map((contentData, i) => {
+                                    {content.map((contentData, i) => {
                                         return (
                                             <List.Item key={i}>
                                                 <Checkbox label={contentData.value} checked={queryFilterCriteria[data.category].allSelected || queryFilterCriteria[data.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
                                             </List.Item>
                                         )
                                     })}
+                                    {data.limitData ? (
+                                        <List.Item>
+                                            <p className='main-color menu-expand-text' onClick={(e) => this.handleExpandMenu(e, data)}>{data.showAll ? '‒ Show Less' : '+ Show All'}</p>
+                                        </List.Item>
+                                    ) : (
+                                        null
+                                    )}
                                 </List>
                             </Accordion.Content>
                         </Accordion> 
