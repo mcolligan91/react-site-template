@@ -57,7 +57,7 @@ class ModuleTable extends Component {
                                     <Table.Row>
                                         {tableInfo.headers.map((columnData, i) => {
                                             return (
-                                                <Table.HeaderCell key={i} width={columnData.width}>{columnData.text}</Table.HeaderCell>
+                                                <Table.HeaderCell key={i} {...columnData.props} width={columnData.width}>{columnData.text}</Table.HeaderCell>
                                             )
                                         })}
                                     </Table.Row>

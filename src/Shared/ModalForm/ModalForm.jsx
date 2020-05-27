@@ -48,9 +48,9 @@ class ModalForm extends Component {
                         ) : field.type === 'select' ? (
                             <Form.Select key={i} fluid label={field.label} name={field.name} value={formData[field.name]} options={field.options} onChange={this.handleChange} />
                         ) : field.type === 'textArea' ? (
-                            <Form.TextArea label={field.label} name={field.name} value={formData[field.name]} options={field.options} onChange={this.handleChange} />
+                            <Form.TextArea key={i} label={field.label} name={field.name} value={formData[field.name]} options={field.options} onChange={this.handleChange} />
                         ) : field.type === 'radio' ? (
-                            <Form.Group inline>
+                            <Form.Group key={i} inline>
                                 <label>{field.label}</label>
                                 {field.options.map((option, j) => {
                                     return (

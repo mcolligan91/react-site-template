@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Button, Input, Icon, Menu, Accordion, List } from 'semantic-ui-react';
+import { Grid, Segment, Button, Input, Icon, Menu, Accordion, List, Header, Message, Label, Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
@@ -35,7 +35,7 @@ class ManageData extends Component {
             branchData: [],
             productData: [],
             productUploadData: [],
-            selectedDate: null,
+            selectedSummary: null,
         }
     }
 
@@ -44,12 +44,102 @@ class ManageData extends Component {
 
         //will load from view or api call
         let posData = [
-            {title: '2020', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2019', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2018', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2017', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2016', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]},
-            {title: '2015', content: [{month: 'January', status: 3}, {month: 'February', status: 2}, {month: 'March', status: 1}, {month: 'April', status: 1}, {month: 'May', status: 1}, {month: 'June', status: 1}, {month: 'July', status: 1}, {month: 'August', status: 1}, {month: 'September', status: 1}, {month: 'October', status: 1}, {month: 'November', status: 1}, {month: 'December', status: 1}]}
+            {
+                title: '2020', 
+                content: [
+                    {year: '2020', month: 'June', status: 1}, 
+                    {year: '2020', month: 'May', status: 1}, 
+                    {year: '2020', month: 'April', status: 1}, 
+                    {year: '2020', month: 'March', status: 1}, 
+                    {year: '2020', month: 'February', status: 2}, 
+                    {year: '2020', month: 'January', status: 3}
+                ]
+            },
+            {
+                title: '2019', 
+                content: [
+                    {year: '2019', month: 'December', status: 1},
+                    {year: '2019', month: 'November', status: 1},
+                    {year: '2019', month: 'October', status: 1}, 
+                    {year: '2019', month: 'September', status: 1}, 
+                    {year: '2019', month: 'August', status: 1}, 
+                    {year: '2019', month: 'July', status: 1}, 
+                    {year: '2019', month: 'June', status: 1}, 
+                    {year: '2019', month: 'May', status: 1}, 
+                    {year: '2019', month: 'April', status: 1}, 
+                    {year: '2019', month: 'March', status: 1}, 
+                    {year: '2019', month: 'February', status: 2}, 
+                    {year: '2019', month: 'January', status: 3}
+                ]
+            },
+            {
+                title: '2018', 
+                content: [
+                    {year: '2018', month: 'December', status: 1},
+                    {year: '2018', month: 'November', status: 1},
+                    {year: '2018', month: 'October', status: 1}, 
+                    {year: '2018', month: 'September', status: 1}, 
+                    {year: '2018', month: 'August', status: 1}, 
+                    {year: '2018', month: 'July', status: 1}, 
+                    {year: '2018', month: 'June', status: 1}, 
+                    {year: '2018', month: 'May', status: 1}, 
+                    {year: '2018', month: 'April', status: 1}, 
+                    {year: '2018', month: 'March', status: 1}, 
+                    {year: '2018', month: 'February', status: 2}, 
+                    {year: '2018', month: 'January', status: 3}
+                ]
+            },
+            {
+                title: '2017', 
+                content: [
+                    {year: '2017', month: 'December', status: 1},
+                    {year: '2017', month: 'November', status: 1},
+                    {year: '2017', month: 'October', status: 1}, 
+                    {year: '2017', month: 'September', status: 1}, 
+                    {year: '2017', month: 'August', status: 1}, 
+                    {year: '2017', month: 'July', status: 1}, 
+                    {year: '2017', month: 'June', status: 1}, 
+                    {year: '2017', month: 'May', status: 1}, 
+                    {year: '2017', month: 'April', status: 1}, 
+                    {year: '2017', month: 'March', status: 1}, 
+                    {year: '2017', month: 'February', status: 2}, 
+                    {year: '2017', month: 'January', status: 3}
+                ]
+            },
+            {
+                title: '2016', 
+                content: [
+                    {year: '2016', month: 'December', status: 1},
+                    {year: '2016', month: 'November', status: 1},
+                    {year: '2016', month: 'October', status: 1}, 
+                    {year: '2016', month: 'September', status: 1}, 
+                    {year: '2016', month: 'August', status: 1}, 
+                    {year: '2016', month: 'July', status: 1}, 
+                    {year: '2016', month: 'June', status: 1}, 
+                    {year: '2016', month: 'May', status: 1}, 
+                    {year: '2016', month: 'April', status: 1}, 
+                    {year: '2016', month: 'March', status: 1}, 
+                    {year: '2016', month: 'February', status: 2}, 
+                    {year: '2016', month: 'January', status: 3}
+                ]
+            },
+            {
+                title: '2015', 
+                content: [
+                    {year: '2015', month: 'December', status: 1},
+                    {year: '2015', month: 'November', status: 1},
+                    {year: '2015', month: 'October', status: 1}, 
+                    {year: '2015', month: 'September', status: 1}, 
+                    {year: '2015', month: 'August', status: 1}, 
+                    {year: '2015', month: 'July', status: 1}, 
+                    {year: '2015', month: 'June', status: 1}, 
+                    {year: '2015', month: 'May', status: 1}, 
+                    {year: '2015', month: 'April', status: 1}, 
+                    {year: '2015', month: 'March', status: 1}, 
+                    {year: '2015', month: 'February', status: 2}, 
+                    {year: '2015', month: 'January', status: 3}
+                ]
+            }
         ]
         this.setState({ posData: posData, sideNavActiveIndex: 0 });
     }
@@ -59,7 +149,7 @@ class ManageData extends Component {
             {sideNavActiveIndex} = this.state,
             newIndex = sideNavActiveIndex === index ? -1 : index;
     
-        this.setState({ sideNavActiveIndex: newIndex })
+        this.setState({ sideNavActiveIndex: newIndex });
     }
 
     handleItemClickMain = (e, { name }) => {
@@ -127,32 +217,75 @@ class ManageData extends Component {
     }
 
     handleSecondaryItemClick = (e, data) => {
-        debugger;
+        //would fire ajax call to load selected summary data and update state based on response
+
+        //temp dummy data for submissions
+        let submissions = [
+            {fileName: 'upload1.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+            {fileName: 'upload2.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+            {fileName: 'upload3.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+            {fileName: 'upload4.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+            {fileName: 'upload5.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+            {fileName: 'upload6.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''}
+        ];
+
+        //temp dummy submission notes
+        let submissionNotes = [
+            'Submitted by User A on 5/27/2020 10:23:46am'
+        ];
+
+        //temp dummy review notes
+        let reviewNotes = [
+            'Uploaded by User A on 5/28/2020 10:19:23am',
+            'Total Unique Branches: 110',
+            'Number of New Products: 35467',
+            'Number of New Customers: 2'
+        ];
+
+        //object for selectedSummary state - would be populated from response data instead of 'data' parameter
+        let summary = {
+            status: data.status,
+            month: data.month,
+            year: data.year,
+            submissionData: submissions,
+            submissionNotes: submissionNotes,
+            reviewNotes: reviewNotes,
+            submissionComments: [],
+            submissionUploadFile: null,
+            cleanUploadFile: null,
+            comment: ''
+        };
+
+        this.setState({ selectedSummary: summary });
     }
     
-    handleBulkUpload = () => {
-        debugger;
-    }
+    // handleBulkUpload = () => {
+    //     debugger;
+    // }
     
-    handleDownloadAll = () => {
-        debugger;
-    }
+    // handleDownloadAll = () => {
+    //     debugger;
+    // }
     
-    handleBranchUploadTemplate = () => {
-        debugger;
-    }
+    // handleBranchUploadTemplate = () => {
+    //     debugger;
+    // }
 
-    handleDownloadProducts = (data) => {
-        console.log(data);
-    }
+    // handleDownloadProducts = (data) => {
+    //     console.log(data);
+    // }
 
-    handleFilterProductData = (e, data) => {
-        debugger;
-    }
+    // handleFilterProductData = (e, data) => {
+    //     debugger;
+    // }
 
-    handleDownloadProductUpload = () => {
-        debugger;
-    }
+    // handleDownloadProductUpload = () => {
+    //     debugger;
+    // }
+
+    // handleSubmissionTableButtonClick = () => {
+
+    // }
 
     handleAddBranch = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
@@ -163,13 +296,45 @@ class ManageData extends Component {
         }));
     }
 
+    handleUploadSubmission = (e) => {
+        //would send post call to server with upload data, then update submissions table with new entry based on response
+
+        const {selectedSummary} = this.state;
+        selectedSummary.submissionUploadFile = e.target.files[0].name;
+        this.setState({ selectedSummary });
+    }
+
+    handleUploadCleanFile = (e) => {
+        //would send post call to server with upload data, then update submissions table with new entry based on response
+        
+        const {selectedSummary} = this.state;
+        selectedSummary.cleanUploadFile = e.target.files[0].name;
+        this.setState({ selectedSummary });
+    }
+
+    handleAddComment = (e) => {
+        const {selectedSummary} = this.state;
+        //post call to server with selectedSummary.comment
+
+        //update state with comment based on success response
+        selectedSummary.submissionComments.push(selectedSummary.comment);
+        selectedSummary.comment = '';
+        this.setState({ selectedSummary });
+    }
+
+    handleCommentChange = (e, info) => {
+        const {selectedSummary} = this.state;
+        selectedSummary.comment = info.value;
+        this.setState({ selectedSummary });
+    } 
+
     handleAddBranchClick = () => {
         let formData = {status: '', branchId: '', city: '', state: '', zipCode: '', details: ''};
         this.addBranchModal.handleOpenModal(formData);
     }
 
     render() {
-        const {activeItemMain, sideNavActiveIndex, branchData, selectedDate, productData, productUploadData, posData} = this.state;
+        const {activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData} = this.state;
 
         const mainSideNavInfo = [
             {name: 'POS', iconName: 'shopping cart'},
@@ -202,7 +367,7 @@ class ManageData extends Component {
                                     {data.title}
                                 </Accordion.Title>
                                 <Accordion.Content active={sideNavActiveIndex === i}>
-                                    <List relaxed selection>
+                                    <List relaxed selection verticalAlign='middle'>
                                         {data.content.map((data, i) => {
                                             return (
                                                 <List.Item key={i} className='second-side-nav-list-item' onClick={(e) => this.handleSecondaryItemClick(e, data)}>
@@ -369,8 +534,110 @@ class ManageData extends Component {
             month: 'All'
         };
 
-        const dataSummary = selectedDate !== null ? (
-            <p>date</p>
+        const submissionTableInfo = {
+            title: 'Data Submissions',
+            hasClickEvents: true,
+            headers: [
+                    {text: 'Filename'},
+                    {text: 'Status'},
+                    {text: 'Number of Records'},
+                    {text: 'Total Quantity'},
+                    {text: 'Notes', props: {textAlign: 'center'}},
+                    {text: 'Download', props: {textAlign: 'center'}}
+                ],
+            cellData: [
+                {type: 'text', value: 'fileName'},
+                {type: 'text', value: 'status'},
+                {type: 'text', value: 'recordsAmount'},
+                {type: 'text', value: 'totalQuantity'},
+                {type: 'clickItem', iconName: 'sticky note', cellFunction: 'submissionNotes'},
+                {type: 'clickItem', iconName: 'cloud download', cellFunction: 'downloadSubmissions'}
+            ]
+        };
+
+        const dataSummaryContent = selectedSummary !== null ? (
+            <Grid relaxed padded>
+                <Grid.Column width={16}>
+                    <Header as='h2'>{`${selectedSummary.month} ${selectedSummary.year} Data Summary`}</Header>
+                    <Label className='file-upload-container' basic as="label" htmlFor="upload-submission">
+                        <Button icon="upload" label={{ content: 'Upload Submission' }} labelPosition="right" />
+                        {selectedSummary.submissionUploadFile}
+                        <input id="upload-submission" hidden type="file" onChange={(e) => this.handleUploadSubmission(e)} />
+                    </Label>
+                </Grid.Column>
+                {selectedSummary.status && selectedSummary.status > 1 ? (
+                    <>
+                        <Grid.Column width={16} className='submission-table-container'>
+                            <ModuleTable tableInfo={submissionTableInfo} tableData={selectedSummary.submissionData} handleTableButtonClick={this.handleSubmissionTableButtonClick} />
+                        </Grid.Column>
+                        <Grid.Column width={16}>
+                            <Message>
+                                <Message.Header>
+                                    Submission Notes
+                                </Message.Header>
+                                <Message.List>
+                                    {selectedSummary.submissionNotes.map((note, i) => {
+                                        return (
+                                            <Message.Item key={i}>{note}</Message.Item>
+                                        )
+                                    })}
+                                </Message.List>
+                            </Message>
+                        </Grid.Column>
+                        <Grid.Column width={16}>
+                            <Label className='file-upload-container' basic as="label" htmlFor="upload-clean-file">
+                                <Button icon="upload" label={{ content: 'Upload Clean File' }} labelPosition="right" />
+                                {selectedSummary.cleanUploadFile}
+                                <input id="upload-clean-file" hidden type="file" onChange={(e) => this.handleUploadCleanFile(e)} />
+                            </Label>
+                        </Grid.Column>
+                        {selectedSummary.status === 3 ? (
+                            <Grid.Column width={16}>
+                                <Message info>
+                                    <Message.Header>
+                                        Review Notes
+                                    </Message.Header>
+                                    <Message.List>
+                                    {selectedSummary.reviewNotes.map((note, i) => {
+                                            return (
+                                                <Message.Item key={i}>{note}</Message.Item>
+                                            )
+                                        })}
+                                    </Message.List>
+                                </Message>
+                            </Grid.Column>
+                        ) : (
+                            null
+                        )}
+                        {selectedSummary.submissionComments.length > 0 ? (
+                            <Grid.Column width={16}>
+                                <Message>
+                                    <Message.Header>
+                                        Comments
+                                    </Message.Header>
+                                    <Message.List>
+                                    {selectedSummary.submissionComments.map((comment, i) => {
+                                            return (
+                                                <Message.Item key={i}>{comment}</Message.Item>
+                                            )
+                                        })}
+                                    </Message.List>
+                                </Message>
+                            </Grid.Column>
+                        ) : (
+                            null
+                        )}
+                        <Grid.Column width={16}>
+                            <Form onSubmit={this.handleAddComment}>
+                                <Form.TextArea label='Add New Comment' value={selectedSummary.comment} onChange={this.handleCommentChange} />
+                                <Button className='main-button-color' type='submit' content='Save' />
+                            </Form>
+                        </Grid.Column>
+                    </>
+                ) : (
+                    null
+                )}
+            </Grid>
         ) : (
             null
         );
@@ -402,12 +669,14 @@ class ManageData extends Component {
                 <Grid className='manage-data-content-container'>
                     {activeItemMain === 'POS' ? (
                         <Grid.Column>
-                            {selectedDate === null ? (
+                            {selectedSummary === null ? (
                                 <Segment>
                                     Please select a year from the Data Summary menu to view or upload data.
                                 </Segment>
                             ) : (
-                                {dataSummary}
+                                <>
+                                    {dataSummaryContent}
+                                </>
                             )}
                         </Grid.Column>
                     ) : (

@@ -28,3 +28,12 @@ h3.product-upload-header {
 .ui.grid>.column:not(.row).bottom-content-container {
     padding: 1.5rem;
 }
+
+.ui.relaxed.grid>.column:not(.row).submission-table-container {
+    margin-bottom: 20px;
+}
+
+.ui.label.file-upload-container {
+    width: 100%;
+    cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Segment } from 'semantic-ui-react';
+import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
