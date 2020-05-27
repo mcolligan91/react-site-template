@@ -37,3 +37,19 @@ h3.product-upload-header {
     width: 100%;
     cursor: pointer;
 }
+
+.ui.menu .ui.list > .item.second-side-nav-list-item:last-child {
+    padding-bottom: .42857143em;
+}
+
+.ui.menu .ui.list .list>.item:first-child, .ui.menu .ui.list>.item.second-side-nav-list-item:first-child {
+    padding-top: .42857143em;
+}
+
+.ui.selection.list .list>.item.item.second-side-nav-list-item, .ui.selection.list>.item {
+    border-radius: 0;
+}
+
+.ui.menu .item>.label.status-label {
+    margin-top: 1px;
+}

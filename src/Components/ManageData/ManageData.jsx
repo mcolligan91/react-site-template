@@ -369,9 +369,12 @@ class ManageData extends Component {
                                 <Accordion.Content active={sideNavActiveIndex === i}>
                                     <List relaxed selection verticalAlign='middle'>
                                         {data.content.map((data, i) => {
+                                            let labelColor = data.status === 3 ? 'yellow' : data.status === 2 ? 'teal' : 'red',
+                                                labelText = data.status === 3 ? 'Uploaded' : data.status === 2 ? 'Submitted' : 'Missing';
                                             return (
                                                 <List.Item key={i} className='second-side-nav-list-item' onClick={(e) => this.handleSecondaryItemClick(e, data)}>
                                                     {data.month}
+                                                    <Label className='status-label' size='tiny' color={labelColor} content={labelText} />
                                                 </List.Item>
                                             )
                                         })}
