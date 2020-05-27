@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Menu, Icon } from 'semantic-ui-react';
+import { Menu, Icon, Responsive, Grid } from 'semantic-ui-react';
  
 import './side-nav.scss';
 
@@ -13,7 +13,7 @@ class SideNav extends Component {
 
         return (
             <>
-                <Menu className='side-nav main-side-nav' borderless icon='labeled' vertical>
+                <Responsive as={Menu} className='side-nav main-side-nav' borderless icon='labeled' vertical minWidth={796}>
                     {menuInfo.map((data, i) => {
                         return (
                             <Menu.Item key={i} name={data.name} className='main-color' active={activeItem === data.name} onClick={handleItemClick}>
@@ -22,7 +22,24 @@ class SideNav extends Component {
                             </Menu.Item>
                         )
                     })}
-                </Menu>
+                </Responsive>
+
+                <Responsive className='side-nav-mobile-container' maxWidth={795}>
+                    <Grid.Column>
+                        <Menu className='side-nav main-side-nav side-nav-mobile' borderless icon='labeled'>
+                            <Menu.Menu>
+                                {menuInfo.map((data, i) => {
+                                    return (
+                                        <Menu.Item key={i} name={data.name} className='main-color' active={activeItem === data.name} onClick={handleItemClick}>
+                                            <Icon name={data.iconName}></Icon>
+                                            {data.name}
+                                        </Menu.Item>
+                                    )
+                                })}
+                            </Menu.Menu>
+                        </Menu>
+                    </Grid.Column>
+                </Responsive>
             </>
         )
     }

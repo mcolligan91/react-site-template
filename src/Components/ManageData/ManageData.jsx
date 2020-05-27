@@ -691,7 +691,7 @@ class ManageData extends Component {
                         null
                     )}
                     {activeItemMain === 'Product' ? (
-                    <>
+                        <>
                             <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
                             <Grid.Column width={16} className='product-page-bottom-content'>
                                 <Grid stackable doubling padded>
@@ -713,7 +713,7 @@ class ManageData extends Component {
                                         <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
                                     </Grid.Column>
                                 </Grid>
-                            </Grid.Column>
+                            </Grid.Column>                                                                              
                         </>                   
                     ) : (
                         null
