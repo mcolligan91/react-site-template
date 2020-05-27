@@ -51,7 +51,7 @@ class Login extends Component {
     return (
       <>
       	<div className="login-container main-background-color">
-			<Menu className='main-nav main-background-color' fixed='top' size='massive'>
+			<Menu className='main-nav login-top-nav main-background-color' fixed='top' size='massive'>
 				<div className='main-logo-container'>
 					<img src='https://drintl.com/wp-content/uploads/2018/05/dr-footer.png' alt="D+R" height='35'></img>
 				</div>

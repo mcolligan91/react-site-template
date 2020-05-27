@@ -46,7 +46,7 @@ class BottomNav extends Component {
 
         const bottomNavLinks = [
 			{name: 'Terms and Conditions', content: 'Terms and Conditions', url: '/terms-and-conditions'},
-			{name: 'Privacy Policy', content: 'Privacy Policy', url: '/terms-and-conditions'},
+			{name: 'Privacy Policy', content: 'Privacy Policy', url: '/privacy-policy'},
 			{name: 'Contact Us', content: 'Contact Us'}
 		];
 		

@@ -2,14 +2,14 @@ import React from 'react';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 
 
-const TermsAndConditions = (props) => {
+const PrivacyPolicy = (props) => {
     return (
 		<Grid.Column>
 			<Grid padded centered>
 				<Grid.Column width={12} textAlign='center'>
-					<Header as='h2'>Terms And Conditions</Header>
+					<Header as='h2'>Privacy Policy</Header>
 					<Segment placeholder>
-						<p>Terms and Conditions Placeholder Content</p>
+						<p>Privacy Policy Placeholder Content</p>
 					</Segment>
 				</Grid.Column>
 			</Grid>
@@ -17,4 +17,4 @@ const TermsAndConditions = (props) => {
     );
 }
 
-export default TermsAndConditions;
+export default PrivacyPolicy;
