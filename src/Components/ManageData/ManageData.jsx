@@ -7,6 +7,7 @@ import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
 import InputForm from './../../Shared/InputForm/InputForm';
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
+import ModalForm from './../../Shared/ModalForm/ModalForm';
 
 import './manage-data.scss';
 
@@ -69,26 +70,27 @@ class ManageData extends Component {
             switch (name) {
                 case 'Branch':
                     this.setState({ branchData: [
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'}
+                            {id: 1, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 2, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 3, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 4, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 5, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 6, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 7, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 8, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 9, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 10, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 11, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 12, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 12, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 13, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 14, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 15, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 16, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 17, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 18, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 19, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
+                            {id: 20, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'}
                         ]
                     });
                     break;
@@ -127,10 +129,6 @@ class ManageData extends Component {
     handleSecondaryItemClick = (e, data) => {
         debugger;
     }
-
-    handleAddBranch = () => {
-        debugger;
-    }
     
     handleBulkUpload = () => {
         debugger;
@@ -156,273 +154,302 @@ class ManageData extends Component {
         debugger;
     }
 
-  render() {
-    const {activeItemMain, sideNavActiveIndex, branchData, selectedDate, productData, productUploadData, posData} = this.state;
+    handleAddBranch = (data) => {
+        //would fire ajax call and update state based on response, instead of 'data' param
 
-    const mainSideNavInfo = [
-        {name: 'POS', iconName: 'shopping cart'},
-        {name: 'Branch', iconName: 'map marker alternate'},
-        {name: 'Product', iconName: 'grid layout'}
-    ];
+        let newUser = {id: 21, branchId: data.branchId, city: data.city, state: data.state, zipCode: data.zipCode, status: data.status,  dateAdded: '5/25/2020', details: data.details};
+        this.setState((prevState) => ({
+            branchData: [newUser, ...prevState.branchData]
+        }));
+    }
 
-    const secondSideNavContent = (
-        <>
-            {posData.map((data, i) => {
-                return (
-                    <Menu.Item key={i}>
-                        <Accordion styled>
-                            <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' active={sideNavActiveIndex === i} index={i} onClick={this.handleSideNavMenuClick}>
-                                <Icon name='dropdown' />
-                                {data.title}
-                            </Accordion.Title>
-                            <Accordion.Content active={sideNavActiveIndex === i}>
-                                <List relaxed selection>
-                                    {data.content.map((data, i) => {
-                                        return (
-                                            <List.Item key={i} className='second-side-nav-list-item' onClick={(e) => this.handleSecondaryItemClick(e, data)}>
-                                                {data.month}
-                                            </List.Item>
-                                        )
-                                    })}
-                                </List>
-                            </Accordion.Content>
-                        </Accordion> 
-                    </Menu.Item>
-                )
-            })}
-        </>
-    );
+    handleAddBranchClick = () => {
+        let formData = {status: '', branchId: '', city: '', state: '', zipCode: '', details: ''};
+        this.addBranchModal.handleOpenModal(formData);
+    }
+
+    render() {
+        const {activeItemMain, sideNavActiveIndex, branchData, selectedDate, productData, productUploadData, posData} = this.state;
+
+        const mainSideNavInfo = [
+            {name: 'POS', iconName: 'shopping cart'},
+            {name: 'Branch', iconName: 'map marker alternate'},
+            {name: 'Product', iconName: 'grid layout'}
+        ];
+
+        const addBranchModalInfo = {
+            title: 'Add New Branch',
+            fields: [
+                {name: 'status', label: 'Status', type: 'radio', options: ['Open', 'Closed']},
+                {name: 'branchId', label: 'Branch ID', type: 'input'},
+                {name: 'city', label: 'City', type: 'input'},
+                {name: 'state', label: 'State', type: 'input'},
+                {name: 'zipCode', label: 'Zip Code', type: 'input'},
+                {name: 'details', label: 'Details', type: 'textArea'}
+            ]
+        };
+
+        const addBranchModal = <ModalForm ref={(addBranchModal) => { this.addBranchModal = addBranchModal; }} modalInfo={addBranchModalInfo} handleSubmit={this.handleAddBranch} />;
+
+        const secondSideNavContent = (
+            <>
+                {posData.map((data, i) => {
+                    return (
+                        <Menu.Item key={i}>
+                            <Accordion styled>
+                                <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' active={sideNavActiveIndex === i} index={i} onClick={this.handleSideNavMenuClick}>
+                                    <Icon name='dropdown' />
+                                    {data.title}
+                                </Accordion.Title>
+                                <Accordion.Content active={sideNavActiveIndex === i}>
+                                    <List relaxed selection>
+                                        {data.content.map((data, i) => {
+                                            return (
+                                                <List.Item key={i} className='second-side-nav-list-item' onClick={(e) => this.handleSecondaryItemClick(e, data)}>
+                                                    {data.month}
+                                                </List.Item>
+                                            )
+                                        })}
+                                    </List>
+                                </Accordion.Content>
+                            </Accordion> 
+                        </Menu.Item>
+                    )
+                })}
+            </>
+        );
         
-    const secondarySideNavInfo = {
-        title: 'Data Summary',
-        menuItems: secondSideNavContent
-    };
+        const secondarySideNavInfo = {
+            title: 'Data Summary',
+            menuItems: secondSideNavContent
+        };
 
-    const branchPageInfo = {
-        title: 'Manage Branch Data',
-        headerButtons: [
-            {content: 'Add Branch', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddBranch},
-            {content: 'Bulk Upload', iconName: 'download', className: 'inner-button', clickFunction: this.handleBulkUpload},
-            {content: 'Download All', iconName: 'upload', className: 'inner-button', clickFunction: this.handleDownloadAll},
-            {content: 'Branch Upload Template', iconName: 'file excel outline', className: '', clickFunction: this.handleBranchUploadTemplate}
-        ],
-        pagingUnits: 'Branches',
-        tableInfo: {
-            headers: [
-                {text: 'Branch ID'},
-                {text: 'City'},
-                {text: 'State'},
-                {text: 'Zip Code'},
-                {text: 'Status'},
-                {text: 'Date Added'},
-                {text: 'Details'}
+        const branchPageInfo = {
+            title: 'Manage Branch Data',
+            headerButtons: [
+                {content: 'Add Branch', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddBranchClick},
+                {content: 'Bulk Upload', iconName: 'download', className: 'inner-button', clickFunction: this.handleBulkUpload},
+                {content: 'Download All', iconName: 'upload', className: 'inner-button', clickFunction: this.handleDownloadAll},
+                {content: 'Branch Upload Template', iconName: 'file excel outline', className: '', clickFunction: this.handleBranchUploadTemplate}
             ],
-            cellData: [
-                {type: 'text', value: 'branchId'},
-                {type: 'text', value: 'city'},
-                {type: 'text', value: 'state'},
-                {type: 'text', value: 'zipCode'},
-                {type: 'text', value: 'status'},
-                {type: 'text', value: 'dateAdded'},
-                {type: 'text', value: 'details'}
+            pagingUnits: 'Branches',
+            tableInfo: {
+                headers: [
+                    {text: 'Branch ID'},
+                    {text: 'City'},
+                    {text: 'State'},
+                    {text: 'Zip Code'},
+                    {text: 'Status'},
+                    {text: 'Date Added'},
+                    {text: 'Details'}
+                ],
+                cellData: [
+                    {type: 'text', value: 'branchId'},
+                    {type: 'text', value: 'city'},
+                    {type: 'text', value: 'state'},
+                    {type: 'text', value: 'zipCode'},
+                    {type: 'text', value: 'status'},
+                    {type: 'text', value: 'dateAdded'},
+                    {type: 'text', value: 'details'}
+                ]
+            }
+        };
+
+        const productInfo = {
+            title: 'Product Data',
+            filters: [
+                {name: 'year', defaultValue: 'All Years', options: yearOptions, clickFunction: this.handleFilterProductData},
+                {name: 'month', defaultValue: 'All Months', options: monthOptions, clickFunction: this.handleFilterProductData}
+            ],
+            pagingUnits: 'Products',
+            tableInfo: {
+                headers: [
+                    {text: 'Distributor'},
+                    {text: 'Unique Product IDs'},
+                    {text: 'Invoiced w/ ProductCategory'},
+                    {text: 'Invoiced w/ ProductSubCategory1'},
+                    {text: 'Invoiced w/ ProductSubCategory2'},
+                    {text: 'Invoiced w/ ProductSubCategory3'}
+                ],
+                cellData: [
+                    {type: 'text', value: 'distributor'},
+                    {type: 'text', value: 'productIds'},
+                    {type: 'text', value: 'invoicedProdCat'},
+                    {type: 'text', value: 'invoicedProdSubCat1'},
+                    {type: 'text', value: 'invoicedProdSubCat2'},
+                    {type: 'text', value: 'invoicedProdSubCat3'}
+                ]
+            }
+        };
+
+        const productDownloadInfo = {
+            title: 'Product Download',
+            submitFunction: this.handleDownloadProducts,
+            buttonText: 'Download',
+            buttonIcon: 'download',
+            fields: [
+                {
+                    fieldType: 'dropdown', 
+                    options: [
+                        { key: 50, value: 50, text: 50 },
+                        { key: 100, value: 100, text: 100 },
+                        { key: 500, value: 500, text: 500 },
+                        { key: 1000, value: 1000, text: 1000 }
+                    ], 
+                    label: 'Number of Products to Return', 
+                    placeholder: 'Please select...',
+                    name: 'returnProductsAmount'
+                },
+                {
+                    fieldType: 'dropdown', 
+                    options: [
+                        { key: 'All', value: 'All', text: 'All' },
+                        { key: '75%', value: '75%', text: '75%' },
+                        { key: '50%', value: '50%', text: '50%' },
+                        { key: '25%', value: '25%', text: '25%' }
+                    ], 
+                    label: 'Total Invoiced Percentile', 
+                    placeholder: 'Please select...', 
+                    name: 'totalInvoiced'
+                },
+                {
+                    fieldType: 'dropdown', 
+                    options: [
+                        { key: 'All', value: 'All', text: 'All' },
+                        { key: 'Complete', value: 'Complete', text: 'Complete' },
+                        { key: 'Inomplete', value: 'Inomplete', text: 'Inomplete' }
+                    ], label: 'Product Status', 
+                    placeholder: 'Please select...', 
+                    name: 'productStatus'
+                },
+                {
+                    fieldType: 'dropdown', 
+                    options: [
+                        { key: 'All', value: 'All', text: 'All' },
+                        { key: 'Distributor A', value: 'Distributor A', text: 'Distributor A' },
+                        { key: 'Distributor B', value: 'Distributor B', text: 'Distributor B' }
+                    ], 
+                    label: 'Distributor', 
+                    placeholder: 'Please select...', 
+                    name: 'distributor'
+                },
+                {
+                    fieldType: 'dropdown', 
+                    options: [
+                        { key: 'All', value: 'All', text: 'All' },
+                        { key: 2020, value: 2020, text: 2020 },
+                        { key: 2019, value: 2019, text: 2019 },
+                        { key: 2018, value: 2018, text: 2018 }
+                    ], 
+                    label: 'Year', 
+                    placeholder: 'Please select...', 
+                    name: 'year'
+                },
+                {
+                    fieldType: 'dropdown', 
+                    options: [
+                        { key: 'All', value: 'All', text: 'All' },
+                        { key: 'January', value: 'January', text: 'January' },
+                        { key: 'February', value: 'February', text: 'February' },
+                        { key: 'March', value: 'March', text: 'March' }
+                    ], 
+                    label: 'Month', 
+                    placeholder: 'Please select...', 
+                    name: 'month'
+                },
             ]
-        }
-    };
+        };
 
-    const productInfo = {
-        title: 'Product Data',
-        filters: [
-            {name: 'year', defaultValue: 'All Years', options: yearOptions, clickFunction: this.handleFilterProductData},
-            {name: 'month', defaultValue: 'All Months', options: monthOptions, clickFunction: this.handleFilterProductData}
-        ],
-        pagingUnits: 'Products',
-        tableInfo: {
+        const productDownloadFormData = {
+            returnProductsAmount: 50, 
+            totalInvoiced: 'All',
+            productStatus: 'All',
+            distributor: 'All',
+            year: 'All',
+            month: 'All'
+        };
+
+        const dataSummary = selectedDate !== null ? (
+            <p>date</p>
+        ) : (
+            null
+        );
+
+        const productUploadTable = {
             headers: [
-                {text: 'Distributor'},
-                {text: 'Unique Product IDs'},
-                {text: 'Invoiced w/ ProductCategory'},
-                {text: 'Invoiced w/ ProductSubCategory1'},
-                {text: 'Invoiced w/ ProductSubCategory2'},
-                {text: 'Invoiced w/ ProductSubCategory3'}
-            ],
+                    {text: 'File Name'},
+                    {text: 'Product Amount'},
+                    {text: 'Products With Category'},
+                    {text: 'Date Uploaded'}
+                ],
             cellData: [
-                {type: 'text', value: 'distributor'},
-                {type: 'text', value: 'productIds'},
-                {type: 'text', value: 'invoicedProdCat'},
-                {type: 'text', value: 'invoicedProdSubCat1'},
-                {type: 'text', value: 'invoicedProdSubCat2'},
-                {type: 'text', value: 'invoicedProdSubCat3'}
+                {type: 'text', value: 'fileName'},
+                {type: 'text', value: 'productAmount'},
+                {type: 'text', value: 'prodCategoryAmount'},
+                {type: 'text', value: 'dateUploaded'}
             ]
-        }
-    };
+        };
 
-    const productDownloadInfo = {
-        title: 'Product Download',
-        submitFunction: this.handleDownloadProducts,
-        buttonText: 'Download',
-        buttonIcon: 'download',
-        fields: [
-            {
-                fieldType: 'dropdown', 
-                options: [
-                    { key: 50, value: 50, text: 50 },
-                    { key: 100, value: 100, text: 100 },
-                    { key: 500, value: 500, text: 500 },
-                    { key: 1000, value: 1000, text: 1000 }
-                ], 
-                label: 'Number of Products to Return', 
-                placeholder: 'Please select...',
-                name: 'returnProductsAmount'
-            },
-            {
-                fieldType: 'dropdown', 
-                options: [
-                    { key: 'All', value: 'All', text: 'All' },
-                    { key: '75%', value: '75%', text: '75%' },
-                    { key: '50%', value: '50%', text: '50%' },
-                    { key: '25%', value: '25%', text: '25%' }
-                ], 
-                label: 'Total Invoiced Percentile', 
-                placeholder: 'Please select...', 
-                name: 'totalInvoiced'
-            },
-            {
-                fieldType: 'dropdown', 
-                options: [
-                    { key: 'All', value: 'All', text: 'All' },
-                    { key: 'Complete', value: 'Complete', text: 'Complete' },
-                    { key: 'Inomplete', value: 'Inomplete', text: 'Inomplete' }
-                ], label: 'Product Status', 
-                placeholder: 'Please select...', 
-                name: 'productStatus'
-            },
-            {
-                fieldType: 'dropdown', 
-                options: [
-                    { key: 'All', value: 'All', text: 'All' },
-                    { key: 'Distributor A', value: 'Distributor A', text: 'Distributor A' },
-                    { key: 'Distributor B', value: 'Distributor B', text: 'Distributor B' }
-                ], 
-                label: 'Distributor', 
-                placeholder: 'Please select...', 
-                name: 'distributor'
-            },
-            {
-                fieldType: 'dropdown', 
-                options: [
-                    { key: 'All', value: 'All', text: 'All' },
-                    { key: 2020, value: 2020, text: 2020 },
-                    { key: 2019, value: 2019, text: 2019 },
-                    { key: 2018, value: 2018, text: 2018 }
-                ], 
-                label: 'Year', 
-                placeholder: 'Please select...', 
-                name: 'year'
-            },
-            {
-                fieldType: 'dropdown', 
-                options: [
-                    { key: 'All', value: 'All', text: 'All' },
-                    { key: 'January', value: 'January', text: 'January' },
-                    { key: 'February', value: 'February', text: 'February' },
-                    { key: 'March', value: 'March', text: 'March' }
-                ], 
-                label: 'Month', 
-                placeholder: 'Please select...', 
-                name: 'month'
-            },
-        ]
-    };
-
-    const productDownloadFormData = {
-        returnProductsAmount: 50, 
-        totalInvoiced: 'All',
-        productStatus: 'All',
-        distributor: 'All',
-        year: 'All',
-        month: 'All'
-    };
-
-    const dataSummary = selectedDate !== null ? (
-        <p>date</p>
-    ) : (
-        null
-    );
-
-    const productUploadTable = {
-        headers: [
-                {text: 'File Name'},
-                {text: 'Product Amount'},
-                {text: 'Products With Category'},
-                {text: 'Date Uploaded'}
-            ],
-        cellData: [
-            {type: 'text', value: 'fileName'},
-            {type: 'text', value: 'productAmount'},
-            {type: 'text', value: 'prodCategoryAmount'},
-            {type: 'text', value: 'dateUploaded'}
-        ]
-    };
-
-    return (
-        <>
-            <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
-            {activeItemMain === 'POS' ? (
-                <SecondarySideNav menuInfo={secondarySideNavInfo} />
-            ) : (
-                null
-            )}
-            <Grid className='manage-data-content-container'>
+        return (
+            <>
+                {addBranchModal}
+                <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 {activeItemMain === 'POS' ? (
-                    <Grid.Column>
-                        {selectedDate === null ? (
-                            <Segment>
-                                Please select a year from the Data Summary menu to view or upload data.
-                            </Segment>
-                        ) : (
-                            {dataSummary}
-                        )}
-                    </Grid.Column>
+                    <SecondarySideNav menuInfo={secondarySideNavInfo} />
                 ) : (
                     null
                 )}
-                {activeItemMain === 'Branch' ? (
-                    <InteractiveTableLayout pageInfo={branchPageInfo} tableContent={branchData}/>
-                ) : (
-                    null
-                )}
-                {activeItemMain === 'Product' ? (
-                   <>
-                        <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
-                        <Grid.Column width={16} className='product-page-bottom-content'>
-                            <Grid stackable doubling padded>
-                                <Grid.Column width={8} className='bottom-content-container'>
-                                    <Grid>
-                                        <Grid.Column width={16}>
-                                            <h3 className='product-upload-header'>Product Uploads</h3>
-                                            <span className='download-link-text' onClick={this.handleDownloadProductUpload}>Download Template</span>
-                                        </Grid.Column>
-                                        <Grid.Column width={16} className='product-file-upload'>
-                                            <Input fluid type='file' />
-                                        </Grid.Column>
-                                        <Grid.Column width={16}>
-                                            <ModuleTable tableInfo={productUploadTable} tableData={productUploadData} />
-                                        </Grid.Column>
-                                    </Grid>
-                                </Grid.Column>
-                                <Grid.Column width={8} className='bottom-content-container'>
-                                    <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
-                                </Grid.Column>
-                            </Grid>
+                <Grid className='manage-data-content-container'>
+                    {activeItemMain === 'POS' ? (
+                        <Grid.Column>
+                            {selectedDate === null ? (
+                                <Segment>
+                                    Please select a year from the Data Summary menu to view or upload data.
+                                </Segment>
+                            ) : (
+                                {dataSummary}
+                            )}
                         </Grid.Column>
-                    </>                   
-                ) : (
-                    null
-                )}
-            </Grid>
-        </>
-    );
-  }
+                    ) : (
+                        null
+                    )}
+                    {activeItemMain === 'Branch' ? (
+                        <InteractiveTableLayout pageInfo={branchPageInfo} tableContent={branchData}/>
+                    ) : (
+                        null
+                    )}
+                    {activeItemMain === 'Product' ? (
+                    <>
+                            <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
+                            <Grid.Column width={16} className='product-page-bottom-content'>
+                                <Grid stackable doubling padded>
+                                    <Grid.Column width={8} className='bottom-content-container'>
+                                        <Grid>
+                                            <Grid.Column width={16}>
+                                                <h3 className='product-upload-header'>Product Uploads</h3>
+                                                <span className='download-link-text' onClick={this.handleDownloadProductUpload}>Download Template</span>
+                                            </Grid.Column>
+                                            <Grid.Column width={16} className='product-file-upload'>
+                                                <Input fluid type='file' />
+                                            </Grid.Column>
+                                            <Grid.Column width={16}>
+                                                <ModuleTable tableInfo={productUploadTable} tableData={productUploadData} />
+                                            </Grid.Column>
+                                        </Grid>
+                                    </Grid.Column>
+                                    <Grid.Column width={8} className='bottom-content-container'>
+                                        <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
+                                    </Grid.Column>
+                                </Grid>
+                            </Grid.Column>
+                        </>                   
+                    ) : (
+                        null
+                    )}
+                </Grid>
+            </>
+        );
+    }
 }
 
 export default withRouter(ManageData);
