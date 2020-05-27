@@ -347,17 +347,17 @@ class Account extends Component {
                 {activeItemMain === 'My Account' ? (
                     <>
                         <Grid.Row className='my-account-header-container' centered>
-                            <Grid.Column width={8}>
+                            <Grid.Column computer={8} tablet={10} mobile={12}>
                                 <Header as='h2' className='my-account-header'>My Account</Header>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className='my-account-form-container' centered>
-                            <Grid.Column width={8}>
+                            <Grid.Column computer={8} tablet={10} mobile={12}>
                                 <InputForm formInfo={userInfo} formData={userData} />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className='my-account-form-container' centered>
-                            <Grid.Column width={8}>
+                            <Grid.Column computer={8} tablet={10} mobile={12}>
                                 <InputForm formInfo={passwordInfo} formData={passwordData} />
                             </Grid.Column>
                         </Grid.Row>
@@ -372,18 +372,18 @@ class Account extends Component {
                 )}
                 {activeItemMain === 'Manage Organization' ? (
                     <Grid.Column >
-                        <Grid className='manage-organization-container' stackable>
+                        <Grid className='manage-organization-container'>
                             <Grid.Column width={16}>
                                 <Header as='h2'>Manage Organization</Header>
                                 <Divider fitted />
                             </Grid.Column>
                             <Grid.Row className='org-form-container' centered>
-                                <Grid.Column width={8}>
+                                <Grid.Column computer={8} tablet={10} mobile={12}>
                                     <InputForm formInfo={orgInfo} formData={orgData} />
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row centered>
-                                <Grid.Column width={8}>
+                                <Grid.Column computer={8} tablet={10} mobile={12}>
                                     <ModuleTable tableInfo={adminTable} tableData={adminData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
                                 </Grid.Column>
                             </Grid.Row>

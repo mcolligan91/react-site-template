@@ -397,8 +397,7 @@ class ManageData extends Component {
             headerButtons: [
                 {content: 'Add Branch', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddBranchClick},
                 {content: 'Bulk Upload', iconName: 'download', className: 'inner-button', clickFunction: this.handleBulkUpload},
-                {content: 'Download All', iconName: 'upload', className: 'inner-button', clickFunction: this.handleDownloadAll},
-                {content: 'Branch Upload Template', iconName: 'file excel outline', className: '', clickFunction: this.handleBranchUploadTemplate}
+                {content: 'Download All', iconName: 'upload', clickFunction: this.handleDownloadAll}
             ],
             pagingUnits: 'Branches',
             tableInfo: {
@@ -695,7 +694,7 @@ class ManageData extends Component {
                             <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
                             <Grid.Column width={16} className='product-page-bottom-content'>
                                 <Grid stackable doubling padded>
-                                    <Grid.Column width={8} className='bottom-content-container'>
+                                    <Grid.Column computer={8} tablet={16} className='bottom-content-container'>
                                         <Grid>
                                             <Grid.Column width={16}>
                                                 <h3 className='product-upload-header'>Product Uploads</h3>
@@ -704,12 +703,12 @@ class ManageData extends Component {
                                             <Grid.Column width={16} className='product-file-upload'>
                                                 <Input fluid type='file' />
                                             </Grid.Column>
-                                            <Grid.Column width={16}>
+                                            <Grid.Column width={16} className='product-uploads-table-container'>
                                                 <ModuleTable tableInfo={productUploadTable} tableData={productUploadData} />
                                             </Grid.Column>
                                         </Grid>
                                     </Grid.Column>
-                                    <Grid.Column width={8} className='bottom-content-container'>
+                                    <Grid.Column computer={8} tablet={16} className='bottom-content-container'>
                                         <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
                                     </Grid.Column>
                                 </Grid>

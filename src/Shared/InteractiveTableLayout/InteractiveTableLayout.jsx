@@ -43,7 +43,25 @@ class InteractiveTableLayout extends Component {
         const pageAmountOptions = [10, 20, 50];
 
         //pagination not yet configured
-        
+        const paginationMenu = (
+            <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} />
+        );
+
+        const headerButtons = pageInfo.headerButtons ? (
+            <>
+                {pageInfo.headerButtons.map((button, i) => {
+                    return (
+                        <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
+                            <Icon name={button.iconName} />
+                            {button.content}
+                        </Button>
+                    )
+                })}
+            </>
+        ) : (
+            null
+        );
+
         return (
             <Grid>
                 <Grid.Column>
@@ -52,10 +70,10 @@ class InteractiveTableLayout extends Component {
                             <Header as='h2'>{pageInfo.title}</Header>
                             <Divider fitted />
                         </Grid.Column>
-                        <Grid.Column largeScreen={6} computer={5}>
+                        <Grid.Column largeScreen={6} computer={5} tablet={8}>
                             <Search size='tiny' input={{ fluid: true }} />
                         </Grid.Column>
-                        <Grid.Column largeScreen={10} computer={11} verticalAlign='middle'>
+                        <Grid.Column largeScreen={10} computer={11} tablet={8} verticalAlign='middle'>
                             <Grid stackable doubling>
                                 {pageInfo.filters ? (
                                     <Grid.Column textAlign='left' verticalAlign='middle'>
@@ -69,7 +87,10 @@ class InteractiveTableLayout extends Component {
                                 ) : (
                                     null
                                 )}
-                                {pageInfo.headerButtons ? (
+                                <Grid.Column textAlign='right' verticalAlign='middle'>
+                                    {headerButtons}
+                                </Grid.Column>
+                                {/* {pageInfo.headerButtons ? (
                                 <Grid.Column textAlign='right' verticalAlign='middle'>
                                     {pageInfo.headerButtons.map((button, i) => {
                                         return (
@@ -82,7 +103,7 @@ class InteractiveTableLayout extends Component {
                                 </Grid.Column>
                                 ) : (
                                     null
-                                )}
+                                )} */}
                             </Grid>
                         </Grid.Column>
                         <Grid.Column width={8} verticalAlign='bottom'>
@@ -93,8 +114,11 @@ class InteractiveTableLayout extends Component {
                             })}
                             <span className='paging-label'>{pageInfo.pagingUnits} / Page</span>
                         </Grid.Column>
-                        <Grid.Column width={8} textAlign='right'>
-                            <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} />
+                        <Grid.Column only='computer tablet' width={8} textAlign='right'>
+                            {paginationMenu}
+                        </Grid.Column>
+                        <Grid.Column only='mobile' width={8} textAlign='left'>
+                            {paginationMenu}
                         </Grid.Column>
                         <Grid.Column width={16}>
                             <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
