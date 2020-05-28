@@ -76,7 +76,7 @@ class InteractiveTableLayout extends Component {
                         <Grid.Column largeScreen={10} computer={11} tablet={8} verticalAlign='middle'>
                             <Grid stackable doubling>
                                 {pageInfo.filters ? (
-                                    <Grid.Column textAlign='left' verticalAlign='middle'>
+                                    <Grid.Column width={16} textAlign='left' verticalAlign='middle'>
                                         <span className='filter-label-text'>Filter By:</span>
                                         {pageInfo.filters.map((filter, i) => {
                                             return (
@@ -87,23 +87,9 @@ class InteractiveTableLayout extends Component {
                                 ) : (
                                     null
                                 )}
-                                <Grid.Column textAlign='right' verticalAlign='middle'>
+                                <Grid.Column width={16} textAlign='right' verticalAlign='middle'>
                                     {headerButtons}
                                 </Grid.Column>
-                                {/* {pageInfo.headerButtons ? (
-                                <Grid.Column textAlign='right' verticalAlign='middle'>
-                                    {pageInfo.headerButtons.map((button, i) => {
-                                        return (
-                                            <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
-                                                <Icon name={button.iconName} />
-                                                {button.content}
-                                            </Button>
-                                        )
-                                    })}
-                                </Grid.Column>
-                                ) : (
-                                    null
-                                )} */}
                             </Grid>
                         </Grid.Column>
                         <Grid.Column width={8} verticalAlign='bottom'>
