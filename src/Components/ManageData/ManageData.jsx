@@ -47,6 +47,9 @@ class ManageData extends Component {
             productData: [],
             productUploadData: [],
             selectedSummary: null,
+            submissionComment: '',
+            submissionUploadFile: null,
+            cleanUploadFile: null
         }
     }
 
@@ -266,10 +269,7 @@ class ManageData extends Component {
             submissionData: submissions,
             submissionNotes: submissionNotes,
             reviewNotes: reviewNotes,
-            submissionComments: [],
-            submissionUploadFile: null,
-            cleanUploadFile: null,
-            comment: ''
+            submissionComments: [],            
         };
 
         this.setState({ selectedSummary: summary });
@@ -288,33 +288,26 @@ class ManageData extends Component {
     handleUploadSubmission = (e) => {
         //would send post call to server with upload data, then update submissions table with new entry based on response
 
-        const {selectedSummary} = this.state;
-        selectedSummary.submissionUploadFile = e.target.files[0].name;
-        this.setState({ selectedSummary });
+        this.setState({ submissionUploadFile: e.target.files[0].name });
     }
 
     handleUploadCleanFile = (e) => {
         //would send post call to server with upload data, then update submissions table with new entry based on response
         
-        const {selectedSummary} = this.state;
-        selectedSummary.cleanUploadFile = e.target.files[0].name;
-        this.setState({ selectedSummary });
+        this.setState({ cleanUploadFile: e.target.files[0].name });
     }
 
     handleAddComment = (e) => {
-        const {selectedSummary} = this.state;
-        //post call to server with selectedSummary.comment
+        const {selectedSummary, submissionComment} = this.state;
+        //post call to server with comment
 
         //update state with comment based on success response
-        selectedSummary.submissionComments.push(selectedSummary.comment);
-        selectedSummary.comment = '';
-        this.setState({ selectedSummary });
+        selectedSummary.submissionComments.push(submissionComment);
+        this.setState({ submissionComment: '' });
     }
 
     handleCommentChange = (e, info) => {
-        const {selectedSummary} = this.state;
-        selectedSummary.comment = info.value;
-        this.setState({ selectedSummary });
+        this.setState({ submissionComment: info.value });
     } 
 
     handleAddBranchClick = () => {
@@ -351,7 +344,7 @@ class ManageData extends Component {
     }
 
     render() {
-        const {activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData} = this.state;
+        const {activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData, submissionComment, submissionUploadFile, cleanUploadFile} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
@@ -588,7 +581,7 @@ class ManageData extends Component {
                     <Header as='h2'>{`${selectedSummary.month} ${selectedSummary.year} Data Summary`}</Header>
                     <Label className='file-upload-container' basic as='label' htmlFor='upload-submission'>
                         <Button className='main-button-color' icon='upload' label={{ content: 'Upload Submission' }} labelPosition='right' />
-                        {selectedSummary.submissionUploadFile}
+                        {submissionUploadFile}
                         <input id='upload-submission' hidden type='file' onChange={(e) => this.handleUploadSubmission(e)} />
                     </Label>
                 </Grid.Column>
@@ -614,7 +607,7 @@ class ManageData extends Component {
                         <Grid.Column width={16}>
                             <Label className='file-upload-container' basic as='label' htmlFor='upload-clean-file'>
                                 <Button className='main-button-color' icon='upload' label={{ content: 'Upload Clean File' }} labelPosition='right' />
-                                {selectedSummary.cleanUploadFile}
+                                {cleanUploadFile}
                                 <input id='upload-clean-file' hidden type='file' onChange={(e) => this.handleUploadCleanFile(e)} />
                             </Label>
                         </Grid.Column>
@@ -656,7 +649,7 @@ class ManageData extends Component {
                         )}
                         <Grid.Column width={16}>
                             <Form onSubmit={this.handleAddComment}>
-                                <Form.TextArea label='Add New Comment' value={selectedSummary.comment} onChange={this.handleCommentChange} />
+                                <Form.TextArea label='Add New Comment' value={submissionComment} onChange={this.handleCommentChange} />
                                 <Button className='main-button-color' type='submit' content='Save' />
                             </Form>
                         </Grid.Column>
