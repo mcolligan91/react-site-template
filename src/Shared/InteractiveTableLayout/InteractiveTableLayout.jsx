@@ -44,7 +44,7 @@ class InteractiveTableLayout extends Component {
 
         //pagination not yet configured
         const paginationMenu = (
-            <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} />
+            <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} size='tiny' />
         );
 
         const headerButtons = pageInfo.headerButtons ? (

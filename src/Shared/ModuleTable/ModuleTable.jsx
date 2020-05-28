@@ -39,7 +39,7 @@ class ModuleTable extends Component {
                             <Grid.Column width={16} className='table-header-container module-table-container-column'>
                             <h3 className={`table-header ${!tableInfo.button ? 'table-header-no-button' : ''}`}>{tableInfo.title}</h3>
                             {tableInfo.button ? (
-                                <Button className='main-button-color' content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' onClick={buttonClickFunction} />
+                                <Button className='main-button-color' content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' size='small' onClick={buttonClickFunction} />
                             ) : (
                                 null
                             )}
@@ -82,7 +82,7 @@ class ModuleTable extends Component {
                             </Table>
                             {tableContent.length > 5 ? (
                                 //pagination not set up
-                                <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} />
+                                <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} size='tiny' />
                             ) : (
                                 null
                             )}
