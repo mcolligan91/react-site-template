@@ -47,21 +47,6 @@ class InteractiveTableLayout extends Component {
             <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} size='tiny' />
         );
 
-        const headerButtons = pageInfo.headerButtons ? (
-            <>
-                {pageInfo.headerButtons.map((button, i) => {
-                    return (
-                        <Button key={i} className={`main-button-color ${button.className}`} icon size='tiny' labelPosition='left' onClick={button.clickFunction}>
-                            <Icon name={button.iconName} />
-                            {button.content}
-                        </Button>
-                    )
-                })}
-            </>
-        ) : (
-            null
-        );
-
         return (
             <Grid>
                 <Grid.Column>
@@ -70,10 +55,10 @@ class InteractiveTableLayout extends Component {
                             <Header as='h2'>{pageInfo.title}</Header>
                             <Divider fitted />
                         </Grid.Column>
-                        <Grid.Column largeScreen={6} computer={5} tablet={8}>
+                        <Grid.Column largeScreen={6} computer={5} tablet={6}>
                             <Search size='tiny' input={{ fluid: true }} />
                         </Grid.Column>
-                        <Grid.Column largeScreen={10} computer={11} tablet={8} verticalAlign='middle'>
+                        <Grid.Column largeScreen={10} computer={11} tablet={10} verticalAlign='middle'>
                             <Grid stackable doubling>
                                 {pageInfo.filters ? (
                                     <Grid.Column width={16} textAlign='left' verticalAlign='middle'>
@@ -87,9 +72,32 @@ class InteractiveTableLayout extends Component {
                                 ) : (
                                     null
                                 )}
-                                <Grid.Column width={16} textAlign='right' verticalAlign='middle'>
-                                    {headerButtons}
-                                </Grid.Column>
+                                {pageInfo.headerButtons ? (
+                                    <>
+                                        <Grid.Column only='computer' width={16} textAlign='right' verticalAlign='middle'>
+                                            {pageInfo.headerButtons.map((button, i) => {
+                                                return (
+                                                    <Button key={i} className={`main-button-color ${button.className}`} size='tiny' icon labelPosition='left' onClick={button.clickFunction}>
+                                                        <Icon name={button.iconName} />
+                                                        {button.content}
+                                                    </Button>
+                                                )
+                                            })}
+                                        </Grid.Column>
+                                        <Grid.Column className='mobile-button-container' only='tablet mobile' width={16} textAlign='center' verticalAlign='middle'>
+                                            {pageInfo.headerButtons.map((button, i) => {
+                                                return (
+                                                    <Button key={i} className={`main-button-color ${button.className}`} icon size='mini' labelPosition='left' onClick={button.clickFunction}>
+                                                        <Icon name={button.iconName} />
+                                                        {button.content}
+                                                    </Button>
+                                                )
+                                            })}
+                                        </Grid.Column>
+                                    </>
+                                ) : (
+                                    null
+                                )}
                             </Grid>
                         </Grid.Column>
                         <Grid.Column width={8} verticalAlign='bottom'>
@@ -106,7 +114,7 @@ class InteractiveTableLayout extends Component {
                         <Grid.Column only='mobile' width={8} textAlign='left'>
                             {paginationMenu}
                         </Grid.Column>
-                        <Grid.Column width={16}>
+                        <Grid.Column width={16} className='interactive-table-layout-table-container'>
                             <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
                                 <Dimmer active={isLoading}>
                                     <Loader>Loading</Loader>

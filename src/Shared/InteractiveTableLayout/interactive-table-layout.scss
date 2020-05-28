@@ -21,3 +21,11 @@
   .ui.grid.interactive-table-container {
     padding: 15px;
   }
+
+  .mobile-button-container.ui.button {
+    font-size: .78571429rem;
+  }
+
+  .ui.grid>[class*="sixteen wide"].column.interactive-table-layout-table-container {
+    padding-top: 0;
+  }
