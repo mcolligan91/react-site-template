@@ -11,6 +11,7 @@ import ModalForm from './../../Shared/ModalForm/ModalForm';
 
 import './manage-data.scss';
 
+//placeholder
 let yearOptions = [
     {key: 'All Years', value: 'All Years', text: 'All Years'},
     {key: 2020, value: 2020, text: 2020},
@@ -18,11 +19,21 @@ let yearOptions = [
     {key: 2018, value: 2018, text: 2018}
 ];
 
+//placeholder
 let monthOptions = [
     {key: 'All Months', value: 'All Months', text: 'All Months'},
-    {key: 'Jan', value: 'Jan', text: 'Jan'},
-    {key: 'Feb', value: 'Feb', text: 'Feb'},
-    {key: 'March', value: 'March', text: 'March'}
+    {key: 'January', value: 'January', text: 'January'},
+    {key: 'February', value: 'February', text: 'February'},
+    {key: 'March', value: 'March', text: 'March'},
+    {key: 'April', value: 'April', text: 'April'},
+    {key: 'May', value: 'May', text: 'May'},
+    {key: 'June', value: 'June', text: 'June'},
+    {key: 'July', value: 'July', text: 'July'},
+    {key: 'August', value: 'August', text: 'August'},
+    {key: 'September', value: 'September', text: 'September'},
+    {key: 'October', value: 'October', text: 'October'},
+    {key: 'November', value: 'November', text: 'November'},
+    {key: 'December', value: 'December', text: 'December'}
 ];
 
 class ManageData extends Component {
@@ -42,7 +53,7 @@ class ManageData extends Component {
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
-        //will load from view or api call
+        //will load from api call response
         let posData = [
             {
                 title: '2020', 
@@ -140,7 +151,8 @@ class ManageData extends Component {
                     {year: '2015', month: 'January', status: 3}
                 ]
             }
-        ]
+        ];
+
         this.setState({ posData: posData, sideNavActiveIndex: 0 });
     }
 
@@ -153,12 +165,14 @@ class ManageData extends Component {
     }
 
     handleItemClickMain = (e, { name }) => {
+        //for component SideNav, prop activeItem
         this.setState({ activeItemMain: name });
         
         //will pull with ajax call - switch statement will specify URL
         setTimeout(() => { 
             switch (name) {
                 case 'Branch':
+                    //for component InteractiveTableLayout, prop tableContent
                     this.setState({ branchData: [
                             {id: 1, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
                             {id: 2, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
@@ -186,6 +200,8 @@ class ManageData extends Component {
                     break;
 
                 case 'Product': 
+                    //for component InteractiveTableLayout, prop tableContent (productData)
+                    //for component ModuleTable, prop tableData (productUploadData)
                     this.setState({ productData: [
                             {distributor: 'Distributor A', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
                             {distributor: 'Distributor B', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
@@ -258,35 +274,8 @@ class ManageData extends Component {
 
         this.setState({ selectedSummary: summary });
     }
-    
-    // handleBulkUpload = () => {
-    //     debugger;
-    // }
-    
-    // handleDownloadAll = () => {
-    //     debugger;
-    // }
-    
-    // handleBranchUploadTemplate = () => {
-    //     debugger;
-    // }
 
-    // handleDownloadProducts = (data) => {
-    //     console.log(data);
-    // }
-
-    // handleFilterProductData = (e, data) => {
-    //     debugger;
-    // }
-
-    // handleDownloadProductUpload = () => {
-    //     debugger;
-    // }
-
-    // handleSubmissionTableButtonClick = () => {
-
-    // }
-
+    //for component ModalForm, prop handleSubmit
     handleAddBranch = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
 
@@ -333,15 +322,45 @@ class ManageData extends Component {
         this.addBranchModal.handleOpenModal(formData);
     }
 
+    handleBulkUpload = () => {
+        debugger;
+    }
+    
+    handleDownloadAll = () => {
+        debugger;
+    }
+    
+    handleBranchUploadTemplate = () => {
+        debugger;
+    }
+
+    handleDownloadProducts = (data) => {
+        console.log(data);
+    }
+
+    handleFilterProductData = (e, data) => {
+        debugger;
+    }
+
+    handleDownloadProductUpload = () => {
+        debugger;
+    }
+
+    handleSubmissionTableButtonClick = () => {
+        debugger;
+    }
+
     render() {
         const {activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData} = this.state;
 
+        //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
             {name: 'POS', iconName: 'shopping cart'},
             {name: 'Branch', iconName: 'map marker alternate'},
             {name: 'Product', iconName: 'grid layout'}
         ];
 
+        //for component ModalForm, prop modalInfo
         const addBranchModalInfo = {
             title: 'Add New Branch',
             fields: [
@@ -387,11 +406,13 @@ class ManageData extends Component {
             </>
         );
         
+        //for component SecondarySideNav, prop menuInfo
         const secondarySideNavInfo = {
             title: 'Data Summary',
             menuItems: secondSideNavContent
         };
 
+        //for component InteractiveTableLayout, prop pageInfo
         const branchPageInfo = {
             title: 'Manage Branch Data',
             headerButtons: [
@@ -422,6 +443,7 @@ class ManageData extends Component {
             }
         };
 
+        //for component InteractiveTableLayout, prop pageInfo
         const productInfo = {
             title: 'Product Data',
             filters: [
@@ -449,6 +471,7 @@ class ManageData extends Component {
             }
         };
 
+        //for component InputForm, prop formInfo
         const productDownloadInfo = {
             title: 'Product Download',
             submitFunction: this.handleDownloadProducts,
@@ -527,6 +550,7 @@ class ManageData extends Component {
             ]
         };
 
+        //for component InputForm, prop formData
         const productDownloadFormData = {
             returnProductsAmount: 50, 
             totalInvoiced: 'All',
@@ -536,6 +560,7 @@ class ManageData extends Component {
             month: 'All'
         };
 
+        //for component ModuleTable, prop tableInfo
         const submissionTableInfo = {
             title: 'Data Submissions',
             hasClickEvents: true,
@@ -561,10 +586,10 @@ class ManageData extends Component {
             <Grid relaxed padded>
                 <Grid.Column width={16}>
                     <Header as='h2'>{`${selectedSummary.month} ${selectedSummary.year} Data Summary`}</Header>
-                    <Label className='file-upload-container' basic as="label" htmlFor="upload-submission">
-                        <Button icon="upload" label={{ content: 'Upload Submission' }} labelPosition="right" />
+                    <Label className='file-upload-container' basic as='label' htmlFor='upload-submission'>
+                        <Button className='main-button-color' icon='upload' label={{ content: 'Upload Submission' }} labelPosition='right' />
                         {selectedSummary.submissionUploadFile}
-                        <input id="upload-submission" hidden type="file" onChange={(e) => this.handleUploadSubmission(e)} />
+                        <input id='upload-submission' hidden type='file' onChange={(e) => this.handleUploadSubmission(e)} />
                     </Label>
                 </Grid.Column>
                 {selectedSummary.status && selectedSummary.status > 1 ? (
@@ -587,10 +612,10 @@ class ManageData extends Component {
                             </Message>
                         </Grid.Column>
                         <Grid.Column width={16}>
-                            <Label className='file-upload-container' basic as="label" htmlFor="upload-clean-file">
-                                <Button icon="upload" label={{ content: 'Upload Clean File' }} labelPosition="right" />
+                            <Label className='file-upload-container' basic as='label' htmlFor='upload-clean-file'>
+                                <Button className='main-button-color' icon='upload' label={{ content: 'Upload Clean File' }} labelPosition='right' />
                                 {selectedSummary.cleanUploadFile}
-                                <input id="upload-clean-file" hidden type="file" onChange={(e) => this.handleUploadCleanFile(e)} />
+                                <input id='upload-clean-file' hidden type='file' onChange={(e) => this.handleUploadCleanFile(e)} />
                             </Label>
                         </Grid.Column>
                         {selectedSummary.status === 3 ? (
@@ -600,7 +625,7 @@ class ManageData extends Component {
                                         Review Notes
                                     </Message.Header>
                                     <Message.List>
-                                    {selectedSummary.reviewNotes.map((note, i) => {
+                                        {selectedSummary.reviewNotes.map((note, i) => {
                                             return (
                                                 <Message.Item key={i}>{note}</Message.Item>
                                             )
@@ -644,6 +669,7 @@ class ManageData extends Component {
             null
         );
 
+        //for component ModuleTable, prop tableInfo
         const productUploadTable = {
             headers: [
                     {text: 'File Name'},

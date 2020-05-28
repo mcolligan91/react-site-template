@@ -24,6 +24,7 @@ class Dashboard extends Component {
         this.setState({ announcements: ['Example announcement 1', 'Example announcement 2', 'Example announcement 3', 'Example announcement 4'] });
 
         //would be loaded from view or from ajax call
+        //for component ModuleTable, prop tableData
         this.setState({ tasks: [
             {summary: 'Please submit your POS data for Organization A, January 2020.', date: '2/6/2020'},
             {summary: 'Please submit your POS data for Organization B, January 2020.', date: '2/6/2020'},
@@ -38,6 +39,7 @@ class Dashboard extends Component {
         ] });
 
         //would be loaded from view or from ajax call
+        //for component ModuleTable, prop tableData
         this.setState({ events: [
             {summary: 'User A added a new Branch.', date: '2/6/2020'},
             {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
@@ -56,66 +58,68 @@ class Dashboard extends Component {
         this.setState({ showAnnouncements: false });
     } 
 
-  render() {
-    const {showAnnouncements, announcements, tasks, events} = this.state;
+    render() {
+        const {showAnnouncements, announcements, tasks, events} = this.state;
 
-    const taskTable = {
-        title: 'My Tasks',
-        headers: [
-                {width: 14, text: 'Summary'},
-                {width: 2, text: 'Date'}
-            ],
-        cellData: [
-            {type: 'text', value: 'summary'},
-            {type: 'text', value: 'date'}
-        ]
-    };
+        //for component ModuleTable, prop tableInfo
+        const taskTable = {
+            title: 'My Tasks',
+            headers: [
+                    {width: 14, text: 'Summary'},
+                    {width: 2, text: 'Date'}
+                ],
+            cellData: [
+                {type: 'text', value: 'summary'},
+                {type: 'text', value: 'date'}
+            ]
+        };
 
-    const eventTable = {
-        title: 'Recent Activity',
-        headers: [
-                {width: 14, text: 'Summary'},
-                {width: 2, text: 'Date'}
-            ],
-        cellData: [
-            {type: 'text', value: 'summary'},
-            {type: 'text', value: 'date'}
-        ]
-    };
+        //for component ModuleTable, prop tableInfo
+        const eventTable = {
+            title: 'Recent Activity',
+            headers: [
+                    {width: 14, text: 'Summary'},
+                    {width: 2, text: 'Date'}
+                ],
+            cellData: [
+                {type: 'text', value: 'summary'},
+                {type: 'text', value: 'date'}
+            ]
+        };
 
-    return (
-      <>
-        {showAnnouncements ? (
-        <Grid.Row>
-            <Grid.Column width={16}>
-                <Grid padded>
-                    <Grid.Column>
-                        <Header as='h3'>Announcements</Header>
-                        <Message info onDismiss={this.handleHideAnnouncements}>
-                            <Message.List items={announcements} />
-                        </Message>
+        return (
+            <>
+                {showAnnouncements ? (
+                    <Grid.Row>
+                        <Grid.Column width={16}>
+                            <Grid padded>
+                                <Grid.Column>
+                                    <Header as='h3'>Announcements</Header>
+                                    <Message info onDismiss={this.handleHideAnnouncements}>
+                                        <Message.List items={announcements} />
+                                    </Message>
+                                </Grid.Column>
+                            </Grid>
+                        </Grid.Column>
+                    </Grid.Row>
+                ) : (
+                    null
+                )}
+                <Grid.Row columns={2} className='dashboard-tables-container'>
+                    <Grid.Column computer={10} tablet={16} mobile={16}>
+                        <Grid padded>
+                            <ModuleTable tableInfo={taskTable} tableData={tasks} />
+                        </Grid>
                     </Grid.Column>
-                </Grid>
-            </Grid.Column>
-        </Grid.Row>
-        ) : (
-            null
-        )}
-        <Grid.Row columns={2} className='dashboard-tables-container'>
-            <Grid.Column computer={10} tablet={16} mobile={16}>
-                <Grid padded>
-                    <ModuleTable tableInfo={taskTable} tableData={tasks} />
-                </Grid>
-            </Grid.Column>
-            <Grid.Column computer={6} tablet={16} mobile={16}>
-                <Grid padded>
-                    <ModuleTable tableInfo={eventTable} tableData={events} />
-                </Grid>
-            </Grid.Column>
-        </Grid.Row>
-      </>
-    );
-  }
+                    <Grid.Column computer={6} tablet={16} mobile={16}>
+                        <Grid padded>
+                            <ModuleTable tableInfo={eventTable} tableData={events} />
+                        </Grid>
+                    </Grid.Column>
+                </Grid.Row>
+            </>
+        );
+    }
 }
 
 export default withRouter(Dashboard);

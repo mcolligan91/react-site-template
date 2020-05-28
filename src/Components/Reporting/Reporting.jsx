@@ -15,9 +15,9 @@ class Reporting extends Component {
         super(props);
         this.state = {
             isQueryEdited: false,
-            menuItemLimit: 10,
-            sideNavActiveIndexes: [0, 1, 2],
-            activeItemMain: 'Data Exports',
+            menuItemLimit: null,
+            sideNavActiveIndexes: null,
+            activeItemMain: null,
             queryFilterMenuData: [],
             queryFilterCriteria: {}
         }
@@ -86,15 +86,23 @@ class Reporting extends Component {
             }
         };
 
-        this.setState({ queryFilterMenuData: filterData, queryFilterCriteria: filterCriteria })
+        let sidenavIndexes = [],
+            filterCount = Object.keys(filterCriteria).length; 
+
+        for (let i = 0; i < filterCount; i++) {
+            sidenavIndexes.push(i);
+        }
+
+        this.setState({ queryFilterMenuData: filterData, queryFilterCriteria: filterCriteria, menuItemLimit: 10, activeItemMain: 'Data Exports', sideNavActiveIndexes: sidenavIndexes });
     }
 
+    //for component SideNav, prop handleItemClick
     handleItemClickMain = (e, { name }) => {
         this.setState({ activeItemMain: name });
     }
 
     handleSecondaryItemClick = (e, data) => {
-        this.setState( {isQueryEdited: true });
+        this.setState({ isQueryEdited: true });
 
         const {queryFilterCriteria} = this.state;
         let category = queryFilterCriteria[data.category].selected,
@@ -178,247 +186,249 @@ class Reporting extends Component {
 
     handleUpdateGraphs = () => {
         //ajax call to update data in back-end 
-        this.setState( {isQueryEdited: false });
+        this.setState({ isQueryEdited: false });
     }
 
-  render() {
-    const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
+    render() {
+        const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
 
-    const mainSideNavInfo = [
-        {name: 'Data Exports', iconName: 'file alternate'},
-        {name: 'Custom Query', iconName: 'search'}
-    ];
+        //for component SideNav, prop menuInfo
+        const mainSideNavInfo = [
+            {name: 'Data Exports', iconName: 'file alternate'},
+            {name: 'Custom Query', iconName: 'search'}
+        ];
 
-    //placeholder
-    let dropdownYears = [
-        {key: 1, value: 2015, text: 2015},
-        {key: 2, value: 2016, text: 2016},
-        {key: 3, value: 2017, text: 2017},
-        {key: 4, value: 2018, text: 2018},
-        {key: 5, value: 2019, text: 2019},
-        {key: 6, value: 2020, text: 2020}
-    ];
+        //placeholder
+        let dropdownYears = [
+            {key: 1, value: 2015, text: 2015},
+            {key: 2, value: 2016, text: 2016},
+            {key: 3, value: 2017, text: 2017},
+            {key: 4, value: 2018, text: 2018},
+            {key: 5, value: 2019, text: 2019},
+            {key: 6, value: 2020, text: 2020}
+        ];
 
-    //placeholder
-    let dropdownOrgs = [
-        {key: 1, value: 'Org A', text: 'Org A'},
-        {key: 2, value: 'Org B', text: 'Org B'},
-        {key: 3, value: 'Org C', text: 'Org C'}
-    ];
+        //placeholder
+        let dropdownOrgs = [
+            {key: 1, value: 'Org A', text: 'Org A'},
+            {key: 2, value: 'Org B', text: 'Org B'},
+            {key: 3, value: 'Org C', text: 'Org C'}
+        ];
 
-    const secondSideNavContent = (
-        <>
-            {queryFilterMenuData.map((data, i) => {
-                let content = data.showAll ? data.content : data.content.slice(0, menuItemLimit);
-                return (
-                    <Menu.Item key={i}>
-                        <Accordion styled>
-                            <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' index={i} active={sideNavActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClick}>
-                                <Icon name='dropdown' />
-                                {data.title}
-                            </Accordion.Title>
-                            <Accordion.Content active={sideNavActiveIndexes.includes(i)}>
-                                <List relaxed>
-                                    <List.Item>
-                                        <Checkbox label='Select All' checked={queryFilterCriteria[data.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, data)} />
-                                    </List.Item>
-                                    {content.map((contentData, i) => {
-                                        return (
-                                            <List.Item key={i}>
-                                                <Checkbox label={contentData.value} checked={queryFilterCriteria[data.category].allSelected || queryFilterCriteria[data.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
-                                            </List.Item>
-                                        )
-                                    })}
-                                    {data.limitData ? (
+        const secondSideNavContent = (
+            <>
+                {queryFilterMenuData.map((data, i) => {
+                    let content = data.showAll ? data.content : data.content.slice(0, menuItemLimit);
+                    return (
+                        <Menu.Item key={i}>
+                            <Accordion styled>
+                                <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' index={i} active={sideNavActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClick}>
+                                    <Icon name='dropdown' />
+                                    {data.title}
+                                </Accordion.Title>
+                                <Accordion.Content active={sideNavActiveIndexes.includes(i)}>
+                                    <List relaxed>
                                         <List.Item>
-                                            <p className='main-color menu-expand-text' onClick={(e) => this.handleExpandMenu(e, data)}>{data.showAll ? '‒ Show Less' : '+ Show All'}</p>
+                                            <Checkbox label='Select All' checked={queryFilterCriteria[data.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, data)} />
                                         </List.Item>
+                                        {content.map((contentData, i) => {
+                                            return (
+                                                <List.Item key={i}>
+                                                    <Checkbox label={contentData.value} checked={queryFilterCriteria[data.category].allSelected || queryFilterCriteria[data.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
+                                                </List.Item>
+                                            )
+                                        })}
+                                        {data.limitData ? (
+                                            <List.Item>
+                                                <p className='main-color menu-expand-text' onClick={(e) => this.handleExpandMenu(e, data)}>{data.showAll ? '‒ Show Less' : '+ Show All'}</p>
+                                            </List.Item>
+                                        ) : (
+                                            null
+                                        )}
+                                    </List>
+                                </Accordion.Content>
+                            </Accordion> 
+                        </Menu.Item>
+                    )
+                })}
+            </>
+        );
+
+        //for component SecondarySideNav, prop menuInfo    
+        const secondarySideNavInfo = {
+            title: 'Query Filters',
+            menuItems: secondSideNavContent
+        };
+
+        //using image placeholders instead of real data for now
+        const customQueryGraphs = [
+            {
+                graphs: [
+                    {
+                        title: 'Year-Over-Year Sales Growth',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    },
+                    {
+                        title: 'Year-Over-Year Market Sales Growth',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    }
+                ]
+            },
+            {
+                graphs: [
+                    {
+                        title: 'Market Sales by Product Type',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    },
+                    {
+                        title: 'Estimated Market Sales by Product Type',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    }
+                ]
+            },
+            {
+                graphs: [
+                    {
+                        title: 'Market Sales by Customer Segment',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    },
+                    {
+                        title: 'Estimated Market Sales by Customer Segment',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    }
+                ]
+            },
+            {
+                graphs: [
+                    {
+                        title: 'Market Sales by Geographic Region',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    },
+                    {
+                        title: 'Estimated Market Sales by Geographic Region',
+                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
+                    }
+                ]
+            }
+        ];
+
+        return (
+            <>
+                <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
+                {activeItemMain === 'Custom Query' ? (
+                    <SecondarySideNav menuInfo={secondarySideNavInfo} />
+                ) : (
+                    null
+                )}
+                <Grid className='manage-data-content-container'>
+                    {activeItemMain === 'Data Exports' ? (
+                        <>
+                            <Grid.Row centered>
+                                <Grid.Column width={12}>
+                                    <Grid className='data-exports-top-row' stackable doubling>
+                                        <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                <Message info>
+                                                    <Message.Header>Update in progress</Message.Header>
+                                                    <p>User A began updating the reporting tables on 5/1/2020.</p>
+                                                </Message>
+                                            </Grid.Column>
+                                            <Grid.Column width={8}>
+                                                <Button className='main-button-color' fluid>Update</Button>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row centered>
+                                <Grid.Column width={12}>
+                                    <Grid className='data-exports-middle-row' stackable doubling>
+                                        <Header as='h2' className='data-exports-header'>Update Data Exports</Header>
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                <Dropdown placeholder='Please select...' fluid selection options={dropdownOrgs} />
+                                            </Grid.Column>
+                                            <Grid.Column width={8}>
+                                                <Button className='main-button-color' fluid>Update</Button>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row centered>
+                                <Grid.Column width={12}>
+                                    <Grid className='data-exports-bottom-row' stackable doubling>
+                                        <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                <span>Monthly Data Exports</span>
+                                                <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
+                                            </Grid.Column>
+                                            <Grid.Column width={8}>
+                                                <span>Quarterly Data Exports</span>
+                                                <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </>
+                    ) : (
+                        null
+                    )}
+                    {activeItemMain === 'Custom Query' ? (
+                        <>
+                            <Grid columns={2}>
+                                <Grid.Column textAlign='right' width={16}>
+                                    {isQueryEdited ? (
+                                        <Button className='inner-button' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
                                     ) : (
                                         null
                                     )}
-                                </List>
-                            </Accordion.Content>
-                        </Accordion> 
-                    </Menu.Item>
-                )
-            })}
-        </>
-    );
-        
-    const secondarySideNavInfo = {
-        title: 'Query Filters',
-        menuItems: secondSideNavContent
-    };
-
-    //using image placeholders instead of real data for now
-    const customQueryGraphs = [
-        {
-            graphs: [
-                {
-                    title: 'Year-Over-Year Sales Growth',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                },
-                {
-                    title: 'Year-Over-Year Market Sales Growth',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                }
-            ]
-        },
-        {
-            graphs: [
-                {
-                    title: 'Market Sales by Product Type',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                },
-                {
-                    title: 'Estimated Market Sales by Product Type',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                }
-            ]
-        },
-        {
-            graphs: [
-                {
-                    title: 'Market Sales by Customer Segment',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                },
-                {
-                    title: 'Estimated Market Sales by Customer Segment',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                }
-            ]
-        },
-        {
-            graphs: [
-                {
-                    title: 'Market Sales by Geographic Region',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                },
-                {
-                    title: 'Estimated Market Sales by Geographic Region',
-                    data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                }
-            ]
-        }
-    ];
-
-    return (
-        <>
-            <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
-            {activeItemMain === 'Custom Query' ? (
-                <SecondarySideNav menuInfo={secondarySideNavInfo} />
-            ) : (
-                null
-            )}
-            <Grid className='manage-data-content-container'>
-                {activeItemMain === 'Data Exports' ? (
-                    <>
-                        <Grid.Row centered>
-                            <Grid.Column width={12}>
-                                <Grid className='data-exports-top-row' stackable doubling>
-                                    <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
-                                    <Grid.Row>
-                                        <Grid.Column width={8}>
-                                            <Message info>
-                                                <Message.Header>Update in progress</Message.Header>
-                                                <p>User A began updating the reporting tables on 5/1/2020.</p>
-                                            </Message>
-                                        </Grid.Column>
-                                        <Grid.Column width={8}>
-                                            <Button className='main-button-color' fluid>Update</Button>
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row centered>
-                            <Grid.Column width={12}>
-                                <Grid className='data-exports-middle-row' stackable doubling>
-                                    <Header as='h2' className='data-exports-header'>Update Data Exports</Header>
-                                    <Grid.Row>
-                                        <Grid.Column width={8}>
-                                            <Dropdown placeholder='Please select...' fluid selection options={dropdownOrgs} />
-                                        </Grid.Column>
-                                        <Grid.Column width={8}>
-                                            <Button className='main-button-color' fluid>Update</Button>
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row centered>
-                            <Grid.Column width={12}>
-                                <Grid className='data-exports-bottom-row' stackable doubling>
-                                    <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
-                                    <Grid.Row>
-                                        <Grid.Column width={8}>
-                                            <span>Monthly Data Exports</span>
-                                            <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
-                                        </Grid.Column>
-                                        <Grid.Column width={8}>
-                                            <span>Quarterly Data Exports</span>
-                                            <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </>
-                ) : (
-                    null
-                )}
-                {activeItemMain === 'Custom Query' ? (
-                    <>
-                        <Grid columns={2}>
-                            <Grid.Column textAlign='right' width={16}>
-                                {isQueryEdited ? (
-                                    <Button className='inner-button' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
-                                ) : (
-                                    null
-                                )}
-                                <Button className='main-button-color' icon='save' labelPosition='left' content='Save Search' />
-                                <Divider />
-                            </Grid.Column>
-                            <Grid.Column width={16}>
-                                <Dimmer.Dimmable blurring dimmed={isQueryEdited}>
-                                    <Dimmer className='custom-query-dimmer' inverted verticalAlign='top' active={isQueryEdited}>
-                                        <Grid centered>
-                                            <Grid.Column width={8}>
-                                                <Header as='h3'>You have changed the filter inputs so that they no longer match the graphs. Click <span className='dimmer-clear-graphs-text main-button-color' onClick={this.handleClearFilters}>here</span> to undo your changes.</Header>
-                                                <Button className='main-button-color' fluid onClick={this.handleUpdateGraphs}>
-                                                    <Icon name='chart bar' />
-                                                    Update Graphs
-                                                </Button>
-                                            </Grid.Column>
+                                    <Button className='main-button-color' icon='save' labelPosition='left' content='Save Search' />
+                                    <Divider />
+                                </Grid.Column>
+                                <Grid.Column width={16}>
+                                    <Dimmer.Dimmable blurring dimmed={isQueryEdited}>
+                                        <Dimmer className='custom-query-dimmer' inverted verticalAlign='top' active={isQueryEdited}>
+                                            <Grid centered>
+                                                <Grid.Column width={8}>
+                                                    <Header as='h3'>You have changed the filter inputs so that they no longer match the graphs. Click <span className='dimmer-clear-graphs-text main-button-color' onClick={this.handleClearFilters}>here</span> to undo your changes.</Header>
+                                                    <Button className='main-button-color' fluid onClick={this.handleUpdateGraphs}>
+                                                        <Icon name='chart bar' />
+                                                        Update Graphs
+                                                    </Button>
+                                                </Grid.Column>
+                                            </Grid>
+                                        </Dimmer>
+                                        <Grid stackable doubling padded relaxed>
+                                            {customQueryGraphs.map((row, i) => {
+                                                return (
+                                                    <Grid.Row key={i}>
+                                                        {row.graphs.map((graph, j) => {
+                                                            return (
+                                                                <Grid.Column key={j} width={8} textAlign='center'>
+                                                                    <Header as='h3'>{graph.title}</Header>
+                                                                    {graph.data}
+                                                                </Grid.Column>
+                                                            )
+                                                        })}
+                                                    </Grid.Row>
+                                                )
+                                            })}
                                         </Grid>
-                                    </Dimmer>
-                                    <Grid stackable doubling padded relaxed>
-                                        {customQueryGraphs.map((row, i) => {
-                                            return (
-                                                <Grid.Row key={i}>
-                                                    {row.graphs.map((graph, j) => {
-                                                        return (
-                                                            <Grid.Column key={j} width={8} textAlign='center'>
-                                                                <Header as='h3'>{graph.title}</Header>
-                                                                {graph.data}
-                                                            </Grid.Column>
-                                                        )
-                                                    })}
-                                                </Grid.Row>
-                                            )
-                                        })}
-                                    </Grid>
-                                </Dimmer.Dimmable>
-                            </Grid.Column>
-                        </Grid>
-                    </>
-                ) : (
-                    null
-                )}
-            </Grid>
-        </>
-    );
-  }
+                                    </Dimmer.Dimmable>
+                                </Grid.Column>
+                            </Grid>
+                        </>
+                    ) : (
+                        null
+                    )}
+                </Grid>
+            </>
+        );
+    }
 }
 
 export default withRouter(Reporting);

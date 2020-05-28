@@ -17,9 +17,9 @@ class Account extends Component {
         this.state = {
             activeItemMain: null,
             userData: null,
-            passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''},
+            passwordData: null,
             orgData: null,
-            adminData: [],
+            adminTableData: [],
             userTableData: []
         }
     }
@@ -32,10 +32,16 @@ class Account extends Component {
             activePage = pathTarget === undefined ? 'My Account' : pathTarget;
         }
 
-        this.setState({ activeItemMain: activePage});
+        //for component SideNav, prop activeItem (activeItemMain)
+        //for component InputForm, prop formData (passwordData)
+        this.setState({ activeItemMain: activePage, passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''}});
         
         //will load from ajax call
         setTimeout(() => {
+            //for component InputForm, formData (userData)
+            //for component InputForm, formData (orgData)
+            //for component ModuleTable, tableData (adminTableData)
+            //for component InteractiveTableLayout, tableData (userTableData)
             this.setState({ 
                 userData: {
                     firstName: 'Michael', 
@@ -50,7 +56,7 @@ class Account extends Component {
                     email: 'abc@gmail.com', 
                     website: 'example.com'
                 },
-                adminData: [
+                adminTableData: [
                     {id: 1, name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
                     {id: 2, name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
                     {id: 3, name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}
@@ -62,18 +68,12 @@ class Account extends Component {
           }, 2000);
     }
 
+    //for component SideNav, prop handleItemClick
     handleItemClickMain = (e, { name }) => {
         this.setState({ activeItemMain: name });
     }
 
-    handleUpdateUserInformation = () => {
-        debugger;
-    }
-
-    handleUpdatePasswordInformation = () => {
-        debugger;
-    }
-
+    //for component ModuleTable, prop handleTableButtonClick 
     handleAdminTableButtonClick = (button, data) => {
         if (button === 'editAdmin') {
             this.editAdminModal.handleOpenModal(data);
@@ -86,20 +86,7 @@ class Account extends Component {
         }
     }
 
-    handleAddUserButtonClick = () => {
-        let formData = {name: '', organization: '', email: '', role: ''};
-        this.addUserModal.handleOpenModal(formData);
-    }
-
-    handleAddAdminButtonClick = () => {
-        let formData = {name: '', email: '', phone: ''};
-        this.addAdminModal.handleOpenModal(formData);
-    }
-
-    handleDownloadUsers = () => {
-        debugger;
-    }
-
+    //for component InteractiveTableLayout, prop tableRowClickFunction 
     handleUserTableButtonClick = (button, data) => {        
         if (button === 'editUser') {
             this.editUserModal.handleOpenModal(data);
@@ -110,6 +97,17 @@ class Account extends Component {
             };
             this.confirmDeleteUserModal.handleOpenModal(modalData);
         }
+    }
+
+    //for component ModuleTable, prop buttonClickFunction
+    handleAddAdminButtonClick = () => {
+        let formData = {name: '', email: '', phone: ''};
+        this.addAdminModal.handleOpenModal(formData);
+    }
+
+    handleAddUserButtonClick = () => {
+        let formData = {name: '', organization: '', email: '', role: ''};
+        this.addUserModal.handleOpenModal(formData);
     }
 
     handleEditUser = (data) => {
@@ -127,10 +125,10 @@ class Account extends Component {
         //would fire ajax call and update state based on response, instead of 'data' param
 
         this.setState((prevState) => {
-            let newData = prevState.adminData,
+            let newData = prevState.adminTableData,
                 user = newData.find(d => d.id === data.id);
             Object.assign(user, data);
-            return {adminData: newData};
+            return {adminTableData: newData};
         });
     }
 
@@ -146,7 +144,7 @@ class Account extends Component {
         //would fire ajax call and update state based on response, instead of 'id' param
         
         this.setState((prevState) => ({
-            adminData: prevState.adminData.filter(user => user.id !== id)
+            adminTableData: prevState.adminTableData.filter(user => user.id !== id)
         }));
     }
 
@@ -164,20 +162,33 @@ class Account extends Component {
 
         let newUser = {id: 4, name: data.name, email: data.email, phone: data.phone};
         this.setState((prevState) => ({
-            adminData: [newUser, ...prevState.adminData]
+            adminTableData: [newUser, ...prevState.adminTableData]
         }));
+    }
+
+    handleUpdateUserInformation = () => {
+        debugger;
+    }
+
+    handleUpdatePasswordInformation = () => {
+        debugger;
+    }
+
+    handleDownloadUsers = () => {
+        debugger;
     }
     
     render() {
-        const {activeItemMain, userData, passwordData, orgData, adminData, userTableData} = this.state;
+        const {activeItemMain, userData, passwordData, orgData, adminTableData, userTableData} = this.state;
 
-        //will be specific to site
+        //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
             {name: 'My Account', iconName: 'user'},
             {name: 'Manage Users', iconName: 'users'},
             {name: 'Manage Organization', iconName: 'search'}
         ];
 
+        //for component InputForm, prop formInfo
         const userInfo = {
             title: 'Password Information',
             submitFunction: this.handleUpdatePasswordInformation,
@@ -192,6 +203,7 @@ class Account extends Component {
             ]
         };
 
+        //for component InputForm, prop formInfo
         const passwordInfo = {
             title: 'Update Password',
             submitFunction: this.handleUpdateUserInformation,
@@ -204,6 +216,7 @@ class Account extends Component {
             ]
         };
 
+        //for component InputForm, prop formInfo
         const orgInfo = {
             title: 'Organization Information',
             submitFunction: this.handleUpdateUserInformation,
@@ -217,6 +230,7 @@ class Account extends Component {
             ]
         };
 
+        //for component ModuleTable, prop tableInfo
         const adminTable = {
             title: 'Admin Users',
             hasClickEvents: true,
@@ -240,6 +254,7 @@ class Account extends Component {
             }
         };
 
+        //for component InteractiveTableLayout, prop pageInfo
         const usersPageInfo = {
             title: 'Manage Users',
             headerButtons: [
@@ -284,6 +299,7 @@ class Account extends Component {
             {key: 'Data Analyst', value: 'Data Analyst', text: 'Data Analyst'}
         ];
 
+        //for component ModalForm, prop modalInfo
         const editUserModalInfo = {
             title: 'Edit User',
             fields: [
@@ -296,6 +312,7 @@ class Account extends Component {
 
         const editUserModal = <ModalForm ref={(editUserModal) => { this.editUserModal = editUserModal; }} modalInfo={editUserModalInfo} handleSubmit={this.handleEditUser} />;
 
+        //for component ModalForm, prop modalInfo 
         const addUserModalInfo = {
             title: 'Add New User',
             fields: [
@@ -308,6 +325,7 @@ class Account extends Component {
 
         const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addUserModalInfo} handleSubmit={this.handleAddUser} />;
 
+        //for component ModalForm, prop modalInfo 
         const addAdminModalInfo = {
             title: 'Add New Admin User',
             fields: [
@@ -319,6 +337,7 @@ class Account extends Component {
 
         const addAdminModal = <ModalForm ref={(addAdminModal) => { this.addAdminModal = addAdminModal; }} modalInfo={addAdminModalInfo} handleSubmit={this.handleAddAdmin} />;
 
+        //for component ModalForm, prop modalInfo 
         const editAdminModalInfo = {
             title: 'Edit Admin User',
             fields: [
@@ -384,7 +403,7 @@ class Account extends Component {
                             </Grid.Row>
                             <Grid.Row centered>
                                 <Grid.Column computer={8} tablet={10} mobile={12}>
-                                    <ModuleTable tableInfo={adminTable} tableData={adminData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
+                                    <ModuleTable tableInfo={adminTable} tableData={adminTableData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
