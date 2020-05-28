@@ -39,7 +39,7 @@ class ModalForm extends Component {
         const {modalInfo} = this.props;
 
         return (
-            <Modal as={Form} className='contact-modal' onSubmit={(e) => this.handleSubmit(e)} open={isOpen} onClose={this.handleCloseModal} centered={false} closeIcon size='tiny'>
+            <Modal as={Form} className='contact-modal' onSubmit={(e) => this.handleSubmit(e)} open={isOpen} onClose={this.handleCloseModal} centered={false} closeIcon size='tiny' closeOnDimmerClick={false} >
                 <Header content={modalInfo.title} />
                 <Modal.Content>
                     {modalInfo.fields.map((field, i) => {

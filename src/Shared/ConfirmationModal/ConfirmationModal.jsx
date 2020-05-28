@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Form, Header, Button } from 'semantic-ui-react';
+import { Modal, Button } from 'semantic-ui-react';
 
 import './confirmation-modal.scss';
 
