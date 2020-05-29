@@ -1,6 +1,6 @@
 $main-theme-color: #29598D;
 $main-background-color: #FBFBFB;
-$main-button-color: #5AABC5;
+$main-button-color: #47A1BE;
 $main-button-content-color: #fff;
 $main-header-color: #757680;
 
@@ -42,17 +42,22 @@ h1, h2, h3, h4, h5, .ui.header {
   color: $main-button-color;
 }
 
-.ui.button.main-button-color {
+.ui.button.main-button-color,
+.ui.styled.accordion .title.main-button-color,
+.ui.dropdown.main-button-color {
   background-color: $main-button-color;
   color: $main-button-content-color;
 }
 
-.ui.button.main-button-color:hover {
+.ui.button.main-button-color:hover,
+.ui.menu .dropdown.item.main-button-color:hover {
   background-color: darken($main-button-color, 10%);
 }
 
-.ui.button.main-button-color:active {
-  background-color: darken($main-button-color, 20%);
+.ui.button.main-button-color:active,
+.ui.menu .dropdown.item.main-button-color:active,
+.ui.menu .dropdown.item.main-button-color:focus {
+  background-color: darken($main-button-color, 15%);
 }
 
 .ui.menu.side-nav {

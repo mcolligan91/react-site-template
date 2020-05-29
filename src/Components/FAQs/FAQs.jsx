@@ -31,7 +31,7 @@ class FAQs extends Component {
                 {sideNavMenuInfo.map((data, i) => {
                     return (
                         <Menu.Item key={i}>
-                            <Button href={`#${data.link}`} className='second-side-nav-menu-item main-background-color' fluid>{data.title}</Button>
+                            <Button href={`#${data.link}`} className='second-side-nav-menu-item main-button-color' fluid>{data.title}</Button>
                         </Menu.Item>
                     )
                 })} 
@@ -43,7 +43,7 @@ class FAQs extends Component {
                 {sideNavMenuInfo.map((data, i) => {
                     return (
                         <Menu.Item key={i}>
-                            <Button href={`#${data.link}`} className='second-side-nav-menu-item main-background-color' fluid>{data.abbrv}</Button>
+                            <Button href={`#${data.link}`} className='second-side-nav-menu-item main-button-color' fluid>{data.abbrv}</Button>
                         </Menu.Item>
                     )
                 })} 

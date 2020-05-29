@@ -78,7 +78,7 @@ class TopNav extends Component {
                 })}
                 <Dropdown.Divider className='logout-divider' />
                 <div className='logout-button-container'>
-                    <Button onClick={this.handleLogOut}>Log Out</Button>
+                    <Button className='main-button-color' onClick={this.handleLogOut}>Log Out</Button>
                 </div>
             </Dropdown.Menu>
         );

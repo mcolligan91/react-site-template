@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer } from 'semantic-ui-react';
+import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
@@ -189,6 +189,11 @@ class Reporting extends Component {
         this.setState({ isQueryEdited: false });
     }
 
+    handleMobileMenuClick = (e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
     render() {
         const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
 
@@ -222,7 +227,7 @@ class Reporting extends Component {
                     return (
                         <Menu.Item key={i}>
                             <Accordion styled>
-                                <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' index={i} active={sideNavActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClick}>
+                                <Accordion.Title key={i} className='second-side-nav-menu-item main-button-color' index={i} active={sideNavActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClick}>
                                     <Icon name='dropdown' />
                                     {data.title}
                                 </Accordion.Title>
@@ -254,10 +259,46 @@ class Reporting extends Component {
             </>
         );
 
+        const secondSideNavMobileContent = (
+            <>
+                {queryFilterMenuData.map((data, i) => {                    
+                    return (
+                        <Menu.Item key={i}>
+                            <Dropdown className='second-side-nav-menu-item main-button-color' floating fluid selection scrolling text={data.title} selectOnBlur={false} closeOnChange={false} closeOnBlur={false} onChange={this.handleMobileMenuClick}>
+                                <Dropdown.Menu className='' style={{ maxWidth: '120px' }} onClick={this.handleMobileMenuClick}>
+                                    <div className='mobile-menu-item-container'>
+                                        <Checkbox label='Select All' checked={queryFilterCriteria[data.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, data)} />
+                                    </div>
+                            
+
+                                    {data.content.map((contentData, i) => {
+                                            return (
+                                                <div className='mobile-menu-item-container'>
+       <Checkbox key={i} label={contentData.value} checked={queryFilterCriteria[data.category].allSelected || queryFilterCriteria[data.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
+                                                </div>
+
+                                            
+                                          
+                                            )
+                                        })}
+                                </Dropdown.Menu>
+                           
+    
+                                   
+                             
+
+                            </Dropdown> 
+                        </Menu.Item>
+                    )
+                })}
+            </>
+        );
+
         //for component SecondarySideNav, prop menuInfo    
         const secondarySideNavInfo = {
             title: 'Query Filters',
-            menuItems: secondSideNavContent
+            menuItems: secondSideNavContent,
+            menuItemsMobile: secondSideNavMobileContent
         };
 
         //using image placeholders instead of real data for now

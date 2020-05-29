@@ -374,7 +374,7 @@ class ManageData extends Component {
                     return (
                         <Menu.Item key={i}>
                             <Accordion styled>
-                                <Accordion.Title key={i} className='second-side-nav-menu-item main-background-color' active={sideNavActiveIndex === i} index={i} onClick={this.handleSideNavMenuClick}>
+                                <Accordion.Title key={i} className='second-side-nav-menu-item main-button-color' active={sideNavActiveIndex === i} index={i} onClick={this.handleSideNavMenuClick}>
                                     <Icon name='dropdown' />
                                     {data.title}
                                 </Accordion.Title>
@@ -404,7 +404,7 @@ class ManageData extends Component {
                 {posData.map((data, i) => {
                     return (
                         <Menu.Item key={i}>
-                            <Dropdown className='second-side-nav-menu-item main-background-color' fluid item floating text={data.title}>
+                            <Dropdown className='second-side-nav-menu-item main-button-color' fluid item floating text={data.title}>
                                 <Dropdown.Menu className='data-summary-dropdown-menu'>
                                     {data.content.map((data, i) => {
                                         let labelColor = data.status === 3 ? 'green' : data.status === 2 ? 'teal' : 'red',
