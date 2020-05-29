@@ -13,7 +13,7 @@ class SideNav extends Component {
 
         return (
             <>
-                <Responsive as={Menu} className='side-nav main-side-nav' borderless icon='labeled' vertical minWidth={796}>
+                <Responsive as={Menu} className='side-nav main-side-nav' borderless icon='labeled' vertical minWidth={907}>
                     {menuInfo.map((data, i) => {
                         return (
                             <Menu.Item key={i} name={data.name} className='main-color' active={activeItem === data.name} onClick={handleItemClick}>
@@ -24,7 +24,7 @@ class SideNav extends Component {
                     })}
                 </Responsive>
 
-                <Responsive className='side-nav-mobile-container' maxWidth={795}>
+                <Responsive className='side-nav-mobile-container' maxWidth={906}>
                     <Grid.Column>
                         <Menu className='side-nav main-side-nav side-nav-mobile' borderless icon='labeled'>
                             <Menu.Menu>

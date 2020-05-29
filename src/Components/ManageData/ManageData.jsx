@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Button, Input, Icon, Menu, Accordion, List, Header, Message, Label, Form } from 'semantic-ui-react';
+import { Grid, Segment, Button, Input, Icon, Menu, Accordion, List, Header, Message, Label, Form, Dropdown } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
@@ -398,11 +398,37 @@ class ManageData extends Component {
                 })}
             </>
         );
+
+        const secondSideNavMobileContent = (
+            <>
+                {posData.map((data, i) => {
+                    return (
+                        <Menu.Item key={i}>
+                            <Dropdown className='second-side-nav-menu-item main-background-color' fluid item text={data.title}>
+                                <Dropdown.Menu>
+                                    {data.content.map((data, i) => {
+                                        let labelColor = data.status === 3 ? 'green' : data.status === 2 ? 'teal' : 'red',
+                                            labelText = data.status === 3 ? 'Uploaded' : data.status === 2 ? 'Submitted' : 'Missing';
+                                        return (
+                                            <Dropdown.Item key={i} className='second-side-nav-list-item' onClick={(e) => this.handleSecondaryItemClick(e, data)}>
+                                                {data.month}
+                                                <Label className='status-label' basic size='tiny' color={labelColor} content={labelText} />
+                                            </Dropdown.Item>
+                                        )
+                                    })}
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Menu.Item>
+                    )
+                })}
+            </>
+        );
         
         //for component SecondarySideNav, prop menuInfo
         const secondarySideNavInfo = {
             title: 'Data Summary',
-            menuItems: secondSideNavContent
+            menuItems: secondSideNavContent,
+            menuItemsMobile: secondSideNavMobileContent
         };
 
         //for component InteractiveTableLayout, prop pageInfo

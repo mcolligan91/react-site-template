@@ -1,4 +1,5 @@
-.ui.menu.secondary-side-nav {
+.ui.menu.secondary-side-nav,
+.ui.menu.secondary-side-nav-mobile {
     background-color: #F1F1F1;
 }
 
@@ -8,7 +9,8 @@
 }
 
 .ui.accordion .title:not(.ui).second-side-nav-menu-item, 
-.ui.button.second-side-nav-menu-item {
+.ui.button.second-side-nav-menu-item, 
+.ui.dropdown.second-side-nav-menu-item {
     color: #fff;
 }
 
@@ -23,3 +25,25 @@
 .ui.vertical.menu.secondary-side-nav>.item:last-child {
     margin-bottom: 30px;
 }
+
+.ui.grid.secondary-side-nav-container {
+    margin-top: 0;
+    padding: 0;
+}
+
+.ui.menu.secondary-side-nav-mobile {
+    border-radius: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ui.attached.menu:not(.tabular).secondary-side-nav-mobile {
+    border-top: none;
+}
+
+.ui.menu .menu.secondary-side-nav-mobile-content {
+    flex-flow: row wrap;
+	justify-content: center;
+}
+
