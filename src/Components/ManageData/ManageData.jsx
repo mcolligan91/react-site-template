@@ -404,15 +404,15 @@ class ManageData extends Component {
                 {posData.map((data, i) => {
                     return (
                         <Menu.Item key={i}>
-                            <Dropdown className='second-side-nav-menu-item main-background-color' fluid item text={data.title}>
-                                <Dropdown.Menu>
+                            <Dropdown className='second-side-nav-menu-item main-background-color' fluid item floating text={data.title}>
+                                <Dropdown.Menu className='data-summary-dropdown-menu'>
                                     {data.content.map((data, i) => {
                                         let labelColor = data.status === 3 ? 'green' : data.status === 2 ? 'teal' : 'red',
                                             labelText = data.status === 3 ? 'Uploaded' : data.status === 2 ? 'Submitted' : 'Missing';
                                         return (
                                             <Dropdown.Item key={i} className='second-side-nav-list-item' onClick={(e) => this.handleSecondaryItemClick(e, data)}>
+                                                <Label className='right floated' basic size='tiny' color={labelColor} content={labelText} />
                                                 {data.month}
-                                                <Label className='status-label' basic size='tiny' color={labelColor} content={labelText} />
                                             </Dropdown.Item>
                                         )
                                     })}

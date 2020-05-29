@@ -18,12 +18,12 @@ class FAQs extends Component {
     render() {
 
         let sideNavMenuInfo = [
-            {title: 'Anti-Trust', link: 'anti-trust'},
-            {title: 'Security and Confidentiality', link: 'security-and-confidentiality'},
-            {title: 'Account Set-Up', link: 'account-set-up'},
-            {title: 'Data Submission', link: 'data-submission'},
-            {title: 'Reporting', link: 'reporting'},
-            {title: 'Data Export', link: 'data-export'}
+            {title: 'Anti-Trust', abbrv: 'Anti-Trust', link: 'anti-trust'},
+            {title: 'Security and Confidentiality', abbrv: 'Security', link: 'security-and-confidentiality'},
+            {title: 'Account Set-Up', abbrv: 'Account', link: 'account-set-up'},
+            {title: 'Data Submission', abbrv: 'Submission', link: 'data-submission'},
+            {title: 'Reporting', abbrv: 'Reporting', link: 'reporting'},
+            {title: 'Data Export', abbrv: 'Exporting', link: 'data-export'}
         ];
 
         const secondSideNavContent = (
@@ -37,12 +37,24 @@ class FAQs extends Component {
                 })} 
             </>
         );
+
+        const secondSideNavContentMobile = (
+            <>
+                {sideNavMenuInfo.map((data, i) => {
+                    return (
+                        <Menu.Item key={i}>
+                            <Button href={`#${data.link}`} className='second-side-nav-menu-item main-background-color' fluid>{data.abbrv}</Button>
+                        </Menu.Item>
+                    )
+                })} 
+            </>
+        );
         
         //for component SecondarySideNav, prop menuInfo
         const secondarySideNavInfo = {
             title: 'Content',
             menuItems: secondSideNavContent,
-            menuItemsMobile: secondSideNavContent
+            menuItemsMobile: secondSideNavContentMobile
         };
 
         let placeholder = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
