@@ -24,8 +24,16 @@
     font-weight: bolder;
 }
 
-.ui.dimmer.custom-query-dimmer>.content {
-    position: fixed;
+@media only screen and (min-width: 907px) {
+    .ui.dimmer.custom-query-dimmer>.content {
+      position: fixed;
+    }
+}
+
+@media only screen and (max-width: 906px) {
+    .ui.dimmer.custom-query-dimmer>.content {
+      position: absolute;
+    }
 }
 
 .ui.top.right.pointing.dropdown>.menu.account-dropdown-menu-content {
@@ -39,4 +47,9 @@
 
 .mobile-menu-item-container {
     padding: 5px;
+}
+
+.ui.selection.active.dropdown .menu.sidenav-mobile-dropdown {
+    max-width: 120px;
+    max-height: 120px;
 }

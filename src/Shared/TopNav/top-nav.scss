@@ -42,3 +42,7 @@ i.icon.account-dropdown-logo {
     display: flex;
     justify-content: center;
 }
+
+.ui.dropdown .menu.dropdown-menu {
+    z-index: 99999;
+}

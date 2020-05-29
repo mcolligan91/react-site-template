@@ -17,6 +17,7 @@ class Reporting extends Component {
             isQueryEdited: false,
             menuItemLimit: null,
             sideNavActiveIndexes: null,
+            sideNavMobileActiveIndexes: [],
             activeItemMain: null,
             queryFilterMenuData: [],
             queryFilterCriteria: {}
@@ -163,6 +164,21 @@ class Reporting extends Component {
         this.setState({ sideNavActiveIndexes: newIndex });
     }
 
+    handleSideNavMenuClickMobile = (e, titleProps) => {
+        const {index} = titleProps;
+        const {sideNavMobileActiveIndexes} = this.state;
+        const newIndex = sideNavMobileActiveIndexes;
+        const currentIndexPosition = sideNavMobileActiveIndexes.indexOf(index);
+
+        if (currentIndexPosition > -1) {
+          newIndex.splice(currentIndexPosition, 1);
+        } else {
+          newIndex.push(index);
+        }
+    
+        this.setState({ sideNavMobileActiveIndexes: newIndex });
+    }
+
     handleExpandMenu = (e, data) => {
         const {queryFilterMenuData} = this.state;
         let targetMenu = queryFilterMenuData.find((obj => obj.category === data.category));
@@ -181,12 +197,12 @@ class Reporting extends Component {
             filters[i].selected = [];
             filters[i].allSelected = false;
         }
-        this.setState({ queryFilterCriteria });
+        this.setState({ queryFilterCriteria, sideNavMobileActiveIndexes: [] });
     }
 
     handleUpdateGraphs = () => {
         //ajax call to update data in back-end 
-        this.setState({ isQueryEdited: false });
+        this.setState({ isQueryEdited: false, sideNavMobileActiveIndexes: [] });
     }
 
     handleMobileMenuClick = (e) => {
@@ -195,7 +211,7 @@ class Reporting extends Component {
     }
 
     render() {
-        const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
+        const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, sideNavMobileActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
@@ -264,21 +280,16 @@ class Reporting extends Component {
                 {queryFilterMenuData.map((data, i) => {                    
                     return (
                         <Menu.Item key={i}>
-                            <Dropdown className='second-side-nav-menu-item main-button-color' floating fluid selection scrolling text={data.title} selectOnBlur={false} closeOnChange={false} closeOnBlur={false} onChange={this.handleMobileMenuClick}>
-                                <Dropdown.Menu className='' style={{ maxWidth: '120px' }} onClick={this.handleMobileMenuClick}>
+                            <Dropdown className='second-side-nav-menu-item main-button-color' floating fluid selection scrolling text={data.title} selectOnBlur={false} closeOnChange={false} closeOnBlur={false} index={i} open={sideNavMobileActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClickMobile}>
+                                <Dropdown.Menu className='sidenav-mobile-dropdown' onClick={this.handleMobileMenuClick}>
                                     <div className='mobile-menu-item-container'>
                                         <Checkbox label='Select All' checked={queryFilterCriteria[data.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, data)} />
                                     </div>
-                            
-
-                                    {data.content.map((contentData, i) => {
+                                        {data.content.map((contentData, i) => {
                                             return (
-                                                <div className='mobile-menu-item-container'>
-       <Checkbox key={i} label={contentData.value} checked={queryFilterCriteria[data.category].allSelected || queryFilterCriteria[data.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
+                                                <div key={i} className='mobile-menu-item-container'>
+                                                    <Checkbox label={contentData.value} checked={queryFilterCriteria[data.category].allSelected || queryFilterCriteria[data.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
                                                 </div>
-
-                                            
-                                          
                                             )
                                         })}
                                 </Dropdown.Menu>
