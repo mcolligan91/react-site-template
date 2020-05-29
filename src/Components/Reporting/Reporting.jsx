@@ -280,7 +280,7 @@ class Reporting extends Component {
                 {queryFilterMenuData.map((data, i) => {                    
                     return (
                         <Menu.Item key={i}>
-                            <Dropdown className='second-side-nav-menu-item main-button-color' floating fluid selection scrolling text={data.title} selectOnBlur={false} closeOnChange={false} closeOnBlur={false} index={i} open={sideNavMobileActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClickMobile}>
+                            <Dropdown className='second-side-nav-menu-item main-button-color selection'  floating fluid scrolling text={data.title} index={i} open={sideNavMobileActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClickMobile}>
                                 <Dropdown.Menu className='sidenav-mobile-dropdown' onClick={this.handleMobileMenuClick}>
                                     <div className='mobile-menu-item-container'>
                                         <Checkbox label='Select All' checked={queryFilterCriteria[data.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, data)} />
