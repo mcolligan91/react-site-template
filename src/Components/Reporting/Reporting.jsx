@@ -95,12 +95,12 @@ class Reporting extends Component {
             sidenavIndexes.push(i);
         }
 
-        this.setState({ queryFilterMenuData: filterData, queryFilterCriteria: filterCriteria, menuItemLimit: 10, activeItemMain: 'Data Exports', sideNavActiveIndexes: sidenavIndexes });
+        this.setState({ queryFilterMenuData: filterData, queryFilterCriteria: filterCriteria, menuItemLimit: 10, activeItemMain: 0, sideNavActiveIndexes: sidenavIndexes });
     }
 
     //for component SideNav, prop handleItemClick
-    handleItemClickMain = (e, { name }) => {
-        this.setState({ activeItemMain: name });
+    handleItemClickMain = (e, { index }) => {
+        this.setState({ activeItemMain: index });
     }
 
     handleSecondaryItemClick = (e, data) => {
@@ -200,8 +200,8 @@ class Reporting extends Component {
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
-            {name: 'Data Exports', iconName: 'file alternate'},
-            {name: 'Custom Query', iconName: 'search'}
+            {index: 0, name: 'Data Exports', iconName: 'file alternate'},
+            {index: 1, name: 'Custom Query', iconName: 'search'}
         ];
 
         //placeholder
@@ -359,13 +359,13 @@ class Reporting extends Component {
             <>
                 {secondarySideNavMobileMenu}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
-                {activeItemMain === 'Custom Query' ? (
+                {activeItemMain === 1 ? (
                     <SecondarySideNav menuInfo={secondarySideNavInfo} />
                 ) : (
                     null
                 )}
                 <Grid className='manage-data-content-container'>
-                    {activeItemMain === 'Data Exports' ? (
+                    {activeItemMain === 0 ? (
                         <>
                             <Grid.Row centered>
                                 <Grid.Column width={12}>
@@ -421,7 +421,7 @@ class Reporting extends Component {
                     ) : (
                         null
                     )}
-                    {activeItemMain === 'Custom Query' ? (
+                    {activeItemMain === 1 ? (
                         <>
                             <Grid columns={2}>
                                 <Grid.Column textAlign='right' width={16}>

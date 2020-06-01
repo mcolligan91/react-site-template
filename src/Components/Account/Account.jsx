@@ -46,9 +46,8 @@ class Account extends Component {
 
     //for component SideNav, prop handleItemClick
     handleItemClickMain = (e, { index }) => {
-        this.setState({ activeItemMain: index });
-
         this.loadSubPageData(index);
+        this.setState({ activeItemMain: index });
     }
 
     loadSubPageData = (index) => {

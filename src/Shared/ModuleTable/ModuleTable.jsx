@@ -47,7 +47,7 @@ class ModuleTable extends Component {
                         ) : (
                             null
                         )}
-                        <Grid.Column width={16} className='module-table-container-column module-table-contatiner'>
+                        <Grid.Column width={16} className={`module-table-container-column module-table-container ${tableInfo.button ? 'table-container-with-button' : ''}`}>
                         <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
                             <Dimmer active={isLoading}>
                                 <Loader>Loading</Loader>

@@ -37,7 +37,7 @@ class InputForm extends Component {
     render() {
         const {isLoading, data} = this.state;
         const {formInfo} = this.props;
-
+        
         return (
             <>
                 <Header as='h3'>{formInfo.title}</Header>
@@ -45,21 +45,25 @@ class InputForm extends Component {
                     <Dimmer active={isLoading}>
                         <Loader>Loading</Loader>
                     </Dimmer>
-                    <Form onSubmit={this.handleSubmit}>
-                        {formInfo.fields.map((field, i) => {
-                            return field.fieldType === 'input' ? (
-                                <Form.Input key={i} label={field.label} placeholder={field.placeholder} name={field.name} type={field.type} value={data[field.name] || ''} onChange={this.handleChange} /> 
-                            ) : field.fieldType === 'dropdown' ? (
-                                <Form.Select key={i} label={field.label} placeholder={field.placeholder} name={field.name} options={field.options} value={data[field.name] || ''} onChange={this.handleChange}/>
-                            ) : (
-                                null
-                            )
-                        })}
-                        <Button className='main-button-color input-form-button' fluid type='submit'>
-                            <Icon name={formInfo.buttonIcon}></Icon>
-                            {formInfo.buttonText}
-                        </Button>
-                    </Form>
+                    {data !== null ? (
+                        <Form onSubmit={this.handleSubmit}>
+                            {formInfo.fields.map((field, i) => {
+                                return field.fieldType === 'input' ? (
+                                    <Form.Input key={i} label={field.label} placeholder={field.placeholder} name={field.name} type={field.type} value={data[field.name] || ''} onChange={this.handleChange} /> 
+                                ) : field.fieldType === 'dropdown' ? (
+                                    <Form.Select key={i} label={field.label} placeholder={field.placeholder} name={field.name} options={field.options} value={data[field.name] || ''} onChange={this.handleChange}/>
+                                ) : (
+                                    null
+                                )
+                            })}
+                            <Button className='main-button-color input-form-button' fluid type='submit'>
+                                <Icon name={formInfo.buttonIcon}></Icon>
+                                {formInfo.buttonText}
+                            </Button>
+                        </Form>
+                    ) : (
+                        null
+                    )}
                 </Dimmer.Dimmable>
             </>
         )
