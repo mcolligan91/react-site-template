@@ -23,8 +23,8 @@ class TopNav extends Component {
         this.props.history.push(path);
     }
 
-    handleAccountMenuClick = (pathTarget) => {
-        this.props.history.push('/account', {pathTarget});
+    handleAccountMenuClick = (e, { index }) => {
+        this.props.history.push('/account', {index});
     }
 
     handleLogOut = () => {
@@ -39,9 +39,9 @@ class TopNav extends Component {
         const userInfo = {username: 'UserABC', lastLogin: '5/20/2020'}
 
         const accountDropdownItems = [
-            {icon: 'user', text: 'My Account', pathTarget: 'My Account'},
-            {icon: 'briefcase', text: 'Manage Users', pathTarget: 'Manage Users'},
-            {icon: 'building', text: 'Manage Organization', pathTarget: 'Manage Organization'}
+            {index: 0, icon: 'user', text: 'My Account'},
+            {index: 1, icon: 'briefcase', text: 'Manage Users'},
+            {index: 2, icon: 'building', text: 'Manage Organization'}
         ];
 
         const menuItems = [
@@ -73,7 +73,7 @@ class TopNav extends Component {
                 <Dropdown.Divider />
                 {accountDropdownItems.map((data, i) => {
                     return (
-                        <Dropdown.Item key={i} icon={{name: data.icon, className: 'main-color'}} text={data.text} onClick={(e) => this.handleAccountMenuClick(data.pathTarget)} />
+                        <Dropdown.Item key={i} icon={{name: data.icon, className: 'main-color'}} text={data.text} index={data.index} onClick={this.handleAccountMenuClick} />
                     )
                 })}
                 <Dropdown.Divider className='logout-divider' />

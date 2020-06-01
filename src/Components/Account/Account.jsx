@@ -26,51 +26,79 @@ class Account extends Component {
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
-        let activePage = 'My Account'
+        let activePageIndex = 0
         if (this.props.history.location.state) {
-            const {pathTarget} = this.props.history.location.state;
-            activePage = pathTarget === undefined ? 'My Account' : pathTarget;
+            const {index} = this.props.history.location.state;
+            activePageIndex = index === undefined ? 0 : index;
         }
 
         //for component SideNav, prop activeItem (activeItemMain)
         //for component InputForm, prop formData (passwordData)
-        this.setState({ activeItemMain: activePage, passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''}});
-        
-        //will load from ajax call
-        setTimeout(() => {
-            //for component InputForm, formData (userData)
-            //for component InputForm, formData (orgData)
-            //for component ModuleTable, tableData (adminTableData)
-            //for component InteractiveTableLayout, tableData (userTableData)
-            this.setState({ 
-                userData: {
-                    firstName: 'Michael', 
-                    lastName: 'Colligan', 
-                    email: 'abc@gmail.com', 
-                    phone: '(123) 456-7890', 
-                    location: 'Washington, DC' 
-                },
-                orgData: {
-                    address: '123 Main Street', 
-                    phone: '(123) 456-7890', 
-                    email: 'abc@gmail.com', 
-                    website: 'example.com'
-                },
-                adminTableData: [
-                    {id: 1, name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
-                    {id: 2, name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
-                    {id: 3, name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}
-                ],
-                userTableData: [
-                    {id: 1, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {id: 2, name: 'User B', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 3, name: 'User C', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 4, name: 'User D', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 5, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 6, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 7, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 8, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 9, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 10, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 11, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 12, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 13, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 14, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 15, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}
-                ]
-            });
-          }, 2000);
+        this.setState({ activeItemMain: activePageIndex, passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''}});
+        this.loadSubPageData(activePageIndex);
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        const {index} = nextProps.location.state;
+        this.setState({ activeItemMain: index });
+        this.loadSubPageData(index);
     }
 
     //for component SideNav, prop handleItemClick
-    handleItemClickMain = (e, { name }) => {
-        this.setState({ activeItemMain: name });
+    handleItemClickMain = (e, { index }) => {
+        this.setState({ activeItemMain: index });
+
+        this.loadSubPageData(index);
+    }
+
+    loadSubPageData = (index) => {
+        //will load from ajax call
+        setTimeout(() => {
+            switch (index) {
+                case 0:
+                    //for component InputForm, formData (userData)
+                    this.setState({ 
+                        userData: {
+                            firstName: 'Michael', 
+                            lastName: 'Colligan', 
+                            email: 'abc@gmail.com', 
+                            phone: '(123) 456-7890', 
+                            location: 'Washington, DC' 
+                        }
+                    })
+                    break;
+    
+                case 1:
+                    //for component InteractiveTableLayout, tableData (userTableData)
+                    this.setState({
+                        userTableData: [
+                            {id: 1, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {id: 2, name: 'User B', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 3, name: 'User C', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 4, name: 'User D', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 5, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 6, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 7, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 8, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 9, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 10, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 11, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 12, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 13, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 14, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 15, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}
+                        ]
+                    });
+                    break;
+    
+                case 2:
+                    //for component InputForm, formData (orgData)
+                    //for component ModuleTable, tableData (adminTableData)
+                    this.setState({
+                        orgData: {
+                            address: '123 Main Street', 
+                            phone: '(123) 456-7890', 
+                            email: 'abc@gmail.com', 
+                            website: 'example.com'
+                        },
+                        adminTableData: [
+                            {id: 1, name: 'User A', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
+                            {id: 2, name: 'User B', email: 'example@gmail.com', phone: '(123) 456-7890'}, 
+                            {id: 3, name: 'User C', email: 'example@gmail.com', phone: '(123) 456-7890'}
+                        ]
+                    });
+                    break;
+    
+                default:
+                    //error
+            }
+        }, 1000);
     }
 
     //for component ModuleTable, prop handleTableButtonClick 
@@ -183,9 +211,9 @@ class Account extends Component {
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
-            {name: 'My Account', iconName: 'user'},
-            {name: 'Manage Users', iconName: 'users'},
-            {name: 'Manage Organization', iconName: 'search'}
+            {index: 0, name: 'My Account', iconName: 'user'},
+            {index: 1, name: 'Manage Users', iconName: 'users'},
+            {index: 2, name: 'Manage Organization', iconName: 'search'}
         ];
 
         //for component InputForm, prop formInfo
@@ -363,7 +391,7 @@ class Account extends Component {
             {addAdminModal}
             <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
             <Grid className='manage-data-content-container'>
-                {activeItemMain === 'My Account' ? (
+                {activeItemMain === 0 ? (
                     <>
                         <Grid.Row className='my-account-header-container' centered>
                             <Grid.Column computer={8} tablet={10} mobile={12}>
@@ -384,12 +412,12 @@ class Account extends Component {
                 ) : (
                     null
                 )}
-                {activeItemMain === 'Manage Users' ? (
+                {activeItemMain === 1 ? (
                     <InteractiveTableLayout pageInfo={usersPageInfo} tableContent={userTableData} tableRowClickFunction={this.handleUserTableButtonClick}/>
                 ) : (
                     null
                 )}
-                {activeItemMain === 'Manage Organization' ? (
+                {activeItemMain === 2 ? (
                     <Grid.Column >
                         <Grid className='manage-organization-container'>
                             <Grid.Column width={16}>

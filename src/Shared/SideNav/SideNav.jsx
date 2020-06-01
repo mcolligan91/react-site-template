@@ -11,31 +11,30 @@ class SideNav extends Component {
     render() {
         const {menuInfo, activeItem, handleItemClick} = this.props;
 
+        const menuItems = (
+            <>
+                {menuInfo.map((data, i) => {
+                    return (
+                        <Menu.Item key={i} name={data.name} className='main-color' index={data.index} active={activeItem === data.index} onClick={handleItemClick}>
+                            <Icon name={data.iconName}></Icon>
+                            {data.name}
+                        </Menu.Item>
+                    )
+                })}
+            </>
+        )
+
         return (
             <>
                 <Responsive as={Menu} className='side-nav main-side-nav' borderless icon='labeled' vertical minWidth={907}>
-                    {menuInfo.map((data, i) => {
-                        return (
-                            <Menu.Item key={i} name={data.name} className='main-color' active={activeItem === data.name} onClick={handleItemClick}>
-                                <Icon name={data.iconName}></Icon>
-                                {data.name}
-                            </Menu.Item>
-                        )
-                    })}
+                    {menuItems}
                 </Responsive>
 
                 <Responsive className='side-nav-mobile-container' maxWidth={906}>
                     <Grid.Column>
                         <Menu className='side-nav main-side-nav side-nav-mobile' borderless icon='labeled'>
                             <Menu.Menu>
-                                {menuInfo.map((data, i) => {
-                                    return (
-                                        <Menu.Item key={i} name={data.name} className='main-color' active={activeItem === data.name} onClick={handleItemClick}>
-                                            <Icon name={data.iconName}></Icon>
-                                            {data.name}
-                                        </Menu.Item>
-                                    )
-                                })}
+                                {menuItems}
                             </Menu.Menu>
                         </Menu>
                     </Grid.Column>

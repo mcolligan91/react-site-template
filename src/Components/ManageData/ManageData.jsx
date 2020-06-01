@@ -8,6 +8,7 @@ import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/Intera
 import InputForm from './../../Shared/InputForm/InputForm';
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 import ModalForm from './../../Shared/ModalForm/ModalForm';
+import LoadSpinnerFullPage from './../../Shared/LoadSpinnerFullPage/LoadSpinnerFullPage';
 
 import './manage-data.scss';
 
@@ -40,8 +41,9 @@ class ManageData extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isPageLoading: false,
             sideNavActiveIndex: null,
-            activeItemMain: 'POS',
+            activeItemMain: 0,
             posData: [],
             branchData: [],
             productData: [],
@@ -167,14 +169,14 @@ class ManageData extends Component {
         this.setState({ sideNavActiveIndex: newIndex });
     }
 
-    handleItemClickMain = (e, { name }) => {
+    handleItemClickMain = (e, { index }) => {
         //for component SideNav, prop activeItem
-        this.setState({ activeItemMain: name });
+        this.setState({ activeItemMain: index });
         
         //will pull with ajax call - switch statement will specify URL
         setTimeout(() => { 
-            switch (name) {
-                case 'Branch':
+            switch (index) {
+                case 1:
                     //for component InteractiveTableLayout, prop tableContent
                     this.setState({ branchData: [
                             {id: 1, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
@@ -202,7 +204,7 @@ class ManageData extends Component {
                     });
                     break;
 
-                case 'Product': 
+                case 2: 
                     //for component InteractiveTableLayout, prop tableContent (productData)
                     //for component ModuleTable, prop tableData (productUploadData)
                     this.setState({ productData: [
@@ -278,11 +280,19 @@ class ManageData extends Component {
     //for component ModalForm, prop handleSubmit
     handleAddBranch = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
-
-        let newUser = {id: 21, branchId: data.branchId, city: data.city, state: data.state, zipCode: data.zipCode, status: data.status,  dateAdded: '5/25/2020', details: data.details};
         this.setState((prevState) => ({
-            branchData: [newUser, ...prevState.branchData]
+            isPageLoading: true
         }));
+
+        setTimeout(() => {
+            let newUser = {id: 21, branchId: data.branchId, city: data.city, state: data.state, zipCode: data.zipCode, status: data.status,  dateAdded: '5/25/2020', details: data.details};
+            this.setState((prevState) => ({
+                branchData: [newUser, ...prevState.branchData]
+            }));
+            this.setState({ isPageLoading: false });
+        }, 1000);
+
+        
     }
 
     handleUploadSubmission = (e) => {
@@ -344,13 +354,13 @@ class ManageData extends Component {
     }
 
     render() {
-        const {activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData, submissionComment, submissionUploadFile, cleanUploadFile} = this.state;
+        const {isPageLoading, activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData, submissionComment, submissionUploadFile, cleanUploadFile} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
-            {name: 'POS', iconName: 'shopping cart'},
-            {name: 'Branch', iconName: 'map marker alternate'},
-            {name: 'Product', iconName: 'grid layout'}
+            {index: 0, name: 'POS', iconName: 'shopping cart'},
+            {index: 1, name: 'Branch', iconName: 'map marker alternate'},
+            {index: 2, name: 'Product', iconName: 'grid layout'}
         ];
 
         //for component ModalForm, prop modalInfo
@@ -704,17 +714,24 @@ class ManageData extends Component {
             ]
         };
 
+        const pageLoadSpinner = isPageLoading ? (
+            <LoadSpinnerFullPage />
+        ) : (
+            null
+        ); 
+
         return (
             <>
+                {pageLoadSpinner}
                 {addBranchModal}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
-                {activeItemMain === 'POS' ? (
+                {activeItemMain === 0 ? (
                     <SecondarySideNav menuInfo={secondarySideNavInfo} />
                 ) : (
                     null
                 )}
                 <Grid className='manage-data-content-container'>
-                    {activeItemMain === 'POS' ? (
+                    {activeItemMain === 0 ? (
                         <Grid.Column>
                             {selectedSummary === null ? (
                                 <Segment>
@@ -729,12 +746,12 @@ class ManageData extends Component {
                     ) : (
                         null
                     )}
-                    {activeItemMain === 'Branch' ? (
+                    {activeItemMain === 1 ? (
                         <InteractiveTableLayout pageInfo={branchPageInfo} tableContent={branchData}/>
                     ) : (
                         null
                     )}
-                    {activeItemMain === 'Product' ? (
+                    {activeItemMain === 2 ? (
                         <>
                             <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
                             <Grid.Column width={16} className='product-page-bottom-content'>
