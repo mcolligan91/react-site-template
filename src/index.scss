@@ -77,3 +77,7 @@ h1, h2, h3, h4, h5, .ui.header {
   min-height: 250px;
 }
 
+.ui.menu:not(.vertical) .item>.button.mobile-side-nav-button {
+  margin: .25rem;
+}
+

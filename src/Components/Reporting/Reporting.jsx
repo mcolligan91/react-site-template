@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Segment } from 'semantic-ui-react';
+import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Modal } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
@@ -17,10 +17,11 @@ class Reporting extends Component {
             isQueryEdited: false,
             menuItemLimit: null,
             sideNavActiveIndexes: null,
-            sideNavMobileActiveIndexes: [],
             activeItemMain: null,
             queryFilterMenuData: [],
-            queryFilterCriteria: {}
+            queryFilterCriteria: {},
+            showMenuModal: false,
+            menuModalData: {}
         }
     }
 
@@ -164,19 +165,8 @@ class Reporting extends Component {
         this.setState({ sideNavActiveIndexes: newIndex });
     }
 
-    handleSideNavMenuClickMobile = (e, titleProps) => {
-        const {index} = titleProps;
-        const {sideNavMobileActiveIndexes} = this.state;
-        const newIndex = sideNavMobileActiveIndexes;
-        const currentIndexPosition = sideNavMobileActiveIndexes.indexOf(index);
-
-        if (currentIndexPosition > -1) {
-          newIndex.splice(currentIndexPosition, 1);
-        } else {
-          newIndex.push(index);
-        }
-    
-        this.setState({ sideNavMobileActiveIndexes: newIndex });
+    handleSideNavMenuClickMobile = (e, data) => {
+        this.setState({ menuModalData: data, showMenuModal: true });
     }
 
     handleExpandMenu = (e, data) => {
@@ -197,21 +187,16 @@ class Reporting extends Component {
             filters[i].selected = [];
             filters[i].allSelected = false;
         }
-        this.setState({ queryFilterCriteria, sideNavMobileActiveIndexes: [] });
+        this.setState({ queryFilterCriteria });
     }
 
     handleUpdateGraphs = () => {
         //ajax call to update data in back-end 
-        this.setState({ isQueryEdited: false, sideNavMobileActiveIndexes: [] });
-    }
-
-    handleMobileMenuClick = (e) => {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
+        this.setState({ isQueryEdited: false });
     }
 
     render() {
-        const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, sideNavMobileActiveIndexes, queryFilterMenuData, queryFilterCriteria} = this.state;
+        const {isQueryEdited, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria, showMenuModal, menuModalData} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
@@ -280,29 +265,35 @@ class Reporting extends Component {
                 {queryFilterMenuData.map((data, i) => {                    
                     return (
                         <Menu.Item key={i}>
-                            <Dropdown className='second-side-nav-menu-item main-button-color selection'  floating fluid scrolling text={data.title} index={i} open={sideNavMobileActiveIndexes.includes(i)} onClick={this.handleSideNavMenuClickMobile}>
-                                <Dropdown.Menu className='sidenav-mobile-dropdown' onClick={this.handleMobileMenuClick}>
-                                    <div className='mobile-menu-item-container'>
-                                        <Checkbox label='Select All' checked={queryFilterCriteria[data.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, data)} />
-                                    </div>
-                                        {data.content.map((contentData, i) => {
-                                            return (
-                                                <div key={i} className='mobile-menu-item-container'>
-                                                    <Checkbox label={contentData.value} checked={queryFilterCriteria[data.category].allSelected || queryFilterCriteria[data.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
-                                                </div>
-                                            )
-                                        })}
-                                </Dropdown.Menu>
-                           
-    
-                                   
-                             
-
-                            </Dropdown> 
+                            <Button className='main-button-color mobile-side-nav-button' content={data.title} onClick={(e) => this.handleSideNavMenuClickMobile(e, data)} />
                         </Menu.Item>
                     )
                 })}
             </>
+        );
+
+        const secondarySideNavMobileMenu = showMenuModal ? ( 
+            <Modal className='mobile-menu-modal' dimmer='blurring' closeIcon open={showMenuModal} closeOnDimmerClick={false} onClose={() => this.setState({ showMenuModal: false, menuModalData: {} })}>
+                <Modal.Header>
+                    {menuModalData.title}
+                </Modal.Header>
+                <Modal.Content scrolling>
+                    <List relaxed>
+                        <List.Item>
+                            <Checkbox label='Select All' checked={queryFilterCriteria[menuModalData.category].allSelected} onClick={(e, info) => this.handleSecondaryItemSelectAll(e, info, menuModalData)} />
+                        </List.Item>
+                        {menuModalData.content.map((contentData, i) => {
+                            return (
+                                <List.Item key={i}>
+                                    <Checkbox label={contentData.value} checked={queryFilterCriteria[menuModalData.category].allSelected || queryFilterCriteria[menuModalData.category].selected.includes(contentData.value)} onClick={(e) => this.handleSecondaryItemClick(e, contentData)} />
+                                </List.Item>
+                            )
+                        })}
+                   </List>
+                </Modal.Content>
+            </Modal>
+        ) : (
+            null
         );
 
         //for component SecondarySideNav, prop menuInfo    
@@ -366,6 +357,7 @@ class Reporting extends Component {
 
         return (
             <>
+                {secondarySideNavMobileMenu}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 {activeItemMain === 'Custom Query' ? (
                     <SecondarySideNav menuInfo={secondarySideNavInfo} />
@@ -434,11 +426,11 @@ class Reporting extends Component {
                             <Grid columns={2}>
                                 <Grid.Column textAlign='right' width={16}>
                                     {isQueryEdited ? (
-                                        <Button className='inner-button' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
+                                        <Button className='inner-button' size='small' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
                                     ) : (
                                         null
                                     )}
-                                    <Button className='main-button-color' icon='save' labelPosition='left' content='Save Search' />
+                                    <Button className='main-button-color' size='small' icon='save' labelPosition='left' content='Save Search' />
                                     <Divider />
                                 </Grid.Column>
                                 <Grid.Column width={16}>

@@ -64,7 +64,7 @@ class TopNav extends Component {
         );
 
         const accountDropDownMenu = (
-            <Dropdown.Menu className='dropdown-menu' style={{ zIndex: '999999' }}>
+            <Dropdown.Menu className='dropdown-menu'>
                 <Dropdown.Header>
                     <span>{userInfo.username}</span>
                     <br />

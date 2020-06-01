@@ -64,4 +64,6 @@ h3.product-upload-header {
 
 .ui.menu .dropdown.item .menu.data-summary-dropdown-menu {
     min-width: 170px;
+    max-height: 170px;
+    overflow: auto;
 } 
