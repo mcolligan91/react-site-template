@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Message, Grid, Header } from 'semantic-ui-react';
+import { Message, Grid, Header, Dimmer, Loader } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
@@ -11,7 +11,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             showAnnouncements: true,
-            announcements: [],
+            announcements: null,
             tasks: [],
             events: []
         }
@@ -97,15 +97,20 @@ class Dashboard extends Component {
                             <Grid padded>
                                 <Grid.Column>
                                     <Header as='h3'>Announcements</Header>
-                                    <Message info onDismiss={this.handleHideAnnouncements}>
-                                        {announcements.length > 0 ? (
-                                            <Message.List items={announcements} />
-                                        ) : (
-                                            <p>
-                                                There are currently no announcements to display.
-                                            </p>
-                                        )}
-                                    </Message>
+                                    <Dimmer.Dimmable className='announcements-dimmer' blurring dimmed={announcements === null}>
+                                        <Dimmer active={announcements === null}>
+                                            <Loader>Loading</Loader>
+                                        </Dimmer>
+                                        <Message info onDismiss={this.handleHideAnnouncements}>
+                                            {announcements && announcements.length > 0 ? (
+                                                <Message.List items={announcements} />
+                                            ) : (
+                                                <p>
+                                                    There are currently no announcements to display.
+                                                </p>
+                                            )}
+                                        </Message>
+                                    </Dimmer.Dimmable>
                                 </Grid.Column>
                             </Grid>
                         </Grid.Column>
