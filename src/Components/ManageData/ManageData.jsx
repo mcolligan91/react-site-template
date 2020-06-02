@@ -176,8 +176,8 @@ class ManageData extends Component {
                     break;
 
                 case 2: 
-                    //for component Branch, prop productData (productData)
-                    //for component Branch, prop productUploadData (productUploadData)
+                    //for component Product, prop productData (productData)
+                    //for component Product, prop productUploadData (productUploadData)
                     this.setState({ productData: [
                             {distributor: 'Distributor A', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
                             {distributor: 'Distributor B', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
@@ -290,6 +290,11 @@ class ManageData extends Component {
         this.setState({ selectedSummary });
     }
 
+    //for component DataSummary, prop handleSubmissionTableButtonClick
+    handleSubmissionTableButtonClick = (button) => {
+        debugger;
+    }
+
     //for component Branch, prop handleBulkUpload
     handleBulkBranchUpload = () => {
         debugger;
@@ -307,11 +312,6 @@ class ManageData extends Component {
 
     //for component Branch, prop handleFilterProductData
     handleFilterProductData = (e, data) => {
-        debugger;
-    }
-
-    //for component DataSummary, prop handleSubmissionTableButtonClick
-    handleSubmissionTableButtonClick = (button) => {
         debugger;
     }
 

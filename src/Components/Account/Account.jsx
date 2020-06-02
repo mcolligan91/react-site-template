@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Grid, Header, Divider } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
-import InputForm from './../../Shared/InputForm/InputForm';
-import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
-import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
-import ModalForm from './../../Shared/ModalForm/ModalForm';
-import ConfirmationModal from './../../Shared/ConfirmationModal/ConfirmationModal';
 import LoadSpinnerFullPage from './../../Shared/LoadSpinnerFullPage/LoadSpinnerFullPage';
+import MyAccount from './MyAccount/MyAccount';
+import ManageUsers from './ManageUsers/ManageUsers';
+import ManageOrganization from './ManageOrganization/ManageOrganization';
 
 import './account.scss';
 
@@ -36,7 +34,7 @@ class Account extends Component {
         }
 
         //for component SideNav, prop activeItem (activeItemMain)
-        //for component InputForm, prop formData (passwordData)
+        //for component MyAccount, prop passwordData (passwordData)
         this.setState({ activeItemMain: activePageIndex, passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''}});
         this.loadSubPageData(activePageIndex);
     }
@@ -47,18 +45,12 @@ class Account extends Component {
         this.loadSubPageData(index);
     }
 
-    //for component SideNav, prop handleItemClick
-    handleItemClickMain = (e, { index }) => {
-        this.loadSubPageData(index);
-        this.setState({ activeItemMain: index });
-    }
-
     loadSubPageData = (index) => {
         //will load from ajax call
         setTimeout(() => {
             switch (index) {
                 case 0:
-                    //for component InputForm, formData (userData)
+                    //for component MyAccount, userData
                     this.setState({ 
                         userData: {
                             firstName: 'Michael', 
@@ -80,8 +72,8 @@ class Account extends Component {
                     break;
     
                 case 2:
-                    //for component InputForm, formData (orgData)
-                    //for component ModuleTable, tableData (adminTableData)
+                    //for component ManageOrganization, orgData (orgData)
+                    //for component ManageOrganization, adminTableData (adminTableData)
                     this.setState({
                         orgData: {
                             address: '123 Main Street', 
@@ -103,43 +95,33 @@ class Account extends Component {
         }, 1000);
     }
 
-    //for component ModuleTable, prop handleTableButtonClick 
-    handleAdminTableButtonClick = (button, data) => {
-        if (button === 'editAdmin') {
-            this.editAdminModal.handleOpenModal(data);
-        } else if (button === 'deleteAdmin') {
-            let modalData = {
-                id: data.id,
-                message: 'Are you sure you want to delete this Admin user?'
-            };
-            this.confirmDeleteAdminModal.handleOpenModal(modalData);
-        }
+    //for component SideNav, prop handleItemClick
+    handleItemClickMain = (e, { index }) => {
+        this.loadSubPageData(index);
+        this.setState({ activeItemMain: index });
     }
 
-    //for component InteractiveTableLayout, prop tableRowClickFunction 
-    handleUserTableButtonClick = (button, data) => {        
-        if (button === 'editUser') {
-            this.editUserModal.handleOpenModal(data);
-        } else if (button === 'deleteUser') {
-            let modalData = {
-                id: data.id,
-                message: 'Are you sure you want to delete this user?'
-            };
-            this.confirmDeleteUserModal.handleOpenModal(modalData);
-        }
+    //for component MyAccount, prop handleUpdatePasswordInformation
+    handleUpdatePasswordInformation = () => {
+        //ajax call
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState({ isPageLoading: false });
+        }, 500);
     }
 
-    //for component ModuleTable, prop buttonClickFunction
-    handleAddAdminButtonClick = () => {
-        let formData = {name: '', email: '', phone: ''};
-        this.addAdminModal.handleOpenModal(formData);
+    //for component MyAccount, prop handleUpdateUserInformation
+    handleUpdateUserInformation = () => {
+        //ajax call
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState({ isPageLoading: false });
+        }, 500);
     }
 
-    handleAddUserButtonClick = () => {
-        let formData = {name: '', organization: '', email: '', role: ''};
-        this.addUserModal.handleOpenModal(formData);
-    }
-
+    //for component ManageUsers, prop handleEditUser
     handleEditUser = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
         this.setState({ isPageLoading: true });
@@ -154,6 +136,39 @@ class Account extends Component {
         }, 500);
     }
 
+    //for component ManageUsers, prop handleDeleteUser
+    handleDeleteUser = (id) => {
+        //would fire ajax call and update state based on response, instead of 'id' param
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState((prevState) => ({
+                userTableData: prevState.userTableData.filter(user => user.id !== id),
+                isPageLoading: false
+            }));
+        }, 500);
+    }
+
+    //for component ManageUsers, prop handleAddUser
+    handleAddUser = (data) => {
+        //would fire ajax call and update state based on response, instead of 'data' param
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
+            this.setState((prevState) => ({
+                userTableData: [newUser, ...prevState.userTableData],
+                isPageLoading: false
+            }));
+        }, 500);
+    }
+
+    //for component ManageUsers, prop handleDownloadUsers
+    handleDownloadUsers = () => {
+        debugger;
+    }
+
+    //for component ManageOrganization, prop handleEditAdmin
     handleEditAdmin = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
         this.setState({ isPageLoading: true });
@@ -169,43 +184,7 @@ class Account extends Component {
         }, 500);
     }
 
-    handleDeleteUser = (id) => {
-        //would fire ajax call and update state based on response, instead of 'id' param
-        this.setState({ isPageLoading: true });
-
-        setTimeout(() => {
-            this.setState((prevState) => ({
-                userTableData: prevState.userTableData.filter(user => user.id !== id),
-                isPageLoading: false
-            }));
-        }, 500);
-    }
-
-    handleDeleteAdmin = (id) => {
-        //would fire ajax call and update state based on response, instead of 'id' param
-        this.setState({ isPageLoading: true });
-
-        setTimeout(() => {
-            this.setState((prevState) => ({
-                adminTableData: prevState.adminTableData.filter(user => user.id !== id),
-                isPageLoading: false
-            }));
-        }, 500);
-    }
-
-    handleAddUser = (data) => {
-        //would fire ajax call and update state based on response, instead of 'data' param
-        this.setState({ isPageLoading: true });
-
-        setTimeout(() => {
-            let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
-            this.setState((prevState) => ({
-                userTableData: [newUser, ...prevState.userTableData],
-                isPageLoading: false
-            }));
-        }, 500);
-    }
-
+    //for prop ManageOrganization, prop handleAddAdmin
     handleAddAdmin = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
         this.setState({ isPageLoading: true });
@@ -219,26 +198,27 @@ class Account extends Component {
         }, 500);
     }
 
-    handleUpdateUserInformation = () => {
+    //for component ManageOrganization, prop handleDeleteAdmin
+    handleDeleteAdmin = (id) => {
+        //would fire ajax call and update state based on response, instead of 'id' param
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState((prevState) => ({
+                adminTableData: prevState.adminTableData.filter(user => user.id !== id),
+                isPageLoading: false
+            }));
+        }, 500);
+    }
+
+    //for component ManageOrganization, prop handleUpdateOrganization
+    handleUpdateOrganization = () => {
         //ajax call
         this.setState({ isPageLoading: true });
 
         setTimeout(() => {
             this.setState({ isPageLoading: false });
         }, 500);
-    }
-
-    handleUpdatePasswordInformation = () => {
-        //ajax call
-        this.setState({ isPageLoading: true });
-
-        setTimeout(() => {
-            this.setState({ isPageLoading: false });
-        }, 500);
-    }
-
-    handleDownloadUsers = () => {
-        debugger;
     }
     
     render() {
@@ -251,171 +231,6 @@ class Account extends Component {
             {index: 2, name: 'Manage Organization', iconName: 'search'}
         ];
 
-        //for component InputForm, prop formInfo
-        const userInfo = {
-            title: 'Password Information',
-            submitFunction: this.handleUpdatePasswordInformation,
-            buttonText: 'Update User Information',
-            buttonIcon: 'user',
-            fields: [
-                {fieldType: 'input', label: 'First Name', placeholder: 'First Name', name: 'firstName'},
-                {fieldType: 'input', label: 'Last Name', placeholder: 'Last Name', name: 'lastName'},
-                {fieldType: 'input', label: 'Email Address', placeholder: 'Email Address', name: 'email'},
-                {fieldType: 'input', label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
-                {fieldType: 'input', label: 'Location', placeholder: 'Location', name: 'location'}
-            ]
-        };
-
-        //for component InputForm, prop formInfo
-        const passwordInfo = {
-            title: 'Update Password',
-            submitFunction: this.handleUpdateUserInformation,
-            buttonText: 'Update Password',
-            buttonIcon: 'ellipsis horizontal',
-            fields: [
-                {fieldType: 'input', label: 'Current Password', placeholder: 'Current Password', name: 'currentPassword', type: 'password'},
-                {fieldType: 'input', label: 'Enter New Password', placeholder: 'Enter New Password', name: 'newPassword', type: 'password'},
-                {fieldType: 'input', label: 'Confirm New Password', placeholder: 'Confirm New Password', name: 'confirmedPassword', type: 'password'}
-            ]
-        };
-
-        //for component InputForm, prop formInfo
-        const orgInfo = {
-            title: 'Organization Information',
-            submitFunction: this.handleUpdateUserInformation,
-            buttonText: 'Update Organization',
-            buttonIcon: 'compass',
-            fields: [
-                {fieldType: 'input', label: 'Address', placeholder: 'Address', name: 'address'},
-                {fieldType: 'input', label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
-                {fieldType: 'input', label: 'Email Address', placeholder: 'Email Address', name: 'email'},
-                {fieldType: 'input', label: 'Website', placeholder: 'Website', name: 'website'}
-            ]
-        };
-
-        //for component ModuleTable, prop tableInfo
-        const adminTable = {
-            title: 'Admin Users',
-            hasClickEvents: true,
-            headers: [
-                    {text: 'Name'},
-                    {text: 'Email'},
-                    {text: 'Phone'},
-                    {text: 'Edit', props: {textAlign: 'center'}},
-                    {text: 'Remove', props: {textAlign: 'center'}}
-                ],
-            cellData: [
-                {type: 'text', value: 'name'},
-                {type: 'text', value: 'email'},
-                {type: 'text', value: 'phone'},
-                {type: 'clickItem', iconName: 'edit', cellFunction: 'editAdmin'},
-                {type: 'clickItem', iconName: 'user delete', cellFunction: 'deleteAdmin'}
-            ],
-            button: {
-                content: 'Add Admin',
-                icon: 'add user'
-            }
-        };
-
-        //for component InteractiveTableLayout, prop pageInfo
-        const usersPageInfo = {
-            title: 'Manage Users',
-            headerButtons: [
-                {content: 'Add User', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddUserButtonClick},
-                {content: 'Download', iconName: 'download', className: 'inner-button', clickFunction: this.handleDownloadUsers}
-            ],
-            pagingUnits: 'Users',
-            tableInfo: {
-                hasClickEvents: true,
-                headers: [
-                    {text: 'Name'},
-                    {text: 'Organization'},
-                    {text: 'Email'},
-                    {text: 'Role'},
-                    {text: 'Last Login'},
-                    {text: 'Edit', props: {textAlign: 'center'}},
-                    {text: 'Delete', props: {textAlign: 'center'}}
-                ],
-                cellData: [
-                    {type: 'text', value: 'name', isEditable: true, fieldType: 'input'},
-                    {type: 'text', value: 'organization', isEditable: true, fieldType: 'select'},
-                    {type: 'text', value: 'email', isEditable: true, fieldType: 'input'},
-                    {type: 'text', value: 'role', isEditable: true, fieldType: 'select'},
-                    {type: 'text', value: 'lastLogin'},
-                    {type: 'clickItem', iconName: 'edit', cellFunction: 'editUser'},
-                    {type: 'clickItem', iconName: 'trash alternate', cellFunction: 'deleteUser'}
-                ]
-            }
-        };
-
-        //placeholder, will be retrieved from database
-        let orgs = [
-            {key: 'Distributor A', value: 'Distributor A', text: 'Distributor A'},
-            {key: 'Distributor B', value: 'Distributor B', text: 'Distributor B'},
-            {key: 'Distributor C', value: 'Distributor C', text: 'Distributor C'}
-        ];
-
-        //placeholder, will be retrieved from database
-        let roles = [
-            {key: 'Admin', value: 'Admin', text: 'Admin'},
-            {key: 'Site Admin', value: 'Site Admin', text: 'Site Admin'},
-            {key: 'Data Analyst', value: 'Data Analyst', text: 'Data Analyst'}
-        ];
-
-        //for component ModalForm, prop modalInfo
-        const editUserModalInfo = {
-            title: 'Edit User',
-            fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'organization', label: 'Organization', type: 'select', options: orgs},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'role', label: 'Role', type: 'select', options: roles}
-            ]
-        };
-
-        const editUserModal = <ModalForm ref={(editUserModal) => { this.editUserModal = editUserModal; }} modalInfo={editUserModalInfo} handleSubmit={this.handleEditUser} />;
-
-        //for component ModalForm, prop modalInfo 
-        const addUserModalInfo = {
-            title: 'Add New User',
-            fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'organization', label: 'Organization', type: 'select', options: orgs},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'role', label: 'Role', type: 'select', options: roles}
-            ]
-        };
-
-        const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addUserModalInfo} handleSubmit={this.handleAddUser} />;
-
-        //for component ModalForm, prop modalInfo 
-        const addAdminModalInfo = {
-            title: 'Add New Admin User',
-            fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'phone', label: 'Phone Number', type: 'input'}
-            ]
-        };
-
-        const addAdminModal = <ModalForm ref={(addAdminModal) => { this.addAdminModal = addAdminModal; }} modalInfo={addAdminModalInfo} handleSubmit={this.handleAddAdmin} />;
-
-        //for component ModalForm, prop modalInfo 
-        const editAdminModalInfo = {
-            title: 'Edit Admin User',
-            fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'phone', label: 'Phone', type: 'input'}
-            ]
-        };
-
-        const editAdminModal = <ModalForm ref={(editAdminModal) => { this.editAdminModal = editAdminModal; }} modalInfo={editAdminModalInfo} handleSubmit={this.handleEditAdmin} />;
-
-        const confirmDeleteUserModal = <ConfirmationModal ref={(confirmDeleteUserModal) => { this.confirmDeleteUserModal = confirmDeleteUserModal; }} handleConfirm={this.handleDeleteUser} />;
-
-        const confirmDeleteAdminModal = <ConfirmationModal ref={(confirmDeleteAdminModal) => { this.confirmDeleteAdminModal = confirmDeleteAdminModal; }} handleConfirm={this.handleDeleteAdmin} />;
-
         const pageLoadSpinner = isPageLoading ? (
             <LoadSpinnerFullPage />
         ) : (
@@ -425,59 +240,20 @@ class Account extends Component {
         return (
             <>
                 {pageLoadSpinner}
-                {editUserModal}
-                {addUserModal}
-                {confirmDeleteUserModal}
-                {editAdminModal}
-                {confirmDeleteAdminModal}
-                {addAdminModal}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 <Grid className='manage-data-content-container'>
                     {activeItemMain === 0 ? (
-                        <>
-                            <Grid.Row className='my-account-header-container' centered>
-                                <Grid.Column computer={8} tablet={10} mobile={12}>
-                                    <Header as='h2' className='my-account-header'>My Account</Header>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row className='my-account-form-container' centered>
-                                <Grid.Column computer={8} tablet={10} mobile={12}>
-                                    <InputForm formInfo={userInfo} formData={userData} />
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row className='my-account-form-container' centered>
-                                <Grid.Column computer={8} tablet={10} mobile={12}>
-                                    <InputForm formInfo={passwordInfo} formData={passwordData} />
-                                </Grid.Column>
-                            </Grid.Row>
-                        </>
+                        <MyAccount userData={userData} passwordData={passwordData} handleUpdateUserInformation={this.handleUpdateUserInformation} handleUpdatePasswordInformation={this.handleUpdatePasswordInformation} />
                     ) : (
                         null
                     )}
                     {activeItemMain === 1 ? (
-                        <InteractiveTableLayout pageInfo={usersPageInfo} tableContent={userTableData} tableRowClickFunction={this.handleUserTableButtonClick}/>
+                        <ManageUsers userTableData={userTableData} tableRowClickFunction={this.handleUserTableButtonClick} handleEditUser={this.handleEditUser} handleDownloadUsers={this.handleDownloadUsers} handleAddUser={this.handleAddUser} handleDeleteUser={this.handleDeleteUser} />
                     ) : (
                         null
                     )}
                     {activeItemMain === 2 ? (
-                        <Grid.Column >
-                            <Grid className='manage-organization-container'>
-                                <Grid.Column width={16}>
-                                    <Header as='h2'>Manage Organization</Header>
-                                    <Divider fitted />
-                                </Grid.Column>
-                                <Grid.Row className='org-form-container' centered>
-                                    <Grid.Column computer={8} tablet={10} mobile={12}>
-                                        <InputForm formInfo={orgInfo} formData={orgData} />
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row centered>
-                                    <Grid.Column computer={8} tablet={10} mobile={12}>
-                                        <ModuleTable tableInfo={adminTable} tableData={adminTableData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Column>
+                        <ManageOrganization orgData={orgData} adminTableData={adminTableData} handleAddAdmin={this.handleAddAdmin} handleUpdateOrganization={this.handleUpdateOrganization} handleEditAdmin={this.handleEditAdmin} handleDeleteAdmin={this.handleDeleteAdmin} />
                     ) : (
                         null
                     )}
