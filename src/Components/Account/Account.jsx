@@ -8,6 +8,7 @@ import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
 import ModalForm from './../../Shared/ModalForm/ModalForm';
 import ConfirmationModal from './../../Shared/ConfirmationModal/ConfirmationModal';
+import LoadSpinnerFullPage from './../../Shared/LoadSpinnerFullPage/LoadSpinnerFullPage';
 
 import './account.scss';
 
@@ -15,6 +16,7 @@ class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isPageLoading: false,
             activeItemMain: null,
             userData: null,
             passwordData: null,
@@ -26,7 +28,8 @@ class Account extends Component {
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
-        let activePageIndex = 0
+        let activePageIndex = 0;
+
         if (this.props.history.location.state) {
             const {index} = this.props.history.location.state;
             activePageIndex = index === undefined ? 0 : index;
@@ -139,66 +142,99 @@ class Account extends Component {
 
     handleEditUser = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
-
-        this.setState((prevState) => {
-            let newData = prevState.userTableData,
-                user = newData.find(d => d.id === data.id);
-            Object.assign(user, data);
-            return {userTableData: newData};
-        });
+        this.setState({ isPageLoading: true });
+        
+        setTimeout(() => {
+            this.setState((prevState) => {
+                let newData = prevState.userTableData,
+                    user = newData.find(d => d.id === data.id);
+                Object.assign(user, data);
+                return {userTableData: newData, isPageLoading: false};
+            });
+        }, 500);
     }
 
     handleEditAdmin = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
+        this.setState({ isPageLoading: true });
 
-        this.setState((prevState) => {
-            let newData = prevState.adminTableData,
-                user = newData.find(d => d.id === data.id);
-            Object.assign(user, data);
-            return {adminTableData: newData};
-        });
+        setTimeout(() => {
+            this.setState((prevState) => {
+                let newData = prevState.adminTableData,
+                    user = newData.find(d => d.id === data.id);
+                Object.assign(user, data);
+                return {adminTableData: newData, isPageLoading: false};
+            });
+
+        }, 500);
     }
 
     handleDeleteUser = (id) => {
         //would fire ajax call and update state based on response, instead of 'id' param
-        
-        this.setState((prevState) => ({
-            userTableData: prevState.userTableData.filter(user => user.id !== id)
-        }));
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState((prevState) => ({
+                userTableData: prevState.userTableData.filter(user => user.id !== id),
+                isPageLoading: false
+            }));
+        }, 500);
     }
 
     handleDeleteAdmin = (id) => {
         //would fire ajax call and update state based on response, instead of 'id' param
-        
-        this.setState((prevState) => ({
-            adminTableData: prevState.adminTableData.filter(user => user.id !== id)
-        }));
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState((prevState) => ({
+                adminTableData: prevState.adminTableData.filter(user => user.id !== id),
+                isPageLoading: false
+            }));
+        }, 500);
     }
 
     handleAddUser = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
+        this.setState({ isPageLoading: true });
 
-        let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
-        this.setState((prevState) => ({
-            userTableData: [newUser, ...prevState.userTableData]
-        }));
+        setTimeout(() => {
+            let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
+            this.setState((prevState) => ({
+                userTableData: [newUser, ...prevState.userTableData],
+                isPageLoading: false
+            }));
+        }, 500);
     }
 
     handleAddAdmin = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
+        this.setState({ isPageLoading: true });
 
-        let newUser = {id: 4, name: data.name, email: data.email, phone: data.phone};
-        this.setState((prevState) => ({
-            adminTableData: [newUser, ...prevState.adminTableData]
-        }));
+        setTimeout(() => {
+            let newAdmin = {id: 4, name: data.name, email: data.email, phone: data.phone};
+            this.setState((prevState) => ({
+                adminTableData: [newAdmin, ...prevState.adminTableData],
+                isPageLoading: false
+            }));
+        }, 500);
     }
 
     handleUpdateUserInformation = () => {
-        debugger;
+        //ajax call
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState({ isPageLoading: false });
+        }, 500);
     }
 
     handleUpdatePasswordInformation = () => {
-        debugger;
+        //ajax call
+        this.setState({ isPageLoading: true });
+
+        setTimeout(() => {
+            this.setState({ isPageLoading: false });
+        }, 500);
     }
 
     handleDownloadUsers = () => {
@@ -206,7 +242,7 @@ class Account extends Component {
     }
     
     render() {
-        const {activeItemMain, userData, passwordData, orgData, adminTableData, userTableData} = this.state;
+        const {isPageLoading, activeItemMain, userData, passwordData, orgData, adminTableData, userTableData} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
@@ -380,68 +416,75 @@ class Account extends Component {
 
         const confirmDeleteAdminModal = <ConfirmationModal ref={(confirmDeleteAdminModal) => { this.confirmDeleteAdminModal = confirmDeleteAdminModal; }} handleConfirm={this.handleDeleteAdmin} />;
 
-    return (
-        <>
-            {editUserModal}
-            {addUserModal}
-            {confirmDeleteUserModal}
-            {editAdminModal}
-            {confirmDeleteAdminModal}
-            {addAdminModal}
-            <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
-            <Grid className='manage-data-content-container'>
-                {activeItemMain === 0 ? (
-                    <>
-                        <Grid.Row className='my-account-header-container' centered>
-                            <Grid.Column computer={8} tablet={10} mobile={12}>
-                                <Header as='h2' className='my-account-header'>My Account</Header>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row className='my-account-form-container' centered>
-                            <Grid.Column computer={8} tablet={10} mobile={12}>
-                                <InputForm formInfo={userInfo} formData={userData} />
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row className='my-account-form-container' centered>
-                            <Grid.Column computer={8} tablet={10} mobile={12}>
-                                <InputForm formInfo={passwordInfo} formData={passwordData} />
-                            </Grid.Column>
-                        </Grid.Row>
-                    </>
-                ) : (
-                    null
-                )}
-                {activeItemMain === 1 ? (
-                    <InteractiveTableLayout pageInfo={usersPageInfo} tableContent={userTableData} tableRowClickFunction={this.handleUserTableButtonClick}/>
-                ) : (
-                    null
-                )}
-                {activeItemMain === 2 ? (
-                    <Grid.Column >
-                        <Grid className='manage-organization-container'>
-                            <Grid.Column width={16}>
-                                <Header as='h2'>Manage Organization</Header>
-                                <Divider fitted />
-                            </Grid.Column>
-                            <Grid.Row className='org-form-container' centered>
+        const pageLoadSpinner = isPageLoading ? (
+            <LoadSpinnerFullPage />
+        ) : (
+            null
+        ); 
+
+        return (
+            <>
+                {pageLoadSpinner}
+                {editUserModal}
+                {addUserModal}
+                {confirmDeleteUserModal}
+                {editAdminModal}
+                {confirmDeleteAdminModal}
+                {addAdminModal}
+                <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
+                <Grid className='manage-data-content-container'>
+                    {activeItemMain === 0 ? (
+                        <>
+                            <Grid.Row className='my-account-header-container' centered>
                                 <Grid.Column computer={8} tablet={10} mobile={12}>
-                                    <InputForm formInfo={orgInfo} formData={orgData} />
+                                    <Header as='h2' className='my-account-header'>My Account</Header>
                                 </Grid.Column>
                             </Grid.Row>
-                            <Grid.Row centered>
+                            <Grid.Row className='my-account-form-container' centered>
                                 <Grid.Column computer={8} tablet={10} mobile={12}>
-                                    <ModuleTable tableInfo={adminTable} tableData={adminTableData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
+                                    <InputForm formInfo={userInfo} formData={userData} />
                                 </Grid.Column>
                             </Grid.Row>
-                        </Grid>
-                    </Grid.Column>
-                ) : (
-                    null
-                )}
-            </Grid>
-        </>
-    );
-  }
+                            <Grid.Row className='my-account-form-container' centered>
+                                <Grid.Column computer={8} tablet={10} mobile={12}>
+                                    <InputForm formInfo={passwordInfo} formData={passwordData} />
+                                </Grid.Column>
+                            </Grid.Row>
+                        </>
+                    ) : (
+                        null
+                    )}
+                    {activeItemMain === 1 ? (
+                        <InteractiveTableLayout pageInfo={usersPageInfo} tableContent={userTableData} tableRowClickFunction={this.handleUserTableButtonClick}/>
+                    ) : (
+                        null
+                    )}
+                    {activeItemMain === 2 ? (
+                        <Grid.Column >
+                            <Grid className='manage-organization-container'>
+                                <Grid.Column width={16}>
+                                    <Header as='h2'>Manage Organization</Header>
+                                    <Divider fitted />
+                                </Grid.Column>
+                                <Grid.Row className='org-form-container' centered>
+                                    <Grid.Column computer={8} tablet={10} mobile={12}>
+                                        <InputForm formInfo={orgInfo} formData={orgData} />
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row centered>
+                                    <Grid.Column computer={8} tablet={10} mobile={12}>
+                                        <ModuleTable tableInfo={adminTable} tableData={adminTableData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Grid.Column>
+                    ) : (
+                        null
+                    )}
+                </Grid>
+            </>
+        );
+    }
 }
 
 export default withRouter(Account);

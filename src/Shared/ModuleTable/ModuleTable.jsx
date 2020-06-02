@@ -17,6 +17,7 @@ class ModuleTable extends Component {
         this.setState({ tableContent: tableData, isLoading: tableData.length > 0 ? false : true });
     }
 
+    //will not be necessary once axios ajax calls are implemented
     componentWillReceiveProps = (newProps) => {
         this.setState({ tableContent: newProps.tableData, isLoading: false });
     }

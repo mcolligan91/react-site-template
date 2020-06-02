@@ -19,6 +19,7 @@ class InteractiveTableLayout extends Component {
         this.setState({ tableData: tableContent, isLoading: tableContent.length > 0 ? false : true });
     }
 
+    //will not be necessary once axios ajax calls are implemented
     componentWillReceiveProps = (newProps) => {
         const {tableData} = this.state;
         if (tableData !== []) {

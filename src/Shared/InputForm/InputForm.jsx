@@ -19,7 +19,8 @@ class InputForm extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    //will not be necessary once axios ajax calls are implemented
+    componentWillReceiveProps = (nextProps) => {
         this.setState({ data: nextProps.formData, isLoading: false });  
     }   
 
