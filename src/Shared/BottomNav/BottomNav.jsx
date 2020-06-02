@@ -8,9 +8,6 @@ import ModalForm from './../ModalForm/ModalForm';
 import './bottom-nav.scss'
 
 class BottomNav extends Component {
-	constructor(props) {
-		super(props);
-	}
 
 	handleItemClicked = (data) => {
 		if (data.name === 'Contact Us') {

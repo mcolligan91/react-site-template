@@ -1,0 +1,29 @@
+.product-page-bottom-content {
+    margin-bottom: 30px;
+}
+
+.ui.grid>.column:not(.row).bottom-content-container {
+    padding: 1.5rem;
+}
+
+h3.product-upload-header {
+    float: left;
+    margin: 0;
+}
+
+.product-upload-header-container {
+    padding-bottom: 0;
+}
+
+.download-link-text {
+    float: right;
+}
+
+.download-link-text:hover {
+    color: #29598D;
+    cursor: pointer;
+}
+
+.product-uploads-table-container {
+    margin-bottom: 30px; 
+}

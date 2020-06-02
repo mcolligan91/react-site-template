@@ -7,41 +7,6 @@
     margin-top: 0;
 }
 
-h3.product-upload-header {
-    float: left;
-    margin: 0;
-}
-
-.product-upload-header-container {
-    padding-bottom: 0;
-}
-
-.product-page-bottom-content {
-    margin-bottom: 30px;
-}
-
-.download-link-text {
-    float: right;
-}
-
-.download-link-text:hover {
-    color: #29598D;
-    cursor: pointer;
-}
-
-.ui.grid>.column:not(.row).bottom-content-container {
-    padding: 1.5rem;
-}
-
-.ui.relaxed.grid>.column:not(.row).submission-table-container {
-    margin-bottom: 20px;
-}
-
-.ui.label.file-upload-container {
-    width: 100%;
-    cursor: pointer;
-}
-
 .ui.menu .ui.list > .item.second-side-nav-list-item:last-child {
     padding-bottom: .42857143em;
 }
@@ -58,12 +23,14 @@ h3.product-upload-header {
     margin-top: 1px;
 }
 
-.product-uploads-table-container {
-    margin-bottom: 30px; 
-}
-
 .ui.menu .dropdown.item .menu.data-summary-dropdown-menu {
     min-width: 170px;
     max-height: 170px;
     overflow: auto;
 } 
+
+@media only screen and (max-width: 906px) {
+    .ui.segment.data-summary-prompt {
+        margin-top: 15px;
+    }    
+  }

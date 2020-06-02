@@ -4,9 +4,6 @@ import { Menu, Icon, Responsive, Grid } from 'semantic-ui-react';
 import './side-nav.scss';
 
 class SideNav extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {menuInfo, activeItem, handleItemClick} = this.props;

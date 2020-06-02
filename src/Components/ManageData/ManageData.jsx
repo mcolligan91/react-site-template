@@ -1,41 +1,15 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Button, Input, Icon, Menu, Accordion, List, Header, Message, Label, Form, Dropdown } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Menu, Accordion, List, Label, Dropdown } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
-import InteractiveTableLayout from './../../Shared/InteractiveTableLayout/InteractiveTableLayout';
-import InputForm from './../../Shared/InputForm/InputForm';
-import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
-import ModalForm from './../../Shared/ModalForm/ModalForm';
 import LoadSpinnerFullPage from './../../Shared/LoadSpinnerFullPage/LoadSpinnerFullPage';
+import DataSummaryContent from './DataSummaryContent/DataSummaryContent';
+import Branch from './Branch/Branch';
+import Product from './Product/Product';
 
 import './manage-data.scss';
-
-//placeholder
-let yearOptions = [
-    {key: 'All Years', value: 'All Years', text: 'All Years'},
-    {key: 2020, value: 2020, text: 2020},
-    {key: 2019, value: 2019, text: 2019},
-    {key: 2018, value: 2018, text: 2018}
-];
-
-//placeholder
-let monthOptions = [
-    {key: 'All Months', value: 'All Months', text: 'All Months'},
-    {key: 'January', value: 'January', text: 'January'},
-    {key: 'February', value: 'February', text: 'February'},
-    {key: 'March', value: 'March', text: 'March'},
-    {key: 'April', value: 'April', text: 'April'},
-    {key: 'May', value: 'May', text: 'May'},
-    {key: 'June', value: 'June', text: 'June'},
-    {key: 'July', value: 'July', text: 'July'},
-    {key: 'August', value: 'August', text: 'August'},
-    {key: 'September', value: 'September', text: 'September'},
-    {key: 'October', value: 'October', text: 'October'},
-    {key: 'November', value: 'November', text: 'November'},
-    {key: 'December', value: 'December', text: 'December'}
-];
 
 class ManageData extends Component {
     constructor(props) {
@@ -44,14 +18,11 @@ class ManageData extends Component {
             isPageLoading: false,
             sideNavActiveIndex: null,
             activeItemMain: 0,
+            selectedSummary: null,
             posData: [],
             branchData: [],
             productData: [],
             productUploadData: [],
-            selectedSummary: null,
-            submissionComment: '',
-            submissionUploadFile: null,
-            cleanUploadFile: null
         }
     }
 
@@ -177,7 +148,7 @@ class ManageData extends Component {
         setTimeout(() => { 
             switch (index) {
                 case 1:
-                    //for component InteractiveTableLayout, prop tableContent
+                    //for component Branch, prop tableContent
                     this.setState({ branchData: [
                             {id: 1, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
                             {id: 2, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
@@ -205,8 +176,8 @@ class ManageData extends Component {
                     break;
 
                 case 2: 
-                    //for component InteractiveTableLayout, prop tableContent (productData)
-                    //for component ModuleTable, prop tableData (productUploadData)
+                    //for component Branch, prop productData (productData)
+                    //for component Branch, prop productUploadData (productUploadData)
                     this.setState({ productData: [
                             {distributor: 'Distributor A', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
                             {distributor: 'Distributor B', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
@@ -241,6 +212,7 @@ class ManageData extends Component {
         //would fire ajax call to load selected summary data and update state based on response
         this.setState({ isPageLoading: true });
 
+        //for component DataSummaryContent, prop selectedSummary
         setTimeout(() => {
             //temp dummy data for submissions
             let submissions = [
@@ -276,11 +248,11 @@ class ManageData extends Component {
                 submissionComments: [],            
             };
 
-            this.setState({ selectedSummary: summary, isPageLoading: false, submissionComment: '' });
+            this.setState({ selectedSummary: summary, isPageLoading: false });
         }, 500);
     }
 
-    //for component ModalForm, prop handleSubmit
+    //for component Branch, prop handleAddBranch
     handleAddBranch = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
         this.setState((prevState) => ({
@@ -296,66 +268,55 @@ class ManageData extends Component {
         }, 1000);
     }
 
+    //for component DataSummaryContent, prop handleUploadSubmission
     handleUploadSubmission = (e) => {
         //would send post call to server with upload data, then update submissions table with new entry based on response
-
-        this.setState({ submissionUploadFile: e.target.files[0].name });
+        debugger;
     }
 
+    //for component DataSummaryContent, prop handleUploadCleanFile
     handleUploadCleanFile = (e) => {
         //would send post call to server with upload data, then update submissions table with new entry based on response
-        
-        this.setState({ cleanUploadFile: e.target.files[0].name });
+        debugger;
     }
 
-    handleAddComment = (e) => {
-        const {selectedSummary, submissionComment} = this.state;
+    //for component DataSummaryContent, prop handleAddComment
+    handleAddComment = (comment) => {
+        const {selectedSummary} = this.state;
         //post call to server with comment
 
         //update state with comment based on success response
-        selectedSummary.submissionComments.push(submissionComment);
-        this.setState({ submissionComment: '' });
+        selectedSummary.submissionComments.push(comment);
+        this.setState({ selectedSummary });
     }
 
-    handleCommentChange = (e, info) => {
-        this.setState({ submissionComment: info.value });
-    } 
-
-    handleAddBranchClick = () => {
-        let formData = {status: '', branchId: '', city: '', state: '', zipCode: '', details: ''};
-        this.addBranchModal.handleOpenModal(formData);
-    }
-
-    handleBulkUpload = () => {
+    //for component Branch, prop handleBulkUpload
+    handleBulkBranchUpload = () => {
         debugger;
     }
     
-    handleDownloadAll = () => {
-        debugger;
-    }
-    
-    handleBranchUploadTemplate = () => {
+    //for component Branch, prop handleDownloadAll
+    handleDownloadAllBranches = () => {
         debugger;
     }
 
+    // for component Branch, prop handleDownloadProducts
     handleDownloadProducts = (data) => {
         console.log(data);
     }
 
+    //for component Branch, prop handleFilterProductData
     handleFilterProductData = (e, data) => {
         debugger;
     }
 
-    handleDownloadProductUpload = () => {
-        debugger;
-    }
-
-    handleSubmissionTableButtonClick = () => {
+    //for component DataSummary, prop handleSubmissionTableButtonClick
+    handleSubmissionTableButtonClick = (button) => {
         debugger;
     }
 
     render() {
-        const {isPageLoading, activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData, submissionComment, submissionUploadFile, cleanUploadFile} = this.state;
+        const {isPageLoading, activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
@@ -363,21 +324,6 @@ class ManageData extends Component {
             {index: 1, name: 'Branch', iconName: 'map marker alternate'},
             {index: 2, name: 'Product', iconName: 'grid layout'}
         ];
-
-        //for component ModalForm, prop modalInfo
-        const addBranchModalInfo = {
-            title: 'Add New Branch',
-            fields: [
-                {name: 'status', label: 'Status', type: 'radio', options: ['Open', 'Closed']},
-                {name: 'branchId', label: 'Branch ID', type: 'input'},
-                {name: 'city', label: 'City', type: 'input'},
-                {name: 'state', label: 'State', type: 'input'},
-                {name: 'zipCode', label: 'Zip Code', type: 'input'},
-                {name: 'details', label: 'Details', type: 'textArea'}
-            ]
-        };
-
-        const addBranchModal = <ModalForm ref={(addBranchModal) => { this.addBranchModal = addBranchModal; }} modalInfo={addBranchModalInfo} handleSubmit={this.handleAddBranch} />;
 
         const secondSideNavContent = (
             <>
@@ -442,279 +388,6 @@ class ManageData extends Component {
             menuItemsMobile: secondSideNavMobileContent
         };
 
-        //for component InteractiveTableLayout, prop pageInfo
-        const branchPageInfo = {
-            title: 'Manage Branch Data',
-            headerButtons: [
-                {content: 'Add Branch', iconName: 'building', className: 'inner-button', clickFunction: this.handleAddBranchClick},
-                {content: 'Bulk Upload', iconName: 'download', className: 'inner-button', clickFunction: this.handleBulkUpload},
-                {content: 'Download All', iconName: 'upload', clickFunction: this.handleDownloadAll}
-            ],
-            pagingUnits: 'Branches',
-            tableInfo: {
-                headers: [
-                    {text: 'Branch ID'},
-                    {text: 'City'},
-                    {text: 'State'},
-                    {text: 'Zip Code'},
-                    {text: 'Status'},
-                    {text: 'Date Added'},
-                    {text: 'Details'}
-                ],
-                cellData: [
-                    {type: 'text', value: 'branchId'},
-                    {type: 'text', value: 'city'},
-                    {type: 'text', value: 'state'},
-                    {type: 'text', value: 'zipCode'},
-                    {type: 'text', value: 'status'},
-                    {type: 'text', value: 'dateAdded'},
-                    {type: 'text', value: 'details'}
-                ]
-            }
-        };
-
-        //for component InteractiveTableLayout, prop pageInfo
-        const productInfo = {
-            title: 'Product Data',
-            filters: [
-                {name: 'year', defaultValue: 'All Years', options: yearOptions, clickFunction: this.handleFilterProductData},
-                {name: 'month', defaultValue: 'All Months', options: monthOptions, clickFunction: this.handleFilterProductData}
-            ],
-            pagingUnits: 'Products',
-            tableInfo: {
-                headers: [
-                    {text: 'Distributor'},
-                    {text: 'Unique Product IDs'},
-                    {text: 'Invoiced w/ ProductCategory'},
-                    {text: 'Invoiced w/ ProductSubCategory1'},
-                    {text: 'Invoiced w/ ProductSubCategory2'},
-                    {text: 'Invoiced w/ ProductSubCategory3'}
-                ],
-                cellData: [
-                    {type: 'text', value: 'distributor'},
-                    {type: 'text', value: 'productIds'},
-                    {type: 'text', value: 'invoicedProdCat'},
-                    {type: 'text', value: 'invoicedProdSubCat1'},
-                    {type: 'text', value: 'invoicedProdSubCat2'},
-                    {type: 'text', value: 'invoicedProdSubCat3'}
-                ]
-            }
-        };
-
-        //for component InputForm, prop formInfo
-        const productDownloadInfo = {
-            title: 'Product Download',
-            submitFunction: this.handleDownloadProducts,
-            buttonText: 'Download',
-            buttonIcon: 'download',
-            fields: [
-                {
-                    fieldType: 'dropdown', 
-                    options: [
-                        { key: 50, value: 50, text: 50 },
-                        { key: 100, value: 100, text: 100 },
-                        { key: 500, value: 500, text: 500 },
-                        { key: 1000, value: 1000, text: 1000 }
-                    ], 
-                    label: 'Number of Products to Return', 
-                    placeholder: 'Please select...',
-                    name: 'returnProductsAmount'
-                },
-                {
-                    fieldType: 'dropdown', 
-                    options: [
-                        { key: 'All', value: 'All', text: 'All' },
-                        { key: '75%', value: '75%', text: '75%' },
-                        { key: '50%', value: '50%', text: '50%' },
-                        { key: '25%', value: '25%', text: '25%' }
-                    ], 
-                    label: 'Total Invoiced Percentile', 
-                    placeholder: 'Please select...', 
-                    name: 'totalInvoiced'
-                },
-                {
-                    fieldType: 'dropdown', 
-                    options: [
-                        { key: 'All', value: 'All', text: 'All' },
-                        { key: 'Complete', value: 'Complete', text: 'Complete' },
-                        { key: 'Inomplete', value: 'Inomplete', text: 'Inomplete' }
-                    ], label: 'Product Status', 
-                    placeholder: 'Please select...', 
-                    name: 'productStatus'
-                },
-                {
-                    fieldType: 'dropdown', 
-                    options: [
-                        { key: 'All', value: 'All', text: 'All' },
-                        { key: 'Distributor A', value: 'Distributor A', text: 'Distributor A' },
-                        { key: 'Distributor B', value: 'Distributor B', text: 'Distributor B' }
-                    ], 
-                    label: 'Distributor', 
-                    placeholder: 'Please select...', 
-                    name: 'distributor'
-                },
-                {
-                    fieldType: 'dropdown', 
-                    options: [
-                        { key: 'All', value: 'All', text: 'All' },
-                        { key: 2020, value: 2020, text: 2020 },
-                        { key: 2019, value: 2019, text: 2019 },
-                        { key: 2018, value: 2018, text: 2018 }
-                    ], 
-                    label: 'Year', 
-                    placeholder: 'Please select...', 
-                    name: 'year'
-                },
-                {
-                    fieldType: 'dropdown', 
-                    options: [
-                        { key: 'All', value: 'All', text: 'All' },
-                        { key: 'January', value: 'January', text: 'January' },
-                        { key: 'February', value: 'February', text: 'February' },
-                        { key: 'March', value: 'March', text: 'March' }
-                    ], 
-                    label: 'Month', 
-                    placeholder: 'Please select...', 
-                    name: 'month'
-                },
-            ]
-        };
-
-        //for component InputForm, prop formData
-        const productDownloadFormData = {
-            returnProductsAmount: 50, 
-            totalInvoiced: 'All',
-            productStatus: 'All',
-            distributor: 'All',
-            year: 'All',
-            month: 'All'
-        };
-
-        //for component ModuleTable, prop tableInfo
-        const submissionTableInfo = {
-            title: 'Data Submissions',
-            hasClickEvents: true,
-            headers: [
-                    {text: 'Filename'},
-                    {text: 'Status'},
-                    {text: 'Number of Records'},
-                    {text: 'Total Quantity'},
-                    {text: 'Notes', props: {textAlign: 'center'}},
-                    {text: 'Download', props: {textAlign: 'center'}}
-                ],
-            cellData: [
-                {type: 'text', value: 'fileName'},
-                {type: 'text', value: 'status'},
-                {type: 'text', value: 'recordsAmount'},
-                {type: 'text', value: 'totalQuantity'},
-                {type: 'clickItem', iconName: 'sticky note', cellFunction: 'submissionNotes'},
-                {type: 'clickItem', iconName: 'cloud download', cellFunction: 'downloadSubmissions'}
-            ]
-        };
-
-        const dataSummaryContent = selectedSummary !== null ? (
-            <Grid relaxed padded>
-                <Grid.Column width={16}>
-                    <Header as='h2'>{`${selectedSummary.month} ${selectedSummary.year} Data Summary`}</Header>
-                    <Label className='file-upload-container' basic as='label' htmlFor='upload-submission'>
-                        <Button className='main-button-color' icon='upload' label={{ content: 'Upload Submission' }} labelPosition='right' />
-                        {submissionUploadFile}
-                        <input id='upload-submission' hidden type='file' onChange={(e) => this.handleUploadSubmission(e)} />
-                    </Label>
-                </Grid.Column>
-                {selectedSummary.status && selectedSummary.status > 1 ? (
-                    <>
-                        <Grid.Column width={16} className='submission-table-container'>
-                            <ModuleTable tableInfo={submissionTableInfo} tableData={selectedSummary.submissionData} handleTableButtonClick={this.handleSubmissionTableButtonClick} />
-                        </Grid.Column>
-                        <Grid.Column width={16}>
-                            <Message>
-                                <Message.Header>
-                                    Submission Notes
-                                </Message.Header>
-                                <Message.List>
-                                    {selectedSummary.submissionNotes.map((note, i) => {
-                                        return (
-                                            <Message.Item key={i}>{note}</Message.Item>
-                                        )
-                                    })}
-                                </Message.List>
-                            </Message>
-                        </Grid.Column>
-                        <Grid.Column width={16}>
-                            <Label className='file-upload-container' basic as='label' htmlFor='upload-clean-file'>
-                                <Button className='main-button-color' icon='upload' label={{ content: 'Upload Clean File' }} labelPosition='right' />
-                                {cleanUploadFile}
-                                <input id='upload-clean-file' hidden type='file' onChange={(e) => this.handleUploadCleanFile(e)} />
-                            </Label>
-                        </Grid.Column>
-                        {selectedSummary.status === 3 ? (
-                            <Grid.Column width={16}>
-                                <Message info>
-                                    <Message.Header>
-                                        Review Notes
-                                    </Message.Header>
-                                    <Message.List>
-                                        {selectedSummary.reviewNotes.map((note, i) => {
-                                            return (
-                                                <Message.Item key={i}>{note}</Message.Item>
-                                            )
-                                        })}
-                                    </Message.List>
-                                </Message>
-                            </Grid.Column>
-                        ) : (
-                            null
-                        )}
-                        {selectedSummary.submissionComments.length > 0 ? (
-                            <Grid.Column width={16}>
-                                <Message>
-                                    <Message.Header>
-                                        Comments
-                                    </Message.Header>
-                                    <Message.List>
-                                    {selectedSummary.submissionComments.map((comment, i) => {
-                                            return (
-                                                <Message.Item key={i}>{comment}</Message.Item>
-                                            )
-                                        })}
-                                    </Message.List>
-                                </Message>
-                            </Grid.Column>
-                        ) : (
-                            null
-                        )}
-                        <Grid.Column width={16}>
-                            <Form onSubmit={this.handleAddComment}>
-                                <Form.TextArea label='Add New Comment' value={submissionComment} onChange={this.handleCommentChange} />
-                                <Button className='main-button-color' type='submit' content='Save' />
-                            </Form>
-                        </Grid.Column>
-                    </>
-                ) : (
-                    null
-                )}
-            </Grid>
-        ) : (
-            null
-        );
-
-        //for component ModuleTable, prop tableInfo
-        const productUploadTable = {
-            headers: [
-                    {text: 'File Name'},
-                    {text: 'Product Amount'},
-                    {text: 'Products With Category'},
-                    {text: 'Date Uploaded'}
-                ],
-            cellData: [
-                {type: 'text', value: 'fileName'},
-                {type: 'text', value: 'productAmount'},
-                {type: 'text', value: 'prodCategoryAmount'},
-                {type: 'text', value: 'dateUploaded'}
-            ]
-        };
-
         const pageLoadSpinner = isPageLoading ? (
             <LoadSpinnerFullPage />
         ) : (
@@ -724,7 +397,6 @@ class ManageData extends Component {
         return (
             <>
                 {pageLoadSpinner}
-                {addBranchModal}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 {activeItemMain === 0 ? (
                     <SecondarySideNav menuInfo={secondarySideNavInfo} />
@@ -735,48 +407,23 @@ class ManageData extends Component {
                     {activeItemMain === 0 ? (
                         <Grid.Column>
                             {selectedSummary === null ? (
-                                <Segment>
+                                <Segment className='data-summary-prompt'>
                                     Please select a year from the Data Summary menu to view or upload data.
                                 </Segment>
                             ) : (
-                                <>
-                                    {dataSummaryContent}
-                                </>
+                                <DataSummaryContent selectedSummary={selectedSummary} handleUploadSubmission={this.handleUploadSubmission} handleUploadCleanFile={this.handleUploadCleanFile} handleAddComment={this.handleAddComment} handleSubmissionTableButtonClick={this.handleSubmissionTableButtonClick} />
                             )}
                         </Grid.Column>
                     ) : (
                         null
                     )}
                     {activeItemMain === 1 ? (
-                        <InteractiveTableLayout pageInfo={branchPageInfo} tableContent={branchData}/>
+                        <Branch branchTableContent={branchData} handleAddBranch={this.handleAddBranch} handleBulkUpload={this.handleBulkBranchUpload} handleDownloadAll={this.handleDownloadAllBranches} />
                     ) : (
                         null
                     )}
                     {activeItemMain === 2 ? (
-                        <>
-                            <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
-                            <Grid.Column width={16} className='product-page-bottom-content'>
-                                <Grid stackable doubling padded>
-                                    <Grid.Column computer={8} tablet={16} className='bottom-content-container'>
-                                        <Grid>
-                                            <Grid.Column width={16}>
-                                                <h3 className='product-upload-header'>Product Uploads</h3>
-                                                <span className='download-link-text' onClick={this.handleDownloadProductUpload}>Download Template</span>
-                                            </Grid.Column>
-                                            <Grid.Column width={16} className='product-file-upload'>
-                                                <Input fluid type='file' />
-                                            </Grid.Column>
-                                            <Grid.Column width={16} className='product-uploads-table-container'>
-                                                <ModuleTable tableInfo={productUploadTable} tableData={productUploadData} />
-                                            </Grid.Column>
-                                        </Grid>
-                                    </Grid.Column>
-                                    <Grid.Column computer={8} tablet={16} className='bottom-content-container'>
-                                        <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
-                                    </Grid.Column>
-                                </Grid>
-                            </Grid.Column>                                                                              
-                        </>                   
+                        <Product productData={productData} productUploadData={productUploadData} handleFilterProductData={this.handleFilterProductData} handleDownloadProducts={this.handleDownloadProducts} />     
                     ) : (
                         null
                     )}
