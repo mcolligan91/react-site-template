@@ -19,7 +19,7 @@ class InteractiveTableLayout extends Component {
         this.setState({ tableData: tableContent, isLoading: tableContent.length > 0 ? false : true });
     }
 
-    componentWillReceiveProps(newProps) {
+    componentWillReceiveProps = (newProps) => {
         const {tableData} = this.state;
         if (tableData !== []) {
             this.setState({ tableData: newProps.tableContent, isLoading: false });
@@ -151,14 +151,9 @@ class InteractiveTableLayout extends Component {
                         </Grid.Column>
                     </Grid>
                 </Grid.Column>
-            </Grid>
-            
-        )
+            </Grid>  
+        );
     }
-
-
-
-
 }
 
 export default InteractiveTableLayout;

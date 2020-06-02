@@ -234,47 +234,50 @@ class ManageData extends Component {
                     //error message
             }
             
-        }, 2000); 
+        }, 500); 
     }
 
     handleSecondaryItemClick = (e, data) => {
         //would fire ajax call to load selected summary data and update state based on response
+        this.setState({ isPageLoading: true });
 
-        //temp dummy data for submissions
-        let submissions = [
-            {fileName: 'upload1.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-            {fileName: 'upload2.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-            {fileName: 'upload3.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-            {fileName: 'upload4.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-            {fileName: 'upload5.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-            {fileName: 'upload6.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''}
-        ];
+        setTimeout(() => {
+            //temp dummy data for submissions
+            let submissions = [
+                {fileName: 'upload1.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+                {fileName: 'upload2.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+                {fileName: 'upload3.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+                {fileName: 'upload4.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+                {fileName: 'upload5.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
+                {fileName: 'upload6.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''}
+            ];
 
-        //temp dummy submission notes
-        let submissionNotes = [
-            'Submitted by User A on 5/27/2020 10:23:46am'
-        ];
+            //temp dummy submission notes
+            let submissionNotes = [
+                'Submitted by User A on 5/27/2020 10:23:46am'
+            ];
 
-        //temp dummy review notes
-        let reviewNotes = [
-            'Uploaded by User A on 5/28/2020 10:19:23am',
-            'Total Unique Branches: 110',
-            'Number of New Products: 35467',
-            'Number of New Customers: 2'
-        ];
+            //temp dummy review notes
+            let reviewNotes = [
+                'Uploaded by User A on 5/28/2020 10:19:23am',
+                'Total Unique Branches: 110',
+                'Number of New Products: 35467',
+                'Number of New Customers: 2'
+            ];
 
-        //object for selectedSummary state - would be populated from response data instead of 'data' parameter
-        let summary = {
-            status: data.status,
-            month: data.month,
-            year: data.year,
-            submissionData: submissions,
-            submissionNotes: submissionNotes,
-            reviewNotes: reviewNotes,
-            submissionComments: [],            
-        };
+            //object for selectedSummary state - would be populated from response data instead of 'data' parameter
+            let summary = {
+                status: data.status,
+                month: data.month,
+                year: data.year,
+                submissionData: submissions,
+                submissionNotes: submissionNotes,
+                reviewNotes: reviewNotes,
+                submissionComments: [],            
+            };
 
-        this.setState({ selectedSummary: summary });
+            this.setState({ selectedSummary: summary, isPageLoading: false, submissionComment: '' });
+        }, 500);
     }
 
     //for component ModalForm, prop handleSubmit
@@ -291,8 +294,6 @@ class ManageData extends Component {
             }));
             this.setState({ isPageLoading: false });
         }, 1000);
-
-        
     }
 
     handleUploadSubmission = (e) => {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
@@ -14,32 +14,26 @@ import PrivacyPolicy from './../Components/PrivacyPolicy/PrivacyPolicy';
  
 import './layout.scss';
 
-class Layout extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <>
-                <div id='app'>
-                    <TopNav location={this.props.location} />
-                        <Grid className='main-content-container'>
-                            <Switch>
-                                <Route path='/home' component={Dashboard}></Route>
-                                <Route path='/manage-data' component={ManageData}></Route>
-                                <Route path='/reporting' component={Reporting}></Route>
-                                <Route path='/faqs' component={FAQs}></Route>
-                                <Route path='/account' component={Account}></Route>
-                                <Route path='/terms-and-conditions' component={TermsAndConditions}></Route>
-                                <Route path='/privacy-policy' component={PrivacyPolicy}></Route>
-                            </Switch>
-                        </Grid>
-                        <BottomNav />
-                </div>
-            </>
-        )
-    }
+const Layout = (props) => {    
+    return (
+        <>
+            <div id='app'>
+                <TopNav location={props.location} />
+                    <Grid className='main-content-container'>
+                        <Switch>
+                            <Route path='/home' component={Dashboard}></Route>
+                            <Route path='/manage-data' component={ManageData}></Route>
+                            <Route path='/reporting' component={Reporting}></Route>
+                            <Route path='/faqs' component={FAQs}></Route>
+                            <Route path='/account' component={Account}></Route>
+                            <Route path='/terms-and-conditions' component={TermsAndConditions}></Route>
+                            <Route path='/privacy-policy' component={PrivacyPolicy}></Route>
+                        </Switch>
+                    </Grid>
+                    <BottomNav />
+            </div>
+        </>
+    );
 }
 
 export default Layout;

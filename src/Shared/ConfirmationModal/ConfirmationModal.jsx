@@ -39,7 +39,7 @@ class ConfirmationModal extends Component {
                     <Button className='main-button-color' onClick={this.handleSubmit} content='Yes' />
                 </Modal.Actions>
             </Modal>
-        )
+        );
     }
 }
 

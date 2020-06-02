@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 import { Icon, Menu, Responsive, Dropdown, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
-import './top-nav.scss'
+import './top-nav.scss';
 
 class TopNav extends Component {
   constructor(props) {
@@ -134,8 +133,8 @@ class TopNav extends Component {
                 ) : (
                     null
                 )}
-            </Responsive>
-        </>
+                </Responsive>
+            </>
         );
     }
 }

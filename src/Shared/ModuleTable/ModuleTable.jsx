@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Icon, Table, Button, Dimmer, Loader, Pagination } from 'semantic-ui-react';
 
-import './module-table.scss'
+import './module-table.scss';
 
 class ModuleTable extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class ModuleTable extends Component {
         this.setState({ tableContent: tableData, isLoading: tableData.length > 0 ? false : true });
     }
 
-    componentWillReceiveProps(newProps) {
+    componentWillReceiveProps = (newProps) => {
         this.setState({ tableContent: newProps.tableData, isLoading: false });
     }
 
@@ -91,7 +91,7 @@ class ModuleTable extends Component {
                     </Grid>
                 </Grid.Column>
             </>
-        )
+        );
     }
 }
 

@@ -53,7 +53,7 @@ class Dashboard extends Component {
                 {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
                 {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'}
             ] });
-        }, 1000);
+        }, 500);
     }
 
     handleHideAnnouncements = () => {

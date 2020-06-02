@@ -22,7 +22,7 @@ class SideNav extends Component {
                     )
                 })}
             </>
-        )
+        );
 
         return (
             <>
@@ -40,7 +40,7 @@ class SideNav extends Component {
                     </Grid.Column>
                 </Responsive>
             </>
-        )
+        );
     }
 }
 
