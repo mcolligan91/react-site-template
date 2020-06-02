@@ -51,14 +51,14 @@ class BottomNav extends Component {
         return (
 			<>
 				{contactModal}
-				<Menu className='main-nav main-background-color main-bottom-nav' size='massive'>
-					<Grid className='bottom-nav-container' columns={2} stackable doubling>
-						<Grid.Column textAlign='left' verticalAlign='middle' floated='left'>
+				<Menu className='main-nav main-background-color main-bottom-nav'>
+					<Grid className='bottom-nav-container' columns={2} stackable>
+						<Grid.Column computer={8} tablet={4} mobile={4} textAlign='left' verticalAlign='middle' floated='left'>
 							<div className='company-info-container'>
 								{companyInfo}
 							</div>
 						</Grid.Column>
-						<Grid.Column textAlign='right' verticalAlign='middle' floated='right'>
+						<Grid.Column className='bottom-nav-links-container' computer={8} tablet={12} mobile={12} textAlign='right' verticalAlign='middle' floated='right'>
 							<Grid columns={bottomNavLinks.length}>
 								{bottomNavLinks.map((item, i) => {
 									return (
