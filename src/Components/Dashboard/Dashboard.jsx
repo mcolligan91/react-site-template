@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Message, Grid, Header, Dimmer, Loader } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
 
@@ -20,40 +21,16 @@ class Dashboard extends Component {
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
-        setTimeout(() => {
-            //would be loaded from view or from ajax call
-            this.setState({ announcements: ['Example announcement 1', 'Example announcement 2', 'Example announcement 3', 'Example announcement 4'] });
-
-            //would be loaded from view or from ajax call
-            //for component ModuleTable, prop tableData
-            this.setState({ tasks: [
-                {summary: 'Please submit your POS data for Organization A, January 2020.', date: '2/6/2020'},
-                {summary: 'Please submit your POS data for Organization B, January 2020.', date: '2/6/2020'},
-                {summary: 'Please submit your POS data for Organization C, January 2020.', date: '2/6/2020'},
-                {summary: 'Please submit your POS data for Organization D, January 2020.', date: '2/5/2020'},
-                {summary: 'Please submit your POS data for Organization E, January 2020.', date: '2/5/2020'},
-                {summary: 'Please submit your POS data for Organization F, January 2020.', date: '2/5/2020'},
-                {summary: 'Please submit your POS data for Organization G, January 2020.', date: '2/5/2020'},
-                {summary: 'Please submit your POS data for Organization H, January 2020.', date: '2/5/2020'},
-                {summary: 'Please submit your POS data for Organization I, January 2020.', date: '2/5/2020'},
-                {summary: 'Please submit your POS data for Organization J, January 2020.', date: '2/5/2020'}
-            ] });
-
-            //would be loaded from view or from ajax call
-            //for component ModuleTable, prop tableData
-            this.setState({ events: [
-                {summary: 'User A added a new Branch.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-                {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'}
-            ] });
-        }, 500);
+        axios.get('/dashboard').then(response => {
+            if (response.data.success) {
+                const {announcements, tasks, events} = response.data.data;
+                this.setState({ announcements, tasks, events });
+            } else {
+                //error modal
+            }
+        }).catch(error => {
+            //error modal
+        });
     }
 
     handleHideAnnouncements = () => {

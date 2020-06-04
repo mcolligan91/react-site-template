@@ -6,13 +6,13 @@ import Login from './Components/Login/Login';
 
 class App extends Component {
 	render() {
-		return(
+		return (
 			<Switch>
 				<Route path='/' exact component={Login}></Route>
 				<Route path='/login' exact component={Login}></Route>
 				<Route path='/*' component={Layout}></Route>
 			</Switch>
-		)
+		);
 	}
 }
 

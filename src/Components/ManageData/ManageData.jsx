@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Icon, Menu, Accordion, List, Label, Dropdown } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
@@ -28,108 +29,18 @@ class ManageData extends Component {
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
+        this.setState({ isPageLoading: true });
 
-        //will load from api call response
-        let posData = [
-            {
-                title: '2020', 
-                content: [
-                    {year: '2020', month: 'June', status: 1}, 
-                    {year: '2020', month: 'May', status: 1}, 
-                    {year: '2020', month: 'April', status: 1}, 
-                    {year: '2020', month: 'March', status: 1}, 
-                    {year: '2020', month: 'February', status: 2}, 
-                    {year: '2020', month: 'January', status: 3}
-                ]
-            },
-            {
-                title: '2019', 
-                content: [
-                    {year: '2019', month: 'December', status: 1},
-                    {year: '2019', month: 'November', status: 1},
-                    {year: '2019', month: 'October', status: 1}, 
-                    {year: '2019', month: 'September', status: 1}, 
-                    {year: '2019', month: 'August', status: 1}, 
-                    {year: '2019', month: 'July', status: 1}, 
-                    {year: '2019', month: 'June', status: 1}, 
-                    {year: '2019', month: 'May', status: 1}, 
-                    {year: '2019', month: 'April', status: 1}, 
-                    {year: '2019', month: 'March', status: 1}, 
-                    {year: '2019', month: 'February', status: 2}, 
-                    {year: '2019', month: 'January', status: 3}
-                ]
-            },
-            {
-                title: '2018', 
-                content: [
-                    {year: '2018', month: 'December', status: 1},
-                    {year: '2018', month: 'November', status: 1},
-                    {year: '2018', month: 'October', status: 1}, 
-                    {year: '2018', month: 'September', status: 1}, 
-                    {year: '2018', month: 'August', status: 1}, 
-                    {year: '2018', month: 'July', status: 1}, 
-                    {year: '2018', month: 'June', status: 1}, 
-                    {year: '2018', month: 'May', status: 1}, 
-                    {year: '2018', month: 'April', status: 1}, 
-                    {year: '2018', month: 'March', status: 1}, 
-                    {year: '2018', month: 'February', status: 2}, 
-                    {year: '2018', month: 'January', status: 3}
-                ]
-            },
-            {
-                title: '2017', 
-                content: [
-                    {year: '2017', month: 'December', status: 1},
-                    {year: '2017', month: 'November', status: 1},
-                    {year: '2017', month: 'October', status: 1}, 
-                    {year: '2017', month: 'September', status: 1}, 
-                    {year: '2017', month: 'August', status: 1}, 
-                    {year: '2017', month: 'July', status: 1}, 
-                    {year: '2017', month: 'June', status: 1}, 
-                    {year: '2017', month: 'May', status: 1}, 
-                    {year: '2017', month: 'April', status: 1}, 
-                    {year: '2017', month: 'March', status: 1}, 
-                    {year: '2017', month: 'February', status: 2}, 
-                    {year: '2017', month: 'January', status: 3}
-                ]
-            },
-            {
-                title: '2016', 
-                content: [
-                    {year: '2016', month: 'December', status: 1},
-                    {year: '2016', month: 'November', status: 1},
-                    {year: '2016', month: 'October', status: 1}, 
-                    {year: '2016', month: 'September', status: 1}, 
-                    {year: '2016', month: 'August', status: 1}, 
-                    {year: '2016', month: 'July', status: 1}, 
-                    {year: '2016', month: 'June', status: 1}, 
-                    {year: '2016', month: 'May', status: 1}, 
-                    {year: '2016', month: 'April', status: 1}, 
-                    {year: '2016', month: 'March', status: 1}, 
-                    {year: '2016', month: 'February', status: 2}, 
-                    {year: '2016', month: 'January', status: 3}
-                ]
-            },
-            {
-                title: '2015', 
-                content: [
-                    {year: '2015', month: 'December', status: 1},
-                    {year: '2015', month: 'November', status: 1},
-                    {year: '2015', month: 'October', status: 1}, 
-                    {year: '2015', month: 'September', status: 1}, 
-                    {year: '2015', month: 'August', status: 1}, 
-                    {year: '2015', month: 'July', status: 1}, 
-                    {year: '2015', month: 'June', status: 1}, 
-                    {year: '2015', month: 'May', status: 1}, 
-                    {year: '2015', month: 'April', status: 1}, 
-                    {year: '2015', month: 'March', status: 1}, 
-                    {year: '2015', month: 'February', status: 2}, 
-                    {year: '2015', month: 'January', status: 3}
-                ]
+        axios.get('/data/pos').then(response => {
+            if (response.data.success) {
+                const {posData} = response.data.data;
+                this.setState({ posData, sideNavActiveIndex: 0, isPageLoading: false });
+            } else {
+                //error
             }
-        ];
-
-        this.setState({ posData: posData, sideNavActiveIndex: 0 });
+        }).catch(error => {
+            //error
+        });
     }
 
     handleSideNavMenuClick = (e, titleProps) => {
@@ -144,128 +55,77 @@ class ManageData extends Component {
         //for component SideNav, prop activeItem
         this.setState({ activeItemMain: index });
         
-        //will pull with ajax call - switch statement will specify URL
-        setTimeout(() => { 
-            switch (index) {
-                case 1:
-                    //for component Branch, prop tableContent
-                    this.setState({ branchData: [
-                            {id: 1, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 2, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 3, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 4, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 5, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 6, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 7, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 8, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 9, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 10, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 11, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 12, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 12, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 13, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 14, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 15, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 16, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 17, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 18, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 19, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'},
-                            {id: 20, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'}
-                        ]
-                    });
-                    break;
+        if (index === 1) {
+            this.handleLoadBranchData();
+        } else if (index === 2) {
+            this.handleLoadProductData();
+        }
+    }
 
-                case 2: 
-                    //for component Product, prop productData (productData)
-                    //for component Product, prop productUploadData (productUploadData)
-                    this.setState({ productData: [
-                            {distributor: 'Distributor A', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
-                            {distributor: 'Distributor B', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
-                            {distributor: 'Distributor C', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
-                            {distributor: 'Distributor D', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
-                            {distributor: 'Distributor E', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
-                           
-                        ], 
-                        productUploadData: [
-                            {fileName: 'Product_v1.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v2.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v3.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v4.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v5.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v6.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v7.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v8.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'},
-                            {fileName: 'Product_v9.csv', productAmount: 1, prodCategoryAmount: 1, dateUploaded: '5/20/2020'}
-                        ]
-                    });
-                    //load product data
-                    break;
-
-                default:
-                    //error message
+    //for component Branch, prop tableContent
+    handleLoadBranchData = () => {
+        axios.get('/data/branch').then(response => {
+            if (response.data.success) {
+                const {branchData} = response.data.data;
+                this.setState({ branchData });
+            } else {
+                //error 
             }
-            
-        }, 500); 
+        }).catch(error => {
+            //error message
+        })
+    }
+
+    //for component Product, prop productData (productData)
+    //for component Product, prop productUploadData (productUploadData)
+    handleLoadProductData = () => {
+        axios.get('/data/product').then(response => {
+            if (response.data.success) {
+                const {productData, productUploadData} = response.data.data;
+                this.setState({ productData, productUploadData });
+            } else {
+                //error 
+            }
+        }).catch(error => {
+            //error
+        })
     }
 
     handleSecondaryItemClick = (e, data) => {
-        //would fire ajax call to load selected summary data and update state based on response
         this.setState({ isPageLoading: true });
 
         //for component DataSummaryContent, prop selectedSummary
-        setTimeout(() => {
-            //temp dummy data for submissions
-            let submissions = [
-                {fileName: 'upload1.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-                {fileName: 'upload2.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-                {fileName: 'upload3.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-                {fileName: 'upload4.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-                {fileName: 'upload5.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''},
-                {fileName: 'upload6.csv', status: 'Uploaded', recordsAmount: 423, totalQuantity: 983483437, notes: ''}
-            ];
-
-            //temp dummy submission notes
-            let submissionNotes = [
-                'Submitted by User A on 5/27/2020 10:23:46am'
-            ];
-
-            //temp dummy review notes
-            let reviewNotes = [
-                'Uploaded by User A on 5/28/2020 10:19:23am',
-                'Total Unique Branches: 110',
-                'Number of New Products: 35467',
-                'Number of New Customers: 2'
-            ];
-
-            //object for selectedSummary state - would be populated from response data instead of 'data' parameter
-            let summary = {
-                status: data.status,
-                month: data.month,
-                year: data.year,
-                submissionData: submissions,
-                submissionNotes: submissionNotes,
-                reviewNotes: reviewNotes,
-                submissionComments: [],            
-            };
-
-            this.setState({ selectedSummary: summary, isPageLoading: false });
-        }, 500);
+        axios.get(`/data/summary/${data.id}`).then(response => {
+            if (response.data.success) {
+                const {selectedSummary} = response.data.data;
+                this.setState({ selectedSummary, isPageLoading: false });
+                window.scrollTo(0, 0);
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
     }
 
     //for component Branch, prop handleAddBranch
     handleAddBranch = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
-        this.setState((prevState) => ({
-            isPageLoading: true
-        }));
+        this.setState({ isPageLoading: true });
 
-        setTimeout(() => {
-            let newUser = {id: 21, branchId: data.branchId, city: data.city, state: data.state, zipCode: data.zipCode, status: data.status,  dateAdded: '5/25/2020', details: data.details};
-            this.setState((prevState) => ({
-                branchData: [newUser, ...prevState.branchData]
-            }));
-            this.setState({ isPageLoading: false });
-        }, 1000);
+        axios.post('/branch', data).then(response => {
+            if (response.data.success) {
+                const {newBranch} = response.data.data;
+                this.setState((prevState) => ({
+                    branchData: [newBranch, ...prevState.branchData],
+                    isPageLoading: false
+                }));
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
     }
 
     //for component DataSummaryContent, prop handleUploadSubmission

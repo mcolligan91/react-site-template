@@ -21,7 +21,7 @@ class Login extends Component {
 		this.setState({ [name]: value });
 	}	
 
-	handleLogin = () => {
+	handleLogin = (e) => {
 		//would send password and email to server and log user in, then update broswer session with user information
 
 		sessionStorage.setItem('loggedIn', true);
