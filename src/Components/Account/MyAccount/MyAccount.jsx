@@ -17,11 +17,62 @@ class MyAccount extends Component {
             buttonText: 'Update User Information',
             buttonIcon: 'user',
             fields: [
-                {fieldType: 'input', label: 'First Name', placeholder: 'First Name', name: 'firstName'},
-                {fieldType: 'input', label: 'Last Name', placeholder: 'Last Name', name: 'lastName'},
-                {fieldType: 'input', label: 'Email Address', placeholder: 'Email Address', name: 'email'},
-                {fieldType: 'input', label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
-                {fieldType: 'input', label: 'Location', placeholder: 'Location', name: 'location'}
+                {
+                    fieldType: 'input', 
+                    label: 'First Name', 
+                    placeholder: 'First Name', 
+                    name: 'firstName',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Last Name', 
+                    placeholder: 'Last Name', 
+                    name: 'lastName',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Email Address', 
+                    placeholder: 'Email Address', 
+                    name: 'email',
+                    isRequired: true,
+                    validations: 'isEmail',
+                    validationErrors: {
+                        isEmail: 'Please senter a valid email address.', 
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Phone Number', 
+                    placeholder: 'Phone Number', 
+                    name: 'phone',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Location', 
+                    placeholder: 'Location', 
+                    name: 'location',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                }
             ]
         };
 
@@ -32,9 +83,43 @@ class MyAccount extends Component {
             buttonText: 'Update Password',
             buttonIcon: 'ellipsis horizontal',
             fields: [
-                {fieldType: 'input', label: 'Current Password', placeholder: 'Current Password', name: 'currentPassword', type: 'password'},
-                {fieldType: 'input', label: 'Enter New Password', placeholder: 'Enter New Password', name: 'newPassword', type: 'password'},
-                {fieldType: 'input', label: 'Confirm New Password', placeholder: 'Confirm New Password', name: 'confirmedPassword', type: 'password'}
+                {
+                    fieldType: 'input', 
+                    label: 'Current Password', 
+                    placeholder: 'Current Password', 
+                    name: 'currentPassword', 
+                    type: 'password',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Enter New Password', 
+                    placeholder: 'Enter New Password', 
+                    name: 'newPassword', 
+                    type: 'password',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Confirm New Password', 
+                    placeholder: 'Confirm New Password', 
+                    name: 'confirmedPassword', 
+                    type: 'password',
+                    isRequired: true,
+                    validations: 'equalsField:newPassword',
+                    validationErrors: {
+                        equalsField: 'The entered passwords do not match',
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                }
             ]
         };
         

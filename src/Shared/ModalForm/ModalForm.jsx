@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Form, Header, Button } from 'semantic-ui-react';
+import { Modal, Header, Button, Label } from 'semantic-ui-react';
+import { Form } from 'formsy-semantic-ui-react';
 
 import './modal-form.scss';
 
@@ -38,26 +39,83 @@ class ModalForm extends Component {
         const {isOpen, formData} = this.state;
         const {modalInfo} = this.props;
 
+        const errorLabel = <Label color='red' pointing />;
+
+        const errorLabelRadio = <Label color='red' pointing='left' />;
+
         return (
-            <Modal as={Form} className='contact-modal' onSubmit={(e) => this.handleSubmit(e)} open={isOpen} onClose={this.handleCloseModal} centered={false} closeIcon size='tiny' closeOnDimmerClick={false} >
+            <Modal as={Form} className='contact-modal' onValidSubmit={(e) => this.handleSubmit(e)} open={isOpen} onClose={this.handleCloseModal} centered={false} closeIcon size='tiny' closeOnDimmerClick={false} >
                 <Header content={modalInfo.title} />
                 <Modal.Content>
                     {modalInfo.fields.map((field, i) => {
-                        return field.type === 'input' ? (
-                            <Form.Input key={i} fluid label={field.label} name={field.name} value={formData[field.name]} onChange={this.handleChange} />
-                        ) : field.type === 'select' ? (
-                            <Form.Select key={i} fluid label={field.label} name={field.name} value={formData[field.name]} options={field.options} onChange={this.handleChange} />
-                        ) : field.type === 'textArea' ? (
-                            <Form.TextArea key={i} label={field.label} name={field.name} value={formData[field.name]} options={field.options} onChange={this.handleChange} />
-                        ) : field.type === 'radio' ? (
-                            <Form.Group key={i} inline>
-                                <label>{field.label}</label>
-                                {field.options.map((option, j) => {
+                        const {type, label, placeholder, name, options, isRequired, validations, validationErrors} = field;
+                        return type === 'input' ? (
+                            <Form.Input 
+                             key={i} 
+                             fluid 
+                             label={label} 
+                             name={name} 
+                             placeholder={placeholder} 
+                             value={formData[name]} 
+                             onChange={this.handleChange} 
+                             required={isRequired}
+                             validations={validations}
+                             validationErrors={validationErrors}
+                             errorLabel={errorLabel}
+                            />
+                        ) : type === 'select' ? (
+                            <Form.Select 
+                             key={i} 
+                             fluid 
+                             label={label} 
+                             name={name} 
+                             placeholder={placeholder} 
+                             value={formData[name]} 
+                             options={options} 
+                             onChange={this.handleChange} 
+                             required={isRequired}
+                             validations={validations}
+                             validationErrors={validationErrors}
+                             errorLabel={errorLabel}
+                            />
+                        ) : type === 'textArea' ? (
+                            <Form.TextArea 
+                             key={i} 
+                             label={label} 
+                             name={name} 
+                             placeholder={placeholder} 
+                             value={formData[name]} 
+                             options={options} 
+                             onChange={this.handleChange} 
+                             required={isRequired}
+                             validations={validations}
+                             validationErrors={validationErrors}
+                             errorLabel={errorLabel}
+                            />
+                        ) : type === 'radio' ? (
+                            <Form.RadioGroup 
+                             key={i} 
+                             inline
+                             name={name} 
+                             label={label}
+                             required={isRequired}
+                             validations={validations}
+                             validationErrors={validationErrors}
+                             errorLabel={errorLabelRadio}
+                             onChange={this.handleChange}
+                            >
+                                {options.map((option, j) => {
                                     return (
-                                        <Form.Radio key={j} label={option} name={field.name} value={option} checked={formData[field.name] === option} onChange={this.handleChange} />
+                                        <Form.Radio 
+                                         key={j} 
+                                         name={name}
+                                         label={option} 
+                                         value={option} 
+                                         checked={formData[name] === option} 
+                                        />
                                     )
                                 })}
-                            </Form.Group>
+                            </Form.RadioGroup>
                         ) : (
                             null
                         )

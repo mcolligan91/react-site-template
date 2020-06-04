@@ -75,7 +75,7 @@ class InteractiveTableLayout extends Component {
                                 )}
                                 {pageInfo.headerButtons ? (
                                     <>
-                                        <Grid.Column only='computer' width={16} textAlign='right' verticalAlign='middle'>
+                                        <Grid.Column only='computer tablet' width={16} textAlign='right' verticalAlign='middle'>
                                             {pageInfo.headerButtons.map((button, i) => {
                                                 return (
                                                     <Button key={i} className={`main-button-color ${button.className}`} size='tiny' icon labelPosition='left' onClick={button.clickFunction}>
@@ -85,7 +85,7 @@ class InteractiveTableLayout extends Component {
                                                 )
                                             })}
                                         </Grid.Column>
-                                        <Grid.Column className='mobile-button-container' only='tablet mobile' width={16} textAlign='center' verticalAlign='middle'>
+                                        <Grid.Column only='mobile' width={16} textAlign='center' verticalAlign='middle'>
                                             {pageInfo.headerButtons.map((button, i) => {
                                                 return (
                                                     <Button key={i} className={`main-button-color ${button.className}`} icon size='mini' labelPosition='left' onClick={button.clickFunction}>

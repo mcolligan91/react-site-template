@@ -39,10 +39,49 @@ class ManageOrganization extends Component {
             buttonText: 'Update Organization',
             buttonIcon: 'compass',
             fields: [
-                {fieldType: 'input', label: 'Address', placeholder: 'Address', name: 'address'},
-                {fieldType: 'input', label: 'Phone Number', placeholder: 'Phone Number', name: 'phone'},
-                {fieldType: 'input', label: 'Email Address', placeholder: 'Email Address', name: 'email'},
-                {fieldType: 'input', label: 'Website', placeholder: 'Website', name: 'website'}
+                {
+                    fieldType: 'input', 
+                    label: 'Address', 
+                    placeholder: 'Address', 
+                    name: 'address',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Phone Number', 
+                    placeholder: 'Phone Number', 
+                    name: 'phone',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Email Address', 
+                    placeholder: 'Email Address', 
+                    name: 'email',
+                    isRequired: true,
+                    validations: 'isEmail',
+                    validationErrors: {
+                        isEmail: 'Please senter a valid email address.', 
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    fieldType: 'input', 
+                    label: 'Website', 
+                    placeholder: 'Website', 
+                    name: 'website',
+                    isRequired: false,
+                    validations: null,
+                    validationErrors: null
+                }
             ]
         };
 
@@ -71,30 +110,57 @@ class ManageOrganization extends Component {
         };
 
         //for component ModalForm, prop modalInfo 
-        const addAdminModalInfo = {
+        const adminModalInfo = {
             title: 'Add New Admin User',
             fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'phone', label: 'Phone Number', type: 'input'}
+                {
+                    name: 'name', 
+                    label: 'Name', 
+                    placeholder: 'Name', 
+                    type: 'input',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    name: 'email', 
+                    label: 'Email Address', 
+                    placeholder: 'Email Address', 
+                    type: 'input',
+                    isRequired: true,
+                    validations: 'isEmail',
+                    validationErrors: {
+                        isEmail: 'Please senter a valid email address.', 
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    name: 'phone', 
+                    label: 'Phone Number', 
+                    placeholder: 'Email Address', 
+                    type: 'input',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                }
             ]
         };
 
-        const addAdminModal = <ModalForm ref={(addAdminModal) => { this.addAdminModal = addAdminModal; }} modalInfo={addAdminModalInfo} handleSubmit={handleAddAdmin} />;
+        const addAdminModal = (
+            <ModalForm ref={(addAdminModal) => { this.addAdminModal = addAdminModal; }} modalInfo={adminModalInfo}   handleSubmit={handleAddAdmin} />
+        );
 
-        //for component ModalForm, prop modalInfo 
-        const editAdminModalInfo = {
-            title: 'Edit Admin User',
-            fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'phone', label: 'Phone', type: 'input'}
-            ]
-        };
+        const editAdminModal = (
+            <ModalForm ref={(editAdminModal) => { this.editAdminModal = editAdminModal; }} modalInfo={adminModalInfo} handleSubmit={handleEditAdmin} />
+        );
 
-        const editAdminModal = <ModalForm ref={(editAdminModal) => { this.editAdminModal = editAdminModal; }} modalInfo={editAdminModalInfo} handleSubmit={handleEditAdmin} />;
-
-        const confirmDeleteAdminModal = <ConfirmationModal ref={(confirmDeleteAdminModal) => { this.confirmDeleteAdminModal = confirmDeleteAdminModal; }} handleConfirm={handleDeleteAdmin} />;
+        const confirmDeleteAdminModal = (
+            <ConfirmationModal ref={(confirmDeleteAdminModal) => { this.confirmDeleteAdminModal = confirmDeleteAdminModal; }} handleConfirm={handleDeleteAdmin} />
+        );
 
         return (
             <>

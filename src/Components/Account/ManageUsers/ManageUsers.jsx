@@ -75,32 +75,70 @@ class ManageUsers extends Component {
         };
 
         //for component ModalForm, prop modalInfo
-        const editUserModalInfo = {
+        const userModalInfo = {
             title: 'Edit User',
             fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'organization', label: 'Organization', type: 'select', options: orgs},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'role', label: 'Role', type: 'select', options: roles}
+                {
+                    name: 'name', 
+                    label: 'Name',
+                    placeholder: 'Name', 
+                    type: 'input',
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    name: 'organization', 
+                    label: 'Organization', 
+                    placeholder: 'Please select...',
+                    type: 'select', 
+                    options: orgs,
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please make a selection.'
+                    }
+                },
+                {
+                    name: 'email', 
+                    label: 'Email Address', 
+                    placeholder: 'Email Address', 
+                    type: 'input',
+                    isRequired: true,
+                    validations: 'isEmail',
+                    validationErrors: {
+                        isEmail: 'Please enter a valid email address',
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+                },
+                {
+                    name: 'role', 
+                    label: 'Role', 
+                    placeholder: 'Please select...',
+                    type: 'select', 
+                    options: roles,
+                    isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please make a selection.'
+                    }
+                }
             ]
         };
 
-        const editUserModal = <ModalForm ref={(editUserModal) => { this.editUserModal = editUserModal; }} modalInfo={editUserModalInfo} handleSubmit={handleEditUser} />;
+        const editUserModal = (
+            <ModalForm ref={(editUserModal) => { this.editUserModal = editUserModal; }} modalInfo={userModalInfo} handleSubmit={handleEditUser} />
+        );
 
-        //for component ModalForm, prop modalInfo 
-        const addUserModalInfo = {
-            title: 'Add New User',
-            fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'organization', label: 'Organization', type: 'select', options: orgs},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'role', label: 'Role', type: 'select', options: roles}
-            ]
-        };
+        const addUserModal = (
+            <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={userModalInfo} handleSubmit={handleAddUser} />
+        );
 
-        const addUserModal = <ModalForm ref={(addUserModal) => { this.addUserModal = addUserModal; }} modalInfo={addUserModalInfo} handleSubmit={handleAddUser} />;
-
-        const confirmDeleteUserModal = <ConfirmationModal ref={(confirmDeleteUserModal) => { this.confirmDeleteUserModal = confirmDeleteUserModal; }} handleConfirm={handleDeleteUser} />;
+        const confirmDeleteUserModal = (
+            <ConfirmationModal ref={(confirmDeleteUserModal) => { this.confirmDeleteUserModal = confirmDeleteUserModal; }} handleConfirm={handleDeleteUser} />
+        );
         
         return (
             <>

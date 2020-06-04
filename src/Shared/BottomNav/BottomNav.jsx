@@ -37,13 +37,46 @@ class BottomNav extends Component {
         const contactModalInfo = {
             title: 'Contact Us',
             fields: [
-                {name: 'name', label: 'Name', type: 'input'},
-                {name: 'email', label: 'Email Address', type: 'input'},
-                {name: 'phone', label: 'Message', type: 'textArea'}
+                {
+					name: 'name', 
+					label: 'Name', 
+					placeholder: 'Name', 
+					type: 'input',
+					isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+				},
+                {
+					name: 'email', 
+					label: 'Email Address', 
+					placeholder: 'Email Address', 
+					type: 'input',
+					isRequired: true,
+                    validations: 'isEmail',
+                    validationErrors: {
+						isEmail: 'Please enter a valid email address.',
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+				},
+                {
+					name: 'phone', 
+					label: 'Message', 
+					placeholder: 'Message', 
+					type: 'textArea',
+					isRequired: true,
+                    validations: null,
+                    validationErrors: {
+                        isDefaultRequiredValue: 'Please fill out this field.'
+                    }
+				}
             ]
         };
 
-        const contactModal = <ModalForm ref={(contactModal) => { this.contactModal = contactModal; }} modalInfo={contactModalInfo} handleSubmit={this.handleSubmit} />;
+        const contactModal = (
+			<ModalForm ref={(contactModal) => { this.contactModal = contactModal; }} modalInfo={contactModalInfo} handleSubmit={this.handleSubmit} />
+		);
 
         return (
 			<>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Header, Form, Icon, Button, Dimmer, Loader } from 'semantic-ui-react';
+import { Header, Icon, Button, Dimmer, Loader, Label } from 'semantic-ui-react';
+import { Form } from 'formsy-semantic-ui-react';
  
 import './input-form.scss';
 
@@ -38,6 +39,8 @@ class InputForm extends Component {
     render() {
         const {isLoading, data} = this.state;
         const {formInfo} = this.props;
+
+        const errorLabel = <Label color='red' pointing />;
         
         return (
             <>
@@ -47,12 +50,38 @@ class InputForm extends Component {
                         <Loader>Loading</Loader>
                     </Dimmer>
                     {data !== null ? (
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form className='main-form' onValidSubmit={this.handleSubmit}>
                             {formInfo.fields.map((field, i) => {
-                                return field.fieldType === 'input' ? (
-                                    <Form.Input key={i} label={field.label} placeholder={field.placeholder} name={field.name} type={field.type} value={data[field.name] || ''} onChange={this.handleChange} /> 
-                                ) : field.fieldType === 'dropdown' ? (
-                                    <Form.Select key={i} label={field.label} placeholder={field.placeholder} name={field.name} options={field.options} value={data[field.name] || ''} onChange={this.handleChange}/>
+                                const {fieldType, label, placeholder, name, type, isRequired, validations, validationErrors, options} = field;
+                                return fieldType === 'input' ? (
+                                    <Form.Input
+                                     key={i} 
+                                     label={label} 
+                                     placeholder={placeholder} 
+                                     name={name} 
+                                     type={type} 
+                                     value={data[name] || ''} 
+                                     onChange={this.handleChange} 
+                                     required={isRequired}
+                                     validations={validations}
+                                     validationErrors={validationErrors}
+                                     instantValidation={false}
+                                     errorLabel={errorLabel}
+                                    /> 
+                                ) : fieldType === 'dropdown' ? (
+                                    <Form.Select 
+                                     key={i} 
+                                     label={label} 
+                                     placeholder={placeholder} 
+                                     name={name} 
+                                     options={options} 
+                                     value={data[name] || ''} 
+                                     onChange={this.handleChange}
+                                     required={isRequired}
+                                     validations={validations}
+                                     validationErrors={validationErrors}
+                                     errorLabel={errorLabel}
+                                    />
                                 ) : (
                                     null
                                 )

@@ -6,6 +6,12 @@
     margin-right: 10px;
   }
 
+  @media screen and (min-width: 767px) and (max-width: 991px) {
+    .ui.button.inner-button {
+      margin-right: 5px;
+    }
+}
+
   .ui.button.inactive-paging-button {
     background: transparent;
   }
@@ -20,10 +26,6 @@
 
   .ui.grid.interactive-table-container {
     padding: 15px;
-  }
-
-  .mobile-button-container.ui.button {
-    font-size: .78571429rem;
   }
 
   .ui.grid>[class*="sixteen wide"].column.interactive-table-layout-table-container {
