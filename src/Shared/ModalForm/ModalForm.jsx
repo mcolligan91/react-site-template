@@ -39,9 +39,13 @@ class ModalForm extends Component {
         const {isOpen, formData} = this.state;
         const {modalInfo} = this.props;
 
-        const errorLabel = <Label color='red' pointing />;
+        const errorLabel = (
+            <Label color='red' pointing />
+        );
 
-        const errorLabelRadio = <Label color='red' pointing='left' />;
+        const errorLabelRadio = (
+            <Label color='red' pointing='left' />
+        );
 
         return (
             <Modal as={Form} className='contact-modal' onValidSubmit={(e) => this.handleSubmit(e)} open={isOpen} onClose={this.handleCloseModal} centered={false} closeIcon size='tiny' closeOnDimmerClick={false} >
