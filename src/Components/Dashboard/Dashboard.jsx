@@ -11,8 +11,9 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isPageContentLoading: true,
             showAnnouncements: true,
-            announcements: null,
+            announcements: [],
             tasks: [],
             events: []
         }
@@ -21,10 +22,12 @@ class Dashboard extends Component {
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
+        //for component ModuleTable, prop isLoading
+        //for component ModuleTable, prop tableData
         axios.get('/dashboard').then(response => {
             if (response.data.success) {
                 const {announcements, tasks, events} = response.data.data;
-                this.setState({ announcements, tasks, events });
+                this.setState({ announcements, tasks, events, isPageContentLoading: false });
             } else {
                 //error modal
             }
@@ -38,7 +41,7 @@ class Dashboard extends Component {
     } 
 
     render() {
-        const {showAnnouncements, announcements, tasks, events} = this.state;
+        const {isPageContentLoading, showAnnouncements, announcements, tasks, events} = this.state;
 
         //for component ModuleTable, prop tableInfo
         const taskTable = {
@@ -74,8 +77,8 @@ class Dashboard extends Component {
                             <Grid padded>
                                 <Grid.Column>
                                     <Header as='h3'>Announcements</Header>
-                                    <Dimmer.Dimmable className='announcements-dimmer' blurring dimmed={announcements === null}>
-                                        <Dimmer active={announcements === null}>
+                                    <Dimmer.Dimmable className='announcements-dimmer' blurring dimmed={isPageContentLoading}>
+                                        <Dimmer active={isPageContentLoading}>
                                             <Loader>Loading</Loader>
                                         </Dimmer>
                                         <Message info onDismiss={this.handleHideAnnouncements}>
@@ -98,12 +101,12 @@ class Dashboard extends Component {
                 <Grid.Row columns={2} className='dashboard-tables-container'>
                     <Grid.Column computer={10} tablet={16} mobile={16}>
                         <Grid padded>
-                            <ModuleTable tableInfo={taskTable} tableData={tasks} />
+                            <ModuleTable isLoading={isPageContentLoading} tableInfo={taskTable} tableData={tasks} />
                         </Grid>
                     </Grid.Column>
                     <Grid.Column computer={6} tablet={16} mobile={16}>
                         <Grid padded>
-                            <ModuleTable tableInfo={eventTable} tableData={events} />
+                            <ModuleTable isLoading={isPageContentLoading} tableInfo={eventTable} tableData={events} />
                         </Grid>
                     </Grid.Column>
                 </Grid.Row>

@@ -8,7 +8,7 @@ import './my-account.scss';
 class MyAccount extends Component {
 
     render() {
-        const {passwordData, userData, handleUpdatePasswordInformation, handleUpdateUserInformation} = this.props;
+        const {isLoading, passwordData, userData, handleUpdatePasswordInformation, handleUpdateUserInformation} = this.props;
 
         //for component InputForm, prop formInfo
         const userInfo = {
@@ -132,12 +132,12 @@ class MyAccount extends Component {
                 </Grid.Row>
                 <Grid.Row className='my-account-form-container' centered>
                     <Grid.Column computer={8} tablet={10} mobile={12}>
-                        <InputForm formInfo={userInfo} formData={userData} />
+                        <InputForm isLoading={isLoading} formInfo={userInfo} formData={userData} />
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row className='my-account-form-container' centered>
                     <Grid.Column computer={8} tablet={10} mobile={12}>
-                        <InputForm formInfo={passwordInfo} formData={passwordData} />
+                        <InputForm isLoading={isLoading} formInfo={passwordInfo} formData={passwordData} />
                     </Grid.Column>
                 </Grid.Row>
             </>

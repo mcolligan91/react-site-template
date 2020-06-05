@@ -113,7 +113,7 @@ class ManageData extends Component {
         //would fire ajax call and update state based on response, instead of 'data' param
         this.setState({ isPageLoading: true });
 
-        axios.post('/branch', data).then(response => {
+        axios.post('/data/branch', data).then(response => {
             if (response.data.success) {
                 const {newBranch} = response.data.data;
                 this.setState((prevState) => ({

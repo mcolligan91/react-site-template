@@ -30,7 +30,7 @@ class ManageOrganization extends Component {
     }
 
     render() {
-        const {orgData, adminTableData, handleAddAdmin, handleUpdateOrganization, handleDeleteAdmin, handleEditAdmin} = this.props;
+        const {isLoading, orgData, adminTableData, handleAddAdmin, handleUpdateOrganization, handleDeleteAdmin, handleEditAdmin} = this.props;
 
         //for component InputForm, prop formInfo
         const orgInfo = {
@@ -175,12 +175,12 @@ class ManageOrganization extends Component {
                         </Grid.Column>
                         <Grid.Row className='org-form-container' centered>
                             <Grid.Column computer={8} tablet={10} mobile={12}>
-                                <InputForm formInfo={orgInfo} formData={orgData} />
+                                <InputForm isLoading={isLoading} formInfo={orgInfo} formData={orgData} />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row centered>
                             <Grid.Column computer={8} tablet={10} mobile={12}>
-                                <ModuleTable tableInfo={adminTable} tableData={adminTableData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
+                                <ModuleTable isLoading={isLoading} tableInfo={adminTable} tableData={adminTableData} handleTableButtonClick={this.handleAdminTableButtonClick} buttonClickFunction={this.handleAddAdminButtonClick} />
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

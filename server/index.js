@@ -6,6 +6,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 app.use(bodyParser.json());
+app.disable('etag');
+
+app.use('/favicon.ico', express.static('./favicon.ico'));
 
 app.listen(3001, () =>
     console.log('Express server is running on localhost:3001')
@@ -13,7 +16,7 @@ app.listen(3001, () =>
 
 
 //dashbaord 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard/', (req, res) => {
     let announcements = ['Example announcement 1', 'Example announcement 2', 'Example announcement 3', 'Example announcement 4'];
 
     let tasks = [
@@ -32,14 +35,14 @@ app.get('/dashboard', (req, res) => {
     let events = [
         {summary: 'User A added a new Branch.', date: '2/6/2020'},
         {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'},
-        {summary: 'User A submitted POS data for December 2019.', date: '2/6/2020'}
+        {summary: 'User B submitted POS data for December 2019.', date: '2/6/2020'},
+        {summary: 'User C submitted POS data for December 2019.', date: '2/6/2020'},
+        {summary: 'User D submitted POS data for December 2019.', date: '2/6/2020'},
+        {summary: 'User E submitted POS data for December 2019.', date: '2/6/2020'},
+        {summary: 'User F submitted POS data for December 2019.', date: '2/6/2020'},
+        {summary: 'User G submitted POS data for December 2019.', date: '2/6/2020'},
+        {summary: 'User H submitted POS data for December 2019.', date: '2/6/2020'},
+        {summary: 'User I submitted POS data for December 2019.', date: '2/6/2020'}
     ];
 
     res.send(JSON.stringify({success: true, data: {announcements, tasks, events}}));
@@ -475,7 +478,7 @@ let posData = [
     }
   ];
 
-app.get('/data/pos/', (req, res) => {
+app.get('/data/pos', (req, res) => {
     res.send(JSON.stringify({success: true, data: {posData}}));
 });
 
@@ -550,11 +553,11 @@ let branchData = [
     {id: 20, branchId: 'Branch A', city: 'Los Angeles', state: 'California', zipCode: '90011', status: 'Open', dateAdded: '5/19/2020', details: 'Lorem ipsum'}
 ];
 
-app.get('/data/branch/', (req, res) => {
+app.get('/data/branch', (req, res) => {
     res.send(JSON.stringify({success: true, data: {branchData}}));
 });
 
-app.post('/branch', (req, res) => {
+app.post('/data/branch', (req, res) => {
     let newBranch = req.body;
     
     newBranch['id'] = branchData.length + 1;
@@ -567,7 +570,7 @@ app.post('/branch', (req, res) => {
 
 //branch delete
 
-app.get('/data/product/', (req, res) => {
+app.get('/data/product', (req, res) => {
     let productData = [
         {distributor: 'Distributor A', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
         {distributor: 'Distributor B', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
@@ -591,3 +594,71 @@ app.get('/data/product/', (req, res) => {
 
     res.send(JSON.stringify({success: true, data: {productData, productUploadData}}));
 });
+
+//account
+app.get('/account/user', (req, res) => {
+    let userData = {
+		firstName: 'Michael', 
+		lastName: 'Colligan', 
+		email: 'abc@gmail.com', 
+		phone: '(123) 456-7890', 
+		location: 'Washington, DC' 
+	}
+	res.send(JSON.stringify({success: true, data: {userData}}));
+});
+
+let adminTableData = [
+	{id: 1, name: 'User A', email: 'exampleA@gmail.com', phone: '(123) 456-7890'}, 
+	{id: 2, name: 'User B', email: 'exampleB@gmail.com', phone: '(123) 456-7890'}, 
+	{id: 3, name: 'User C', email: 'exampleC@gmail.com', phone: '(123) 456-7890'}
+];
+
+let adminId = adminTableData.length;
+
+let orgData = {
+	address: '123 Main Street', 
+	phone: '(123) 456-7890', 
+	email: 'abc@gmail.com', 
+	website: 'example.com'
+};
+
+app.get('/account/organization', (req, res) => {
+  res.send(JSON.stringify({success: true, data: {orgData, adminTableData}}));
+});
+
+app.post('/account/admin/', (req, res) => {
+	let newAdmin = req.body;
+		
+	newAdmin['id'] = adminId;
+
+	adminId = adminId + 1;
+
+	adminTableData.unshift(newAdmin);
+
+	res.send(JSON.stringify({success: true, data: {newAdmin}}));
+});
+
+app.put('/account/admin/', (req, res) => {
+	let user = adminTableData.find(d => d.id === req.body.id);
+	Object.assign(user, req.body);
+		
+	let newData = adminTableData;
+	res.send(JSON.stringify({success: true, data: {newData}}));
+});
+
+app.delete('/account/admin/:id', (req, res) => {
+	let id = parseInt(req.params.id);
+
+	for (let i = 0; i < adminTableData.length; i++) {
+		console.log(adminTableData[i]);
+		if (adminTableData[i]['id'] === id) {
+			adminTableData.splice(i, 1);
+		}
+	}
+	res.send(JSON.stringify({success: true }));
+});
+
+app.put('/account/organization-information', (req, res) => {
+	orgData = req.body;
+	res.send(JSON.stringify({success: true, data: {orgData}}));
+})
