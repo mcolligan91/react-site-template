@@ -39,7 +39,7 @@ class Product extends Component {
     }
 
     render() {
-        const {productData, productUploadData, handleFilterProductData, handleDownloadProducts} = this.props;
+        const {isLoading, productData, productUploadData, handleFilterProductData, handleDownloadProducts} = this.props;
 
         //for component InputForm, prop formData
         const productDownloadFormData = {
@@ -176,7 +176,7 @@ class Product extends Component {
     
         return (
             <>
-                <InteractiveTableLayout pageInfo={productInfo} tableContent={productData}/>
+                <InteractiveTableLayout isLoading={isLoading} pageInfo={productInfo} tableContent={productData}/>
                 <Grid.Column width={16} className='product-page-bottom-content'>
                     <Grid stackable doubling padded>
                         <Grid.Column computer={8} tablet={16} className='bottom-content-container'>
@@ -189,12 +189,12 @@ class Product extends Component {
                                     <Input fluid type='file' />
                                 </Grid.Column>
                                 <Grid.Column width={16} className='product-uploads-table-container'>
-                                    <ModuleTable tableInfo={productUploadTable} tableData={productUploadData} />
+                                    <ModuleTable isLoading={isLoading} tableInfo={productUploadTable} tableData={productUploadData} />
                                 </Grid.Column>
                             </Grid>
                         </Grid.Column>
                         <Grid.Column computer={8} tablet={16} className='bottom-content-container'>
-                            <InputForm formInfo={productDownloadInfo} formData={productDownloadFormData} />
+                            <InputForm isLoading={isLoading} formInfo={productDownloadInfo} formData={productDownloadFormData} />
                         </Grid.Column>
                     </Grid>
                 </Grid.Column>                                                                              

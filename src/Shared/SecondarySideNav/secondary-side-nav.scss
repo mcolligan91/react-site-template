@@ -1,6 +1,7 @@
 .ui.menu.secondary-side-nav,
 .ui.menu.secondary-side-nav-mobile {
     background-color: #F1F1F1;
+    border-radius: 0;
 }
 
 .ui.header.secondary-side-nav-header {
@@ -32,7 +33,6 @@
 }
 
 .ui.menu.secondary-side-nav-mobile {
-    border-radius: 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -51,4 +51,8 @@
 .ui.dropdown.second-side-nav-menu-item:active,
 .ui.dropdown.second-side-nav-menu-item:focus {
     color: #fff !important;
+}
+
+.secondary-side-nav-dimmer {
+    min-height: 100vh;
 }

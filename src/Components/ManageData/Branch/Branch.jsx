@@ -13,7 +13,7 @@ class Branch extends Component {
     }
 
     render() {
-        const {branchTableContent, handleAddBranch, handleBulkUpload, handleDownloadAll} = this.props;
+        const {isLoading, branchTableContent, handleAddBranch, handleBulkUpload, handleDownloadAll} = this.props;
 
         //for component InteractiveTableLayout, prop pageInfo
         const branchPageInfo = {
@@ -128,7 +128,7 @@ class Branch extends Component {
         return (
             <>
                 {addBranchModal}
-                <InteractiveTableLayout pageInfo={branchPageInfo} tableContent={branchTableContent} />
+                <InteractiveTableLayout isLoading={isLoading} pageInfo={branchPageInfo} tableContent={branchTableContent} />
             </>
         );
     }

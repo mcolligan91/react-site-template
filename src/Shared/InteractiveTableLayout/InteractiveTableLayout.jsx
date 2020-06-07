@@ -7,7 +7,6 @@ class InteractiveTableLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: false,
             pageLength: 20,
             tableData: [] 
         }
@@ -16,7 +15,7 @@ class InteractiveTableLayout extends Component {
     componentDidMount = () => {
         const {tableContent} = this.props;
 
-        this.setState({ tableData: tableContent, isLoading: tableContent.length > 0 ? false : true });
+        this.setState({ tableData: tableContent });
     }
 
     //will not be necessary once axios ajax calls are implemented
@@ -38,8 +37,8 @@ class InteractiveTableLayout extends Component {
     }
 
     render() {
-        const {pageLength, tableData, isLoading} = this.state;
-        const {pageInfo} = this.props;
+        const {pageLength, tableData} = this.state;
+        const {isLoading, pageInfo} = this.props;
 
         const pageAmountOptions = [10, 20, 50];
 

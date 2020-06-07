@@ -1,17 +1,23 @@
 import React from 'react';
-import { Header, Menu, Responsive, Grid } from 'semantic-ui-react';
+import { Header, Menu, Responsive, Grid, Dimmer, Loader } from 'semantic-ui-react';
  
 import './secondary-side-nav.scss';
 
 const SecondarySideNav = (props) => {
-    const {menuInfo} = props;
+    const {isLoading, menuInfo} = props;
     const {title, menuItems, menuItemsMobile} = menuInfo;
 
     return (
         <>
             <Responsive as={Menu} className='side-nav secondary-side-nav' borderless vertical minWidth={907}>
                 <Header className='secondary-side-nav-header' textAlign='center' size='medium'>{title}</Header>
-                {menuItems}
+                <Dimmer.Dimmable className='secondary-side-nav-dimmer' blurring dimmed={isLoading}>
+                    <Dimmer active={isLoading}>
+                        <Loader>Loading</Loader>
+                    </Dimmer>
+                        
+                    {menuItems}
+                </Dimmer.Dimmable>
             </Responsive>
 
             {menuItemsMobile ? (

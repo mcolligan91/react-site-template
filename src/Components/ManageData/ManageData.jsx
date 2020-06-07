@@ -18,48 +18,74 @@ class ManageData extends Component {
         this.state = {
             isPageLoading: false,
             sideNavActiveIndex: null,
-            activeItemMain: 0,
+            activeItemMain: null,
             selectedSummary: null,
             posData: [],
             branchData: [],
             productData: [],
             productUploadData: [],
+            currentlyLoadingIndex: null,
+            loadedPageIndexes: []
         }
     }
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
-        this.setState({ isPageLoading: true });
+        this.handleUpdateActivePage(0);
+    }
 
+    
+    handleUpdateActivePage = (index) => { 
+        //for component SideNav, prop activeItem (activeItemMain)
+        this.setState({ activeItemMain: index });
+        
+        if (!this.state.loadedPageIndexes.includes(index)) {
+            this.loadSubPageData(index);
+        }
+    }
+
+    //for component SideNav, prop handleItemClick
+    handleItemClickMain = (e, { index }) => {
+        this.handleUpdateActivePage(index);
+    }
+
+    loadSubPageData = (index) => {
+        const {loadedPageIndexes} = this.state;
+        
+        loadedPageIndexes.push(index);
+        this.setState({ loadedPageIndexes, currentlyLoadingIndex: index });
+      
+        switch (index) {
+            case 0:
+                this.handleLoadPosPageData();
+                break;
+
+            case 1:
+                this.handleLoadBranchData();
+                break;
+
+            case 2:
+                this.handleLoadProductData();
+                break;
+
+            default:
+                //error
+        }
+    }
+
+    handleLoadPosPageData = () => {
         axios.get('/data/pos').then(response => {
             if (response.data.success) {
                 const {posData} = response.data.data;
-                this.setState({ posData, sideNavActiveIndex: 0, isPageLoading: false });
+                this.setState({ posData, sideNavActiveIndex: 0 });
             } else {
                 //error
             }
         }).catch(error => {
             //error
+        }).finally(() => {
+            this.setState({ currentlyLoadingIndex: null });
         });
-    }
-
-    handleSideNavMenuClick = (e, titleProps) => {
-        const {index} = titleProps,
-            {sideNavActiveIndex} = this.state,
-            newIndex = sideNavActiveIndex === index ? -1 : index;
-    
-        this.setState({ sideNavActiveIndex: newIndex });
-    }
-
-    handleItemClickMain = (e, { index }) => {
-        //for component SideNav, prop activeItem
-        this.setState({ activeItemMain: index });
-        
-        if (index === 1) {
-            this.handleLoadBranchData();
-        } else if (index === 2) {
-            this.handleLoadProductData();
-        }
     }
 
     //for component Branch, prop tableContent
@@ -73,7 +99,9 @@ class ManageData extends Component {
             }
         }).catch(error => {
             //error message
-        })
+        }).finally(() => {
+            this.setState({ currentlyLoadingIndex: null });
+        });
     }
 
     //for component Product, prop productData (productData)
@@ -88,7 +116,17 @@ class ManageData extends Component {
             }
         }).catch(error => {
             //error
-        })
+        }).finally(() => {
+            this.setState({ currentlyLoadingIndex: null });
+        });
+    }
+
+    handleSideNavMenuClick = (e, titleProps) => {
+        const {index} = titleProps,
+            {sideNavActiveIndex} = this.state,
+            newIndex = sideNavActiveIndex === index ? -1 : index;
+    
+        this.setState({ sideNavActiveIndex: newIndex });
     }
 
     handleSecondaryItemClick = (e, data) => {
@@ -176,7 +214,7 @@ class ManageData extends Component {
     }
 
     render() {
-        const {isPageLoading, activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData} = this.state;
+        const {isPageLoading, currentlyLoadingIndex, activeItemMain, sideNavActiveIndex, branchData, selectedSummary, productData, productUploadData, posData} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
@@ -259,7 +297,7 @@ class ManageData extends Component {
                 {pageLoadSpinner}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 {activeItemMain === 0 ? (
-                    <SecondarySideNav menuInfo={secondarySideNavInfo} />
+                    <SecondarySideNav isLoading={currentlyLoadingIndex === 0} menuInfo={secondarySideNavInfo} />
                 ) : (
                     null
                 )}
@@ -278,12 +316,12 @@ class ManageData extends Component {
                         null
                     )}
                     {activeItemMain === 1 ? (
-                        <Branch branchTableContent={branchData} handleAddBranch={this.handleAddBranch} handleBulkUpload={this.handleBulkBranchUpload} handleDownloadAll={this.handleDownloadAllBranches} />
+                        <Branch isLoading={currentlyLoadingIndex === 1} branchTableContent={branchData} handleAddBranch={this.handleAddBranch} handleBulkUpload={this.handleBulkBranchUpload} handleDownloadAll={this.handleDownloadAllBranches} />
                     ) : (
                         null
                     )}
                     {activeItemMain === 2 ? (
-                        <Product productData={productData} productUploadData={productUploadData} handleFilterProductData={this.handleFilterProductData} handleDownloadProducts={this.handleDownloadProducts} />     
+                        <Product isLoading={currentlyLoadingIndex === 2} productData={productData} productUploadData={productUploadData} handleFilterProductData={this.handleFilterProductData} handleDownloadProducts={this.handleDownloadProducts} />     
                     ) : (
                         null
                     )}
