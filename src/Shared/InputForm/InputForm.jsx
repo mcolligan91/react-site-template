@@ -21,7 +21,9 @@ class InputForm extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        this.setState({ data: {...nextProps.formData} });
+        if (nextProps.isLoading) {
+            this.setState({ data: {...nextProps.formData} });
+        }
     } 
 
     handleChange = (e, { name, value }) => {

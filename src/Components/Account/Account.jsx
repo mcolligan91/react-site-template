@@ -66,12 +66,7 @@ class Account extends Component {
                 break;
 
             case 1:
-                //for component InteractiveTableLayout, tableData (userTableData)
-                this.setState({
-                    userTableData: [
-                        {id: 1, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {id: 2, name: 'User B', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 3, name: 'User C', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 4, name: 'User D', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 5, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 6, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 7, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 8, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 9, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 10, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 11, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 12, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 13, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 14, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 15, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}
-                    ]
-                });
+                this.handleLoadManageUsersPage();
                 break;
 
             case 2:
@@ -117,71 +112,111 @@ class Account extends Component {
        });
     }
 
+    handleLoadManageUsersPage = () => {
+        //for component InteractiveTableLayout, tableData    
+        axios.get('/account/users').then(response => {
+            if (response.data.success) {
+                const {userTableData} = response.data.data;
+                this.setState({ userTableData, isPageLoading: false });
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
+    }
+
     //for component SideNav, prop handleItemClick
     handleItemClickMain = (e, { index }) => {
         this.handleUpdateActivePage(index);
     }
 
     //for component MyAccount, prop handleUpdatePasswordInformation
-    handleUpdatePasswordInformation = () => {
-        //ajax call
+    handleUpdatePasswordInformation = (data) => {
         this.setState({ isPageLoading: true });
+        
+        axios.put('/account/password-information', data).then(response => {
+            if (response.data.success) {
+                const {passwordData} = response.data.data;
 
-        setTimeout(() => {
-            this.setState({ isPageLoading: false });
-        }, 500);
+                this.setState({ passwordData, isPageLoading: false });
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
     }
 
     //for component MyAccount, prop handleUpdateUserInformation
-    handleUpdateUserInformation = () => {
-        //ajax call
+    handleUpdateUserInformation = (data) => {
         this.setState({ isPageLoading: true });
+        
+        axios.put('/account/user-information', data).then(response => {
+            if (response.data.success) {
+                const {userData} = response.data.data;
 
-        setTimeout(() => {
-            this.setState({ isPageLoading: false });
-        }, 500);
+                this.setState({ userData, isPageLoading: false });
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
     }
 
     //for component ManageUsers, prop handleEditUser
     handleEditUser = (data) => {
-        //would fire ajax call and update state based on response, instead of 'data' param
         this.setState({ isPageLoading: true });
-        
-        setTimeout(() => {
-            this.setState((prevState) => {
-                let newData = prevState.userTableData,
-                    user = newData.find(d => d.id === data.id);
-                Object.assign(user, data);
-                return {userTableData: newData, isPageLoading: false};
-            });
-        }, 500);
+
+        axios.put('/account/users', data).then(response => {
+            if (response.data.success) {
+                const {newData} = response.data.data;
+                this.setState({ userTableData: newData, isPageLoading: false });
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
     }
 
     //for component ManageUsers, prop handleDeleteUser
     handleDeleteUser = (id) => {
-        //would fire ajax call and update state based on response, instead of 'id' param
         this.setState({ isPageLoading: true });
 
-        setTimeout(() => {
-            this.setState((prevState) => ({
-                userTableData: prevState.userTableData.filter(user => user.id !== id),
-                isPageLoading: false
-            }));
-        }, 500);
+        axios.delete(`/account/admin/${id}`).then(response => {
+            if (response.data.success) {
+                this.setState((prevState) => ({
+                    userTableData: prevState.userTableData.filter(user => user.id !== id),
+                    isPageLoading: false
+                }));
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
     }
 
     //for component ManageUsers, prop handleAddUser
     handleAddUser = (data) => {
-        //would fire ajax call and update state based on response, instead of 'data' param
         this.setState({ isPageLoading: true });
 
-        setTimeout(() => {
-            let newUser = {id: 16, name: data.name, organization: data.organization, email: data.email, role: data.role, lastLogin: '5/25/2020'};
-            this.setState((prevState) => ({
-                userTableData: [newUser, ...prevState.userTableData],
-                isPageLoading: false
-            }));
-        }, 500);
+        axios.post('/account/user', data).then(response => {
+            if (response.data.success) {
+                const {newUser} = response.data.data;
+
+                this.setState((prevState) => ({
+                    userTableData: [newUser, ...prevState.userTableData],
+                    isPageLoading: false
+                }));
+            } else {
+                //error
+            }
+        }).catch(error => {
+            //error
+        });
     }
 
     //for component ManageUsers, prop handleDownloadUsers

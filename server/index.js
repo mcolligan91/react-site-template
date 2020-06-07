@@ -596,15 +596,28 @@ app.get('/data/product', (req, res) => {
 });
 
 //account
+let userData = {
+	firstName: 'Michael', 
+	lastName: 'Colligan', 
+	email: 'abc@gmail.com', 
+	phone: '(123) 456-7890', 
+	location: 'Washington, DC' 
+}
+
 app.get('/account/user', (req, res) => {
-    let userData = {
-		firstName: 'Michael', 
-		lastName: 'Colligan', 
-		email: 'abc@gmail.com', 
-		phone: '(123) 456-7890', 
-		location: 'Washington, DC' 
-	}
 	res.send(JSON.stringify({success: true, data: {userData}}));
+});
+
+app.put('/account/user-information', (req, res) => {
+	userData = req.body;
+	res.send(JSON.stringify({success: true, data: {userData}}));
+});
+
+let passwordData = {};
+
+app.put('/account/password-information', (req, res) => {
+	passwordData = req.body;
+	res.send(JSON.stringify({success: true, data: {passwordData}}));
 });
 
 let adminTableData = [
@@ -661,4 +674,48 @@ app.delete('/account/admin/:id', (req, res) => {
 app.put('/account/organization-information', (req, res) => {
 	orgData = req.body;
 	res.send(JSON.stringify({success: true, data: {orgData}}));
-})
+});
+
+let userTableData = [
+	{id: 1, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}, {id: 2, name: 'User B', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 3, name: 'User C', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 4, name: 'User D', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 5, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 6, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 7, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 8, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 9, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 10, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 11, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 12, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 13, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 14, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'},{id: 15, name: 'User A', organization: 'Distributor A', email: 'abc@gmail.com', role: 'Admin', lastLogin: '5/20/2020'}
+];
+
+let userId = userTableData.length + 1;
+
+app.get('/account/users', (req, res) => {
+	res.send(JSON.stringify({success: true, data: {userTableData}}));
+});
+
+app.post('/account/user', (req, res) => {
+	let newUser = req.body;
+
+	newUser['id'] = userId;
+	newUser['lastLogin'] = null;
+
+	userTableData.unshift(newUser);
+
+	res.send(JSON.stringify({success: true, data: {newUser}}));
+});
+
+app.put('/account/users/', (req, res) => {
+	let user = userTableData.find(d => d.id === req.body.id);
+	Object.assign(user, req.body);
+		
+	let newData = userTableData;
+	res.send(JSON.stringify({success: true, data: {newData}}));
+});
+
+app.delete('/account/users/:id', (req, res) => {
+	let id = parseInt(req.params.id);
+
+	for (let i = 0; i < userTableData.length; i++) {
+		console.log(userTableData[i]);
+		if (userTableData[i]['id'] === id) {
+			userTableData.splice(i, 1);
+		}
+	}
+	res.send(JSON.stringify({success: true }));
+});
+
+
+

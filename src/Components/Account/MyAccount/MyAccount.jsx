@@ -12,8 +12,8 @@ class MyAccount extends Component {
 
         //for component InputForm, prop formInfo
         const userInfo = {
-            title: 'Password Information',
-            submitFunction: handleUpdatePasswordInformation,
+            title: 'User Information',
+            submitFunction: handleUpdateUserInformation,
             buttonText: 'Update User Information',
             buttonIcon: 'user',
             fields: [
