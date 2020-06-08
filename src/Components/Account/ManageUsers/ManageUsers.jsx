@@ -41,7 +41,7 @@ class ManageUsers extends Component {
     }
 
     render() {
-        const {userTableData, handleEditUser, handleDownloadUsers, handleAddUser, handleDeleteUser} = this.props;
+        const {isLoading, userTableData, handleEditUser, handleDownloadUsers, handleAddUser, handleDeleteUser} = this.props;
 
         //for component InteractiveTableLayout, prop pageInfo
         const usersPageInfo = {
@@ -145,7 +145,7 @@ class ManageUsers extends Component {
                 {addUserModal}
                 {editUserModal}
                 {confirmDeleteUserModal}
-                <InteractiveTableLayout pageInfo={usersPageInfo} tableContent={userTableData} tableRowClickFunction={this.handleUserTableButtonClick} />
+                <InteractiveTableLayout isLoading={isLoading} pageInfo={usersPageInfo} tableContent={userTableData} tableRowClickFunction={this.handleUserTableButtonClick} />
             </>
         );
     }

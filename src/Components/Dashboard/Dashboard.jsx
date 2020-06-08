@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import ModuleTable from './../../Shared/ModuleTable/ModuleTable';
+import ErrorModal from './../../Shared/ErrorModal/ErrorModal';
 
 import './dashboard.scss';
 
@@ -27,12 +28,14 @@ class Dashboard extends Component {
         axios.get('/dashboard').then(response => {
             if (response.data.success) {
                 const {announcements, tasks, events} = response.data.data;
-                this.setState({ announcements, tasks, events, isPageContentLoading: false });
+                this.setState({ announcements, tasks, events });
             } else {
-                //error modal
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error modal
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageContentLoading: false });
         });
     }
 
@@ -69,8 +72,13 @@ class Dashboard extends Component {
             ]
         };
 
+        const errorModal = (
+            <ErrorModal ref={(errorModal) => { this.errorModal = errorModal; }} />
+        );
+
         return (
             <>
+                {errorModal}
                 {showAnnouncements ? (
                     <Grid.Row>
                         <Grid.Column width={16}>

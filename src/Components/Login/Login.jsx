@@ -40,7 +40,7 @@ class Login extends Component {
 						</div>
 					</Menu>
 					<Grid className='login-content-container' textAlign='center' verticalAlign='middle' doubling>
-						<Grid.Column computer={6} tablet={8} mobile={12}>
+						<Grid.Column className='login-form-container' computer={6} tablet={8} mobile={12}>
 							<Form size='large'>
 								<Segment padded>
 									<Header as='h2' textAlign='left' content='Please log in to continue' />

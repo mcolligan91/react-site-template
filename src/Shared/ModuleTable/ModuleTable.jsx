@@ -13,6 +13,36 @@ class ModuleTable extends Component {
 
     render() {
         const {isLoading, tableInfo, buttonClickFunction, tableData} = this.props;
+
+        const tableRowContent = (
+            <>
+                {tableData.map((tableData, i) => {
+                    return (
+                        <Table.Row key={i} onClick={tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
+                            {tableInfo.cellData.map((data, j) => {
+                                return data.type === 'text' ? (
+                                    <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
+                                ) : data.type === 'clickItem' ? (
+                                    <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
+                                ) : (
+                                    null
+                                )
+                            })}
+                        </Table.Row>
+                    )
+                })}
+            </>
+        );
+        
+        const noResultsRow = (
+            <>
+                <Table.Row>
+                    <Table.Cell colSpan={tableInfo.headers.length} textAlign='center'>
+                        There are no results to display.
+                    </Table.Cell>
+                </Table.Row>
+            </>
+        );
         
         return (
             <>
@@ -46,21 +76,15 @@ class ModuleTable extends Component {
                                         </Table.Row>
                                     </Table.Header>
                                     <Table.Body>
-                                        {tableData.map((tableData, i) => {
-                                            return (
-                                                <Table.Row key={i} onClick={tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
-                                                    {tableInfo.cellData.map((data, j) => {
-                                                        return data.type === 'text' ? (
-                                                            <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
-                                                        ) : data.type === 'clickItem' ? (
-                                                            <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
-                                                        ) : (
-                                                            null
-                                                        )
-                                                    })}
-                                                </Table.Row>
-                                            )
-                                        })}
+                                        {tableData && tableData.length > 0 ? (
+                                            <>
+                                                {tableRowContent}
+                                            </>
+                                        ) : (
+                                            <>
+                                                {noResultsRow}
+                                            </>
+                                        )}
                                     </Table.Body>
                                 </Table>
                                 {tableData.length > 5 ? (

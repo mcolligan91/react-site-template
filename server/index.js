@@ -46,6 +46,8 @@ app.get('/dashboard/', (req, res) => {
     ];
 
     res.send(JSON.stringify({success: true, data: {announcements, tasks, events}}));
+
+    // res.send(JSON.stringify({success: false, message: 'Error retrieving dashboard data.'}));
 });
 
 //manage data

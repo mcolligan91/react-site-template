@@ -6,6 +6,7 @@ import axios from 'axios';
 import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 import LoadSpinnerFullPage from './../../Shared/LoadSpinnerFullPage/LoadSpinnerFullPage';
+import ErrorModal from './../../Shared/ErrorModal/ErrorModal';
 import DataSummaryContent from './DataSummaryContent/DataSummaryContent';
 import Branch from './Branch/Branch';
 import Product from './Product/Product';
@@ -34,7 +35,6 @@ class ManageData extends Component {
         this.handleUpdateActivePage(0);
     }
 
-    
     handleUpdateActivePage = (index) => { 
         //for component SideNav, prop activeItem (activeItemMain)
         this.setState({ activeItemMain: index });
@@ -79,10 +79,10 @@ class ManageData extends Component {
                 const {posData} = response.data.data;
                 this.setState({ posData, sideNavActiveIndex: 0 });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
         }).finally(() => {
             this.setState({ currentlyLoadingIndex: null });
         });
@@ -95,10 +95,10 @@ class ManageData extends Component {
                 const {branchData} = response.data.data;
                 this.setState({ branchData });
             } else {
-                //error 
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error message
+            this.errorModal.handleOpenModal(error.message);
         }).finally(() => {
             this.setState({ currentlyLoadingIndex: null });
         });
@@ -112,10 +112,10 @@ class ManageData extends Component {
                 const {productData, productUploadData} = response.data.data;
                 this.setState({ productData, productUploadData });
             } else {
-                //error 
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
         }).finally(() => {
             this.setState({ currentlyLoadingIndex: null });
         });
@@ -136,13 +136,15 @@ class ManageData extends Component {
         axios.get(`/data/summary/${data.id}`).then(response => {
             if (response.data.success) {
                 const {selectedSummary} = response.data.data;
-                this.setState({ selectedSummary, isPageLoading: false });
+                this.setState({ selectedSummary });
                 window.scrollTo(0, 0);
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -155,14 +157,15 @@ class ManageData extends Component {
             if (response.data.success) {
                 const {newBranch} = response.data.data;
                 this.setState((prevState) => ({
-                    branchData: [newBranch, ...prevState.branchData],
-                    isPageLoading: false
+                    branchData: [newBranch, ...prevState.branchData]
                 }));
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -292,8 +295,13 @@ class ManageData extends Component {
             null
         ); 
 
+        const errorModal = (
+            <ErrorModal ref={(errorModal) => { this.errorModal = errorModal; }} />
+        );
+
         return (
             <>
+                {errorModal}
                 {pageLoadSpinner}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 {activeItemMain === 0 ? (

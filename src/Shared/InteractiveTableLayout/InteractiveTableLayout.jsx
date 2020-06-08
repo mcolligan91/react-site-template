@@ -18,11 +18,11 @@ class InteractiveTableLayout extends Component {
         this.setState({ tableData: tableContent });
     }
 
-    //will not be necessary once axios ajax calls are implemented
     componentWillReceiveProps = (newProps) => {
         const {tableData} = this.state;
+        
         if (tableData !== []) {
-            this.setState({ tableData: newProps.tableContent, isLoading: false });
+            this.setState({ tableData: newProps.tableContent });
         }
     }
 
@@ -45,6 +45,36 @@ class InteractiveTableLayout extends Component {
         //pagination not yet configured
         const paginationMenu = (
             <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} size='tiny' />
+        );
+
+        const tableRowContent = (
+            <>
+                {tableData.map((tableData, i) => {
+                    return (
+                        <Table.Row key={i} onClick={pageInfo.tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
+                            {pageInfo.tableInfo.cellData.map((data, j) => {
+                                return data.type === 'text' ? (
+                                    <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
+                                ) : data.type === 'clickItem' ? (
+                                    <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
+                                ) : (
+                                    null
+                                )
+                            })}
+                        </Table.Row>
+                    )
+                })}
+            </>
+        );
+
+        const noResultsRow = (
+            <>
+                <Table.Row>
+                    <Table.Cell colSpan={pageInfo.tableInfo.headers.length} textAlign='center'>
+                        There are no results to display.
+                    </Table.Cell>
+                </Table.Row>
+            </>
         );
 
         return (
@@ -130,21 +160,15 @@ class InteractiveTableLayout extends Component {
                                         </Table.Row>
                                     </Table.Header>
                                     <Table.Body>
-                                        {tableData.map((tableData, i) => {
-                                            return (
-                                                <Table.Row key={i} onClick={pageInfo.tableInfo.hasClickEvents ? (e) => this.handleItemClick(e, tableData) : undefined}>
-                                                    {pageInfo.tableInfo.cellData.map((data, j) => {
-                                                        return data.type === 'text' ? (
-                                                            <Table.Cell key={j}>{tableData[data.value]}</Table.Cell>
-                                                        ) : data.type === 'clickItem' ? (
-                                                            <Table.Cell key={j} textAlign='center' verticalAlign='middle'><Icon className='table-row-icon-button' name={data.iconName} functionreference={data.cellFunction}/></Table.Cell>
-                                                        ) : (
-                                                            null
-                                                        )
-                                                    })}
-                                                </Table.Row>
-                                            )
-                                        })}
+                                        {tableData && tableData.length > 0 ? (
+                                            <>
+                                                {tableRowContent}
+                                            </>
+                                        ) : (
+                                            <>
+                                                {noResultsRow}
+                                            </>
+                                        )}
                                     </Table.Body>
                                 </Table>
                             </Dimmer.Dimmable>

@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import SideNav from './../../Shared/SideNav/SideNav';
 import LoadSpinnerFullPage from './../../Shared/LoadSpinnerFullPage/LoadSpinnerFullPage';
+import ErrorModal from './../../Shared/ErrorModal/ErrorModal';
 import MyAccount from './MyAccount/MyAccount';
 import ManageUsers from './ManageUsers/ManageUsers';
 import ManageOrganization from './ManageOrganization/ManageOrganization';
@@ -86,10 +87,10 @@ class Account extends Component {
                 const {userData} = response.data.data;
                 this.setState({ userData, passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''} });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
         }).finally(() => {
             this.setState({ currentlyLoadingIndex: null });
         });
@@ -103,11 +104,11 @@ class Account extends Component {
                 const {orgData, adminTableData} = response.data.data;
                 this.setState({ orgData, adminTableData });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
-       }).catch(error => {
-            //error
-       }).finally(() => {
+        }).catch(error => {
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
             this.setState({ currentlyLoadingIndex: null });
        });
     }
@@ -119,10 +120,12 @@ class Account extends Component {
                 const {userTableData} = response.data.data;
                 this.setState({ userTableData, isPageLoading: false });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ currentlyLoadingIndex: null });
         });
     }
 
@@ -139,12 +142,14 @@ class Account extends Component {
             if (response.data.success) {
                 const {passwordData} = response.data.data;
 
-                this.setState({ passwordData, isPageLoading: false });
+                this.setState({ passwordData });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -156,12 +161,14 @@ class Account extends Component {
             if (response.data.success) {
                 const {userData} = response.data.data;
 
-                this.setState({ userData, isPageLoading: false });
+                this.setState({ userData });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -172,12 +179,14 @@ class Account extends Component {
         axios.put('/account/users', data).then(response => {
             if (response.data.success) {
                 const {newData} = response.data.data;
-                this.setState({ userTableData: newData, isPageLoading: false });
+                this.setState({ userTableData: newData });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -188,14 +197,15 @@ class Account extends Component {
         axios.delete(`/account/admin/${id}`).then(response => {
             if (response.data.success) {
                 this.setState((prevState) => ({
-                    userTableData: prevState.userTableData.filter(user => user.id !== id),
-                    isPageLoading: false
+                    userTableData: prevState.userTableData.filter(user => user.id !== id)
                 }));
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -208,14 +218,15 @@ class Account extends Component {
                 const {newUser} = response.data.data;
 
                 this.setState((prevState) => ({
-                    userTableData: [newUser, ...prevState.userTableData],
-                    isPageLoading: false
+                    userTableData: [newUser, ...prevState.userTableData]
                 }));
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -231,12 +242,14 @@ class Account extends Component {
         axios.put('/account/admin', data).then(response => {
             if (response.data.success) {
                 const {newData} = response.data.data;
-                this.setState({ adminTableData: newData, isPageLoading: false });
+                this.setState({ adminTableData: newData });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -248,14 +261,15 @@ class Account extends Component {
             if (response.data.success) {
                 const {newAdmin} = response.data.data;
                 this.setState((prevState) => ({
-                    adminTableData: [newAdmin, ...prevState.adminTableData],
-                    isPageLoading: false
+                    adminTableData: [newAdmin, ...prevState.adminTableData]
                 }));
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -266,14 +280,15 @@ class Account extends Component {
         axios.delete(`/account/admin/${id}`).then(response => {
             if (response.data.success) {
                 this.setState((prevState) => ({
-                    adminTableData: prevState.adminTableData.filter(user => user.id !== id),
-                    isPageLoading: false
+                    adminTableData: prevState.adminTableData.filter(user => user.id !== id)
                 }));
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
 
@@ -285,12 +300,14 @@ class Account extends Component {
             if (response.data.success) {
                 const {orgData} = response.data.data;
 
-                this.setState({ orgData, isPageLoading: false });
+                this.setState({ orgData });
             } else {
-                //error
+                this.errorModal.handleOpenModal(response.data.message);
             }
         }).catch(error => {
-            //error
+            this.errorModal.handleOpenModal(error.message);
+        }).finally(() => {
+            this.setState({ isPageLoading: false });
         });
     }
     
@@ -310,8 +327,13 @@ class Account extends Component {
             null
         ); 
 
+        const errorModal = (
+            <ErrorModal ref={(errorModal) => { this.errorModal = errorModal; }} />
+        );
+
         return (
             <>
+                {errorModal}
                 {pageLoadSpinner}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 <Grid className='manage-data-content-container'>

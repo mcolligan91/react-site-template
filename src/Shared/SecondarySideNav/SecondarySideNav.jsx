@@ -15,7 +15,6 @@ const SecondarySideNav = (props) => {
                     <Dimmer active={isLoading}>
                         <Loader>Loading</Loader>
                     </Dimmer>
-                        
                     {menuItems}
                 </Dimmer.Dimmable>
             </Responsive>

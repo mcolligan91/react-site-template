@@ -79,7 +79,7 @@ class MyAccount extends Component {
         //for component InputForm, prop formInfo
         const passwordInfo = {
             title: 'Update Password',
-            submitFunction: handleUpdateUserInformation,
+            submitFunction: handleUpdatePasswordInformation,
             buttonText: 'Update Password',
             buttonIcon: 'ellipsis horizontal',
             fields: [
