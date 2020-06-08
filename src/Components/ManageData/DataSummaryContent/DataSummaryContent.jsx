@@ -74,7 +74,7 @@ class DataSummaryContent extends Component {
                         <input id='upload-submission' hidden type='file' onChange={(e) => this.handleUploadSubmission(e)} />
                     </Label>
                 </Grid.Column>
-                {selectedSummary.status && selectedSummary.status > 1 ? (
+                {selectedSummary.status && selectedSummary.status > 1 && (
                     <>
                         <Grid.Column width={16} className='submission-table-container'>
                             <ModuleTable tableInfo={submissionTableInfo} tableData={selectedSummary.submissionData} handleTableButtonClick={handleSubmissionTableButtonClick} />
@@ -100,7 +100,7 @@ class DataSummaryContent extends Component {
                                 <input id='upload-clean-file' hidden type='file' onChange={(e) => this.handleUploadCleanFile(e)} />
                             </Label>
                         </Grid.Column>
-                        {selectedSummary.status === 3 ? (
+                        {selectedSummary.status === 3 && (
                             <Grid.Column width={16}>
                                 <Message info>
                                     <Message.Header>
@@ -115,10 +115,8 @@ class DataSummaryContent extends Component {
                                     </Message.List>
                                 </Message>
                             </Grid.Column>
-                        ) : (
-                            null
                         )}
-                        {selectedSummary.submissionComments.length > 0 ? (
+                        {selectedSummary.submissionComments.length > 0 && (
                             <Grid.Column width={16}>
                                 <Message>
                                     <Message.Header>
@@ -133,8 +131,6 @@ class DataSummaryContent extends Component {
                                     </Message.List>
                                 </Message>
                             </Grid.Column>
-                        ) : (
-                            null
                         )}
                         <Grid.Column width={16}>
                             <Form onSubmit={this.handleAddComment}>
@@ -143,8 +139,6 @@ class DataSummaryContent extends Component {
                             </Form>
                         </Grid.Column>
                     </>
-                ) : (
-                    null
                 )}
             </Grid>
         );

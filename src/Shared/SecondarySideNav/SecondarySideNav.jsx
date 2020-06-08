@@ -19,7 +19,7 @@ const SecondarySideNav = (props) => {
                 </Dimmer.Dimmable>
             </Responsive>
 
-            {menuItemsMobile ? (
+            {menuItemsMobile && (
                 <Responsive as={Grid} className='secondary-side-nav-container' maxWidth={906} stackable>                       
                     <Menu className='side-nav secondary-side-nav-mobile' borderless attached='top' fluid>
                         <Menu.Menu className='secondary-side-nav-mobile-content'>
@@ -27,8 +27,6 @@ const SecondarySideNav = (props) => {
                         </Menu.Menu>
                     </Menu>
                 </Responsive>
-            ) : (
-                null
             )} 
         </>
     );

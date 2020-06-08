@@ -289,10 +289,8 @@ class ManageData extends Component {
             menuItemsMobile: secondSideNavMobileContent
         };
 
-        const pageLoadSpinner = isPageLoading ? (
+        const pageLoadSpinner = isPageLoading && (
             <LoadSpinnerFullPage />
-        ) : (
-            null
         ); 
 
         const errorModal = (
@@ -304,13 +302,11 @@ class ManageData extends Component {
                 {errorModal}
                 {pageLoadSpinner}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
-                {activeItemMain === 0 ? (
+                {activeItemMain === 0 && (
                     <SecondarySideNav isLoading={currentlyLoadingIndex === 0} menuInfo={secondarySideNavInfo} />
-                ) : (
-                    null
                 )}
                 <Grid className='manage-data-content-container'>
-                    {activeItemMain === 0 ? (
+                    {activeItemMain === 0 && (
                         <Grid.Column>
                             {selectedSummary === null ? (
                                 <Segment className='data-summary-prompt'>
@@ -320,18 +316,12 @@ class ManageData extends Component {
                                 <DataSummaryContent selectedSummary={selectedSummary} handleUploadSubmission={this.handleUploadSubmission} handleUploadCleanFile={this.handleUploadCleanFile} handleAddComment={this.handleAddComment} handleSubmissionTableButtonClick={this.handleSubmissionTableButtonClick} />
                             )}
                         </Grid.Column>
-                    ) : (
-                        null
                     )}
-                    {activeItemMain === 1 ? (
+                    {activeItemMain === 1 && (
                         <Branch isLoading={currentlyLoadingIndex === 1} branchTableContent={branchData} handleAddBranch={this.handleAddBranch} handleBulkUpload={this.handleBulkBranchUpload} handleDownloadAll={this.handleDownloadAllBranches} />
-                    ) : (
-                        null
                     )}
-                    {activeItemMain === 2 ? (
+                    {activeItemMain === 2 && (
                         <Product isLoading={currentlyLoadingIndex === 2} productData={productData} productUploadData={productUploadData} handleFilterProductData={this.handleFilterProductData} handleDownloadProducts={this.handleDownloadProducts} />     
-                    ) : (
-                        null
                     )}
                 </Grid>
             </>

@@ -48,17 +48,13 @@ class ModuleTable extends Component {
             <>
                 <Grid.Column>
                     <Grid>
-                        {tableInfo.title ? (
+                        {tableInfo.title && (
                             <Grid.Column width={16} className='table-header-container module-table-container-column'>
                             <h3 className={`table-header ${!tableInfo.button ? 'table-header-no-button' : ''}`}>{tableInfo.title}</h3>
-                            {tableInfo.button ? (
+                            {tableInfo.button && (
                                 <Button className='main-button-color' content={tableInfo.button.content} icon={tableInfo.button.icon} labelPosition='left' floated='right' size='small' onClick={buttonClickFunction} />
-                            ) : (
-                                null
                             )}
                             </Grid.Column>
-                        ) : (
-                            null
                         )}
                         <Grid.Column width={16} className={`module-table-container-column module-table-container ${tableInfo.button ? 'table-container-with-button' : ''}`}>
                             <Dimmer.Dimmable className='loading-dimmer-container' blurring dimmed={isLoading}>
@@ -87,11 +83,9 @@ class ModuleTable extends Component {
                                         )}
                                     </Table.Body>
                                 </Table>
-                                {tableData.length > 5 ? (
+                                {tableData.length > 5 && (
                                     //pagination not set up
                                     <Pagination boundaryRange={0} defaultActivePage={1} siblingRange={1} totalPages={3} size='tiny' />
-                                ) : (
-                                    null
                                 )}
                             </Dimmer.Dimmable>
                         </Grid.Column>

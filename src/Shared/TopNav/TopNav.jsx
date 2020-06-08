@@ -86,7 +86,7 @@ class TopNav extends Component {
         <>
             <Responsive as={Menu} className='main-nav top-nav main-background-color' size='massive' minWidth={796} borderless>
                 {mainLogoContainer}
-                {loggedIn === 'true' ? (
+                {loggedIn === 'true' && (
                     <Menu.Menu position='right'>
                         {menuItems.map((item, i) => {
                             return item.type === 'pageLink' ? (
@@ -105,34 +105,30 @@ class TopNav extends Component {
                             )
                         })}
                     </Menu.Menu>
-                ) : (
-                    null
                 )}
             </Responsive>
 
             <Responsive as={Menu} className='main-nav top-nav main-background-color' size='massive' maxWidth={795} icon borderless>
                 {mainLogoContainer}
-                {loggedIn === 'true' ? (
+                {loggedIn === 'true' && (
                     <Menu.Menu position='right'>
                         {menuItems.map((item, i) => {
-                        return item.type === 'pageLink' ? (
-                                <Menu.Item key={i} className='top-nav-link' name={item.name} active={item.url === pathname} onClick={e => this.handleItemClick(item)}>
-                                    <Icon className={item.iconClass} name={item.iconName} size={item.iconSize} onClick={item.clickFunction}></Icon>
-                                </Menu.Item>
-                            ) : item.type === 'dropdown' ? (
-                                    <Menu.Item key={i} className='top-nav-link' name={item.name} active={item.url === pathname}>
-                                        <Dropdown icon={{name: item.iconName, size: item.iconSize, className: item.iconClass}} pointing='top right'>
-                                            {accountDropDownMenu}
-                                        </Dropdown>
+                            return item.type === 'pageLink' ? (
+                                    <Menu.Item key={i} className='top-nav-link' name={item.name} active={item.url === pathname} onClick={e => this.handleItemClick(item)}>
+                                        <Icon className={item.iconClass} name={item.iconName} size={item.iconSize} onClick={item.clickFunction}></Icon>
                                     </Menu.Item>
-                            ) : (
-                                null
-                            )
-                        })}
-                    </Menu.Menu>
-                ) : (
-                    null
-                )}
+                                ) : item.type === 'dropdown' ? (
+                                        <Menu.Item key={i} className='top-nav-link' name={item.name} active={item.url === pathname}>
+                                            <Dropdown icon={{name: item.iconName, size: item.iconSize, className: item.iconClass}} pointing='top right'>
+                                                {accountDropDownMenu}
+                                            </Dropdown>
+                                        </Menu.Item>
+                                ) : (
+                                    null
+                                )
+                            })}
+                        </Menu.Menu>
+                    )}
                 </Responsive>
             </>
         );

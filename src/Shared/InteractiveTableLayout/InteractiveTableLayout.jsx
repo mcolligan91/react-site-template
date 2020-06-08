@@ -20,7 +20,7 @@ class InteractiveTableLayout extends Component {
 
     componentWillReceiveProps = (newProps) => {
         const {tableData} = this.state;
-        
+
         if (tableData !== []) {
             this.setState({ tableData: newProps.tableContent });
         }
@@ -90,7 +90,7 @@ class InteractiveTableLayout extends Component {
                         </Grid.Column>
                         <Grid.Column largeScreen={10} computer={11} tablet={10} verticalAlign='middle'>
                             <Grid stackable doubling>
-                                {pageInfo.filters ? (
+                                {pageInfo.filters && (
                                     <Grid.Column width={16} textAlign='left' verticalAlign='middle'>
                                         <span className='filter-label-text'>Filter By:</span>
                                         {pageInfo.filters.map((filter, i) => {
@@ -99,10 +99,8 @@ class InteractiveTableLayout extends Component {
                                             )
                                         })}
                                     </Grid.Column>
-                                ) : (
-                                    null
                                 )}
-                                {pageInfo.headerButtons ? (
+                                {pageInfo.headerButtons && (
                                     <>
                                         <Grid.Column only='computer tablet' width={16} textAlign='right' verticalAlign='middle'>
                                             {pageInfo.headerButtons.map((button, i) => {
@@ -125,8 +123,6 @@ class InteractiveTableLayout extends Component {
                                             })}
                                         </Grid.Column>
                                     </>
-                                ) : (
-                                    null
                                 )}
                             </Grid>
                         </Grid.Column>

@@ -79,7 +79,7 @@ class Dashboard extends Component {
         return (
             <>
                 {errorModal}
-                {showAnnouncements ? (
+                {showAnnouncements && (
                     <Grid.Row>
                         <Grid.Column width={16}>
                             <Grid padded>
@@ -103,8 +103,6 @@ class Dashboard extends Component {
                             </Grid>
                         </Grid.Column>
                     </Grid.Row>
-                ) : (
-                    null
                 )}
                 <Grid.Row columns={2} className='dashboard-tables-container'>
                     <Grid.Column computer={10} tablet={16} mobile={16}>

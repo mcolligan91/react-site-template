@@ -244,12 +244,10 @@ class Reporting extends Component {
                                                 </List.Item>
                                             )
                                         })}
-                                        {data.limitData ? (
+                                        {data.limitData && (
                                             <List.Item>
                                                 <p className='main-color menu-expand-text' onClick={(e) => this.handleExpandMenu(e, data)}>{data.showAll ? '‒ Show Less' : '+ Show All'}</p>
                                             </List.Item>
-                                        ) : (
-                                            null
                                         )}
                                     </List>
                                 </Accordion.Content>
@@ -272,7 +270,7 @@ class Reporting extends Component {
             </>
         );
 
-        const secondarySideNavMobileMenu = showMenuModal ? ( 
+        const secondarySideNavMobileMenu = showMenuModal && ( 
             <Modal className='mobile-menu-modal' dimmer='blurring' closeIcon open={showMenuModal} closeOnDimmerClick={false} onClose={() => this.setState({ showMenuModal: false, menuModalData: {} })}>
                 <Modal.Header>
                     {menuModalData.title}
@@ -292,8 +290,6 @@ class Reporting extends Component {
                    </List>
                 </Modal.Content>
             </Modal>
-        ) : (
-            null
         );
 
         //for component SecondarySideNav, prop menuInfo    
@@ -359,13 +355,11 @@ class Reporting extends Component {
             <>
                 {secondarySideNavMobileMenu}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
-                {activeItemMain === 1 ? (
+                {activeItemMain === 1 && (
                     <SecondarySideNav menuInfo={secondarySideNavInfo} />
-                ) : (
-                    null
                 )}
                 <Grid className='manage-data-content-container'>
-                    {activeItemMain === 0 ? (
+                    {activeItemMain === 0 && (
                         <>
                             <Grid.Row centered>
                                 <Grid.Column width={12}>
@@ -418,17 +412,13 @@ class Reporting extends Component {
                                 </Grid.Column>
                             </Grid.Row>
                         </>
-                    ) : (
-                        null
                     )}
-                    {activeItemMain === 1 ? (
+                    {activeItemMain === 1 && (
                         <>
                             <Grid columns={2}>
                                 <Grid.Column textAlign='right' width={16}>
-                                    {isQueryEdited ? (
+                                    {isQueryEdited && (
                                         <Button className='inner-button' size='small' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
-                                    ) : (
-                                        null
                                     )}
                                     <Button className='main-button-color' size='small' icon='save' labelPosition='left' content='Save Search' />
                                     <Divider />
@@ -466,8 +456,6 @@ class Reporting extends Component {
                                 </Grid.Column>
                             </Grid>
                         </>
-                    ) : (
-                        null
                     )}
                 </Grid>
             </>

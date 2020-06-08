@@ -321,11 +321,9 @@ class Account extends Component {
             {index: 2, name: 'Manage Organization', iconName: 'search'}
         ];
 
-        const pageLoadSpinner = isPageLoading ? (
+        const pageLoadSpinner = isPageLoading && (
             <LoadSpinnerFullPage />
-        ) : (
-            null
-        ); 
+        );
 
         const errorModal = (
             <ErrorModal ref={(errorModal) => { this.errorModal = errorModal; }} />
@@ -337,20 +335,14 @@ class Account extends Component {
                 {pageLoadSpinner}
                 <SideNav menuInfo={mainSideNavInfo} activeItem={activeItemMain} handleItemClick={this.handleItemClickMain} />
                 <Grid className='manage-data-content-container'>
-                    {activeItemMain === 0 ? (
+                    {activeItemMain === 0 && (
                         <MyAccount isLoading={currentlyLoadingIndex === 0} userData={userData} passwordData={passwordData} handleUpdateUserInformation={this.handleUpdateUserInformation} handleUpdatePasswordInformation={this.handleUpdatePasswordInformation} />
-                    ) : (
-                        null
                     )}
-                    {activeItemMain === 1 ? (
+                    {activeItemMain === 1 && (
                         <ManageUsers isLoading={currentlyLoadingIndex === 1} userTableData={userTableData} tableRowClickFunction={this.handleUserTableButtonClick} handleEditUser={this.handleEditUser} handleDownloadUsers={this.handleDownloadUsers} handleAddUser={this.handleAddUser} handleDeleteUser={this.handleDeleteUser} />
-                    ) : (
-                        null
                     )}
-                    {activeItemMain === 2 ? (
+                    {activeItemMain === 2 && (
                         <ManageOrganization isLoading={currentlyLoadingIndex === activeItemMain} orgData={orgData} adminTableData={adminTableData} handleAddAdmin={this.handleAddAdmin} handleUpdateOrganization={this.handleUpdateOrganization} handleEditAdmin={this.handleEditAdmin} handleDeleteAdmin={this.handleDeleteAdmin} />
-                    ) : (
-                        null
                     )}
                 </Grid>
             </>
