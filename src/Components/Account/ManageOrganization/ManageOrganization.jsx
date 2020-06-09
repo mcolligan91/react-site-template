@@ -10,12 +10,26 @@ import './manage-organization.scss';
 
 class ManageOrganization extends Component {
 
-    //for component ModuleTable, prop buttonClickFunction
+    /*
+	summary: creates admin modal form data and calls ModalForm function for opening modal to add new admin to main Admin table 
+
+	params: none
+
+	returns: none
+    */
+   //for component ModuleTable, prop buttonClickFunction
     handleAddAdminButtonClick = () => {
         let formData = {name: '', email: '', phone: ''};
         this.addAdminModal.handleOpenModal(formData);
     }
 
+    /*
+	summary: click handler for table rows in main Admin table
+
+	params: button - name of button cicked (editAdmin, deleteAdmin), used for determining which function to call; data - data from table row (name, email, phone)
+
+	returns: none
+    */
     //for component ModuleTable, prop handleTableButtonClick 
     handleAdminTableButtonClick = (button, data) => {
         if (button === 'editAdmin') {

@@ -56,3 +56,9 @@
 .ui.message.report-status-message {
     margin-top: 0;
 }
+
+@media only screen and (max-width: 906px) {
+    .ui.grid>.ui.grid:first-child.custom-query-content-container {
+        margin-top: 1rem;
+    }
+}

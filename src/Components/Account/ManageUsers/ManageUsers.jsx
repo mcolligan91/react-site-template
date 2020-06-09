@@ -22,6 +22,13 @@ let roles = [
 
 class ManageUsers extends Component {
 
+    /*
+	summary: click handler for table rows in main User table
+
+	params: button - name of button cicked (editUser, deleteUser), used for determining which function to call; data - data from table row (name, org, email, role)
+
+	returns: none
+    */
     //for component InteractiveTableLayout, prop tableRowClickFunction 
     handleUserTableButtonClick = (button, data) => {        
         if (button === 'editUser') {
@@ -35,6 +42,13 @@ class ManageUsers extends Component {
         }
     }
 
+    /*
+	summary: creates user modal form data and calls ModalForm function for opening modal to add new admin to main User table 
+
+	params: none
+
+	returns: none
+    */
     handleAddUserButtonClick = () => {
         let formData = {name: '', organization: '', email: '', role: ''};
         this.addUserModal.handleOpenModal(formData);

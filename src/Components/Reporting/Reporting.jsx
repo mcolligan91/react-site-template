@@ -482,7 +482,7 @@ class Reporting extends Component {
                     )}
                     {activeItemMain === 1 && (
                         <>
-                            <Grid columns={2}>
+                            <Grid className='custom-query-content-container'>
                                 <Grid.Column textAlign='right' width={16}>
                                     {isQueryEdited && (
                                         <Button className='inner-button' size='small' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
