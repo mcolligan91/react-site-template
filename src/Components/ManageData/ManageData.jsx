@@ -69,7 +69,7 @@ class ManageData extends Component {
                 break;
 
             default:
-                //error
+                //pass
         }
     }
 
@@ -79,7 +79,7 @@ class ManageData extends Component {
                 const {posData} = response.data.data;
                 this.setState({ posData, sideNavActiveIndex: 0 });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -95,7 +95,7 @@ class ManageData extends Component {
                 const {branchData} = response.data.data;
                 this.setState({ branchData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -112,7 +112,7 @@ class ManageData extends Component {
                 const {productData, productUploadData} = response.data.data;
                 this.setState({ productData, productUploadData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -139,7 +139,7 @@ class ManageData extends Component {
                 this.setState({ selectedSummary });
                 window.scrollTo(0, 0);
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -160,7 +160,7 @@ class ManageData extends Component {
                     branchData: [newBranch, ...prevState.branchData]
                 }));
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);

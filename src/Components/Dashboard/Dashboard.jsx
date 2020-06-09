@@ -30,7 +30,7 @@ class Dashboard extends Component {
                 const {announcements, tasks, events} = response.data.data;
                 this.setState({ announcements, tasks, events });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);

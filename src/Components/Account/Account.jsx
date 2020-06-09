@@ -75,7 +75,7 @@ class Account extends Component {
                 break;
 
             default:
-                //error
+                //pass
         }
     }
 
@@ -87,7 +87,7 @@ class Account extends Component {
                 const {userData} = response.data.data;
                 this.setState({ userData, passwordData: {currentPassword: '', newPassword: '', confirmedPassword: ''} });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -104,7 +104,7 @@ class Account extends Component {
                 const {orgData, adminTableData} = response.data.data;
                 this.setState({ orgData, adminTableData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -120,7 +120,7 @@ class Account extends Component {
                 const {userTableData} = response.data.data;
                 this.setState({ userTableData, isPageLoading: false });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -144,7 +144,7 @@ class Account extends Component {
 
                 this.setState({ passwordData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -163,7 +163,7 @@ class Account extends Component {
 
                 this.setState({ userData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -181,7 +181,7 @@ class Account extends Component {
                 const {newData} = response.data.data;
                 this.setState({ userTableData: newData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -200,7 +200,7 @@ class Account extends Component {
                     userTableData: prevState.userTableData.filter(user => user.id !== id)
                 }));
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -221,7 +221,7 @@ class Account extends Component {
                     userTableData: [newUser, ...prevState.userTableData]
                 }));
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -244,7 +244,7 @@ class Account extends Component {
                 const {newData} = response.data.data;
                 this.setState({ adminTableData: newData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -264,7 +264,7 @@ class Account extends Component {
                     adminTableData: [newAdmin, ...prevState.adminTableData]
                 }));
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -283,7 +283,7 @@ class Account extends Component {
                     adminTableData: prevState.adminTableData.filter(user => user.id !== id)
                 }));
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);
@@ -302,7 +302,7 @@ class Account extends Component {
 
                 this.setState({ orgData });
             } else {
-                this.errorModal.handleOpenModal(response.data.message);
+                throw new Error(response.data.message);
             }
         }).catch(error => {
             this.errorModal.handleOpenModal(error.message);

@@ -570,8 +570,6 @@ app.post('/data/branch', (req, res) => {
     res.send(JSON.stringify({success: true, data: {newBranch}}));
 });
 
-//branch delete
-
 app.get('/data/product', (req, res) => {
     let productData = [
         {distributor: 'Distributor A', productIds: 150, invoicedProdCat: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat1: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat2: Math.floor(Math.random() * 100) + 1 + '%', invoicedProdSubCat3: Math.floor(Math.random() * 100) + 1 + '%'},
@@ -596,6 +594,84 @@ app.get('/data/product', (req, res) => {
 
     res.send(JSON.stringify({success: true, data: {productData, productUploadData}}));
 });
+
+//reporting
+let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+
+let reportTableStatus = {
+	status: 1,
+  	summary: 'Report tables were last updated by User A on 6/9/2020'
+};
+
+app.get('/reporting/status', (req, res) => {
+	res.send(JSON.stringify({success: true, data: {reportTableStatus}}));
+});
+
+app.put('/reporting/status', (req, res) => {
+	reportTableStatus = {
+		status: 2,
+		  summary: 'User A began updating the reporting tables on 5/1/2020.'
+	};
+
+	res.send(JSON.stringify({success: true, data: {reportTableStatus}}));
+});
+
+let salesData = [];
+
+app.get('/reporting/sales-data', (req, res) => {
+	let statesList = [];
+	for (let i = 0; i < states.length; i++) {
+		statesList.push({value: states[i], category: 'location'});
+	}
+
+	let queryFilterMenuData = [
+		{
+			title: 'Time Period',
+			category: 'timePeriod',
+			content: [
+				{value: 2020, category: 'timePeriod'},
+				{value: 2019, category: 'timePeriod'},
+				{value: 2018, category: 'timePeriod'},
+				{value: 2017, category: 'timePeriod'},
+				{value: 2016, category: 'timePeriod'},
+				{value: 2015, category: 'timePeriod'}
+			],
+			showAll: true,
+			limitData: false
+		},
+		{
+			title: 'Location',
+			category: 'location',
+			content: statesList,
+			showAll: false,
+			limitData: true
+		},
+		{
+			title: 'Customer Segment',
+			category: 'segment',
+			content: [
+				{value: 'Commercial', category: 'segment'},
+				{value: 'Industrial', category: 'segment'},
+				{value: 'Government', category: 'segment'},
+				{value: 'Residential', category: 'segment'},
+				{value: 'Utility', category: 'segment'},
+				{value: 'Unclassified', category: 'segment'}
+			],
+			showAll: true,
+			limitData: false
+		}
+	  ];
+
+	  res.send(JSON.stringify({success: true, data: {queryFilterMenuData, salesData}}));
+});
+
+app.post('/reporting/sales-data', (req, res) => {
+	setTimeout(() => {
+		//load sales data
+	}, 1000);
+
+	res.send(JSON.stringify({success: true, data: {salesData}}));
+})
 
 //account
 let userData = {
