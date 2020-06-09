@@ -15,25 +15,57 @@ class DataSummaryContent extends Component {
         }
     }
 
+
+    /*
+	summary: updates submissionUploadFile state with name of file for display in input, calls handleUploadSubmission function in parent component
+
+	params: e - click event info
+
+	returns: none
+    */
     handleUploadSubmission = (e) => {
         this.setState({ submissionUploadFile: e.target.files[0].name });
         this.props.handleUploadSubmission(e);
     }
 
+
+    /*
+	summary: updates cleanUploadFile state with name of file for display in input, calls handleUploadCleanFile function in parent component
+
+	params: e - click event info
+
+	returns: none
+    */
     handleUploadCleanFile = (e) => {
+        //will be api call that sends data from submission template to server
         this.setState({ cleanUploadFile: e.target.files[0].name });
         this.props.handleUploadCleanFile(e);
     }
 
+    
+    /*
+	summary: passes submissionComment state to handleAddComment function in parent component, then updates submissionComment state to be blank string
+
+	params: e - click event info
+
+	returns: none
+    */
     handleAddComment = (e) => {
         const {submissionComment} = this.state;
-        //post call to server with comment
 
         //update state with comment based on success response
         this.props.handleAddComment(submissionComment);
         this.setState({ submissionComment: '' });
     }
 
+    
+    /*
+	summary: updates submissionComment state with user input from comment textArea
+
+	params: e - click event info; info - input data from textArea
+
+	returns: none
+    */
     handleCommentChange = (e, info) => {
         this.setState({ submissionComment: info.value });
     } 

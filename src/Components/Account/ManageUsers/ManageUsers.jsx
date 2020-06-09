@@ -6,20 +6,6 @@ import ConfirmationModal from './../../../Shared/ConfirmationModal/ConfirmationM
 
 import './manage-users.scss';
 
-//placeholder, will be retrieved from database
-let orgs = [
-    {key: 'Distributor A', value: 'Distributor A', text: 'Distributor A'},
-    {key: 'Distributor B', value: 'Distributor B', text: 'Distributor B'},
-    {key: 'Distributor C', value: 'Distributor C', text: 'Distributor C'}
-];
-
-//placeholder, will be retrieved from database
-let roles = [
-    {key: 'Admin', value: 'Admin', text: 'Admin'},
-    {key: 'Site Admin', value: 'Site Admin', text: 'Site Admin'},
-    {key: 'Data Analyst', value: 'Data Analyst', text: 'Data Analyst'}
-];
-
 class ManageUsers extends Component {
 
     /*
@@ -42,6 +28,7 @@ class ManageUsers extends Component {
         }
     }
 
+    
     /*
 	summary: creates user modal form data and calls ModalForm function for opening modal to add new admin to main User table 
 
@@ -55,7 +42,7 @@ class ManageUsers extends Component {
     }
 
     render() {
-        const {isLoading, userTableData, handleEditUser, handleDownloadUsers, handleAddUser, handleDeleteUser} = this.props;
+        const {isLoading, userTableData, handleEditUser, handleDownloadUsers, handleAddUser, handleDeleteUser, orgs, roles} = this.props;
 
         //for component InteractiveTableLayout, prop pageInfo
         const usersPageInfo = {

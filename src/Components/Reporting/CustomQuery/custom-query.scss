@@ -1,0 +1,22 @@
+@media only screen and (max-width: 906px) {
+    .ui.grid>.ui.grid:first-child.custom-query-content-container {
+        margin-top: 1rem;
+    }
+}
+
+@media only screen and (min-width: 907px) {
+    .ui.dimmer.custom-query-dimmer>.content {
+      position: fixed;
+    }
+}
+
+@media only screen and (max-width: 906px) {
+    .ui.dimmer.custom-query-dimmer>.content {
+      position: absolute;
+    }
+}
+
+.dimmer-clear-graphs-text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

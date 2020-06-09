@@ -11,17 +11,32 @@ class Login extends Component {
     	super(props);
     	this.state = { 
 			password: '', 
-			email: '', 
-			submittedPassword: '', 
-			submittedEmail: ''
+			email: ''
     	}
   	}
 
+
+	/*
+	summary: updates email or password when user changes form input data
+
+	params: e - click event data; {name, value} - name and value from clicked div (email, password)
+
+	returns: none
+    */
   	handleChange = (e, { name, value }) => {
 		this.setState({ [name]: value });
 	}	
 
+
+	/*
+	summary: will be api call that sends email and password input data to server and logs user in on successful response
+
+	params: e - click event data; {name, value} - name and value from input divs in login form (email, password)
+
+	returns: none
+    */
 	handleLogin = (e) => {
+		const {email, password} = this.state;
 		//would send password and email to server and log user in, then update broswer session with user information
 
 		sessionStorage.setItem('loggedIn', true);

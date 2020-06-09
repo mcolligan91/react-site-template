@@ -7,6 +7,13 @@ import './branch.scss';
 
 class Branch extends Component {
 
+    /*
+	summary: creates branch modal form data and calls ModalForm function for opening modal to add new branch to main Branch table 
+
+	params: none
+
+	returns: none
+    */
     handleAddBranchClick = () => {
         let formData = {status: '', branchId: '', city: '', state: '', zipCode: '', details: ''};
         this.addBranchModal.handleOpenModal(formData);

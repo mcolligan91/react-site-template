@@ -30,11 +30,27 @@ class ManageData extends Component {
         }
     }
 
+
+    /*
+	summary: calls handleUpdateActivePage to update activeItemMain state
+
+	params: none
+
+	returns: none
+    */
     componentDidMount = () => {
         window.scrollTo(0, 0);
         this.handleUpdateActivePage(0);
     }
 
+
+    /*
+	summary: updates activeItemMain state with index for showing selected subpage, then checks loadedPageIndexes state to see if that subpage api call has already happened since the user has visited the main Manage Data module. If the subpage is not in the loadedPageIndexes array, the loadSubPageData function is called to load the subpage data
+
+	params: index - used for updating activeItemMain state with selected subpage index
+
+	returns: none
+    */
     handleUpdateActivePage = (index) => { 
         //for component SideNav, prop activeItem (activeItemMain)
         this.setState({ activeItemMain: index });
@@ -44,11 +60,27 @@ class ManageData extends Component {
         }
     }
 
+    
+    /*
+	summary: gets subpage index from clickEvent data and calls handleUpdateActivePage to update activeItemMain state
+
+	params: e and index from clickEvent data
+
+	returns: none
+    */
     //for component SideNav, prop handleItemClick
     handleItemClickMain = (e, { index }) => {
         this.handleUpdateActivePage(index);
     }
 
+
+    /*
+	summary: updates loadedPageIndexes state with selected index, sets currentlyLoadingIndex state to selected index, then calls subpage loading function based on selected index 
+
+	params: index - used for updating loadedPageIndexes state with selected subpage index so function can be bypassed if user selects subpage again while still in main Account module (handleLoadPosPageData, handleLoadBranchData, or handleLoadProductData)
+
+	returns: none
+    */
     loadSubPageData = (index) => {
         const {loadedPageIndexes} = this.state;
         
@@ -73,6 +105,14 @@ class ManageData extends Component {
         }
     }
 
+
+    /*
+	summary: makes api call to load POS subpage data - updates posData state with response data and updates sideNavActiveIndex state to index 0 so the first menu accordion will automatically display as open on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     handleLoadPosPageData = () => {
         axios.get('/data/pos').then(response => {
             if (response.data.success) {
@@ -88,6 +128,14 @@ class ManageData extends Component {
         });
     }
 
+
+    /*
+	summary: makes api call to load Branch subpage data - updates branchData state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     //for component Branch, prop tableContent
     handleLoadBranchData = () => {
         axios.get('/data/branch').then(response => {
@@ -104,6 +152,14 @@ class ManageData extends Component {
         });
     }
 
+    
+    /*
+	summary: makes api call to load Product subpage data - updates productData and productUploadData states with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     //for component Product, prop productData (productData)
     //for component Product, prop productUploadData (productUploadData)
     handleLoadProductData = () => {
@@ -121,6 +177,14 @@ class ManageData extends Component {
         });
     }
 
+
+    /*
+	summary: updates sideNavActiveIndex state when user clicks on menu item to trigger clicked menu accordion opening and closing the menu accordion that was open previously 
+
+	params: e - click event data; titleProps - data from menu title Accordion div (index, className, etc.) 
+
+	returns: none
+    */
     handleSideNavMenuClick = (e, titleProps) => {
         const {index} = titleProps,
             {sideNavActiveIndex} = this.state,
@@ -129,6 +193,14 @@ class ManageData extends Component {
         this.setState({ sideNavActiveIndex: newIndex });
     }
 
+
+    /*
+	summary: makes api call to load pos data summary data for selected month and year from sidenav menu, updates selectedSummary with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: e - click event data; data - data from clicked menu item (id, status, month, year) 
+
+	returns: none
+    */
     handleSecondaryItemClick = (e, data) => {
         this.setState({ isPageLoading: true });
 
@@ -148,6 +220,14 @@ class ManageData extends Component {
         });
     }
 
+
+    /*
+	summary: makes api call to add branch to main Branch table - updates branchData state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: data - data from form inputs in modal for adding branch 
+
+	returns: none
+    */
     //for component Branch, prop handleAddBranch
     handleAddBranch = (data) => {
         //would fire ajax call and update state based on response, instead of 'data' param
@@ -169,18 +249,42 @@ class ManageData extends Component {
         });
     }
 
+    
+    /*
+	summary: will make api call that sends submission upload template data to server and gets response with data to add to table
+
+	params: e - click event data
+
+	returns: none
+    */
     //for component DataSummaryContent, prop handleUploadSubmission
     handleUploadSubmission = (e) => {
         //would send post call to server with upload data, then update submissions table with new entry based on response
         debugger;
     }
 
+
+    /*
+	summary: will make api call that sends clean submission upload template data to server and gets response with data to add to table
+
+	params: e - click event data
+
+	returns: none
+    */
     //for component DataSummaryContent, prop handleUploadCleanFile
     handleUploadCleanFile = (e) => {
         //would send post call to server with upload data, then update submissions table with new entry based on response
         debugger;
     }
 
+    
+    /*
+	summary: will make api call that sends user comment to server and will update selectedSummary state on a successful response
+
+	params: comment - data from click event - comment string from textArea input 
+
+	returns: none
+    */
     //for component DataSummaryContent, prop handleAddComment
     handleAddComment = (comment) => {
         const {selectedSummary} = this.state;
@@ -208,7 +312,7 @@ class ManageData extends Component {
 
     // for component Branch, prop handleDownloadProducts
     handleDownloadProducts = (data) => {
-        console.log(data);
+        debugger;
     }
 
     //for component Branch, prop handleFilterProductData

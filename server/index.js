@@ -596,11 +596,9 @@ app.get('/data/product', (req, res) => {
 });
 
 //reporting
-let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-
 let reportTableStatus = {
 	status: 1,
-  	summary: 'Report tables were last updated by User A on 6/9/2020'
+  	summary: `Report tables were last updated by User A on 6/1/2020`
 };
 
 app.get('/reporting/status', (req, res) => {
@@ -608,9 +606,11 @@ app.get('/reporting/status', (req, res) => {
 });
 
 app.put('/reporting/status', (req, res) => {
+	let today = new Date().toLocaleDateString();
+
 	reportTableStatus = {
 		status: 2,
-		  summary: 'User A began updating the reporting tables on 5/1/2020.'
+		  summary: `User A began updating the reporting tables on ${today}`
 	};
 
 	res.send(JSON.stringify({success: true, data: {reportTableStatus}}));
@@ -619,6 +619,8 @@ app.put('/reporting/status', (req, res) => {
 let salesData = [];
 
 app.get('/reporting/sales-data', (req, res) => {
+	let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+
 	let statesList = [];
 	for (let i = 0; i < states.length; i++) {
 		statesList.push({value: states[i], category: 'location'});
@@ -760,8 +762,20 @@ let userTableData = [
 
 let userId = userTableData.length + 1;
 
+let organizations = [
+    {key: 'Distributor A', value: 'Distributor A', text: 'Distributor A'},
+    {key: 'Distributor B', value: 'Distributor B', text: 'Distributor B'},
+    {key: 'Distributor C', value: 'Distributor C', text: 'Distributor C'}
+];
+
+let userRoles = [
+    {key: 'Admin', value: 'Admin', text: 'Admin'},
+    {key: 'Site Admin', value: 'Site Admin', text: 'Site Admin'},
+    {key: 'Data Analyst', value: 'Data Analyst', text: 'Data Analyst'}
+];
+
 app.get('/account/users', (req, res) => {
-	res.send(JSON.stringify({success: true, data: {userTableData}}));
+	res.send(JSON.stringify({success: true, data: {userTableData, organizations, userRoles}}));
 });
 
 app.post('/account/user', (req, res) => {

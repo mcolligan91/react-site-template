@@ -23,6 +23,8 @@ class Account extends Component {
             orgData: null,
             adminTableData: [],
             userTableData: [],
+            organizations: [],
+            userRoles: [],
             currentlyLoadingIndex: null,
             loadedPageIndexes: []
         }
@@ -148,8 +150,8 @@ class Account extends Component {
         //for component InteractiveTableLayout, tableData    
         axios.get('/account/users').then(response => {
             if (response.data.success) {
-                const {userTableData} = response.data.data;
-                this.setState({ userTableData, isPageLoading: false });
+                const {userTableData, organizations, userRoles} = response.data.data;
+                this.setState({ userTableData, organizations, userRoles, isPageLoading: false });
             } else {
                 throw new Error(response.data.message);
             }
@@ -255,7 +257,7 @@ class Account extends Component {
     /*
 	summary: makes api call to edit user data in main User table - updates userTableData state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
 
-	params: data - data from from in modal for editing user 
+	params: data - data from form inputs in modal for editing user 
 
 	returns: none
     */
@@ -308,7 +310,7 @@ class Account extends Component {
     /*
 	summary: makes api call to add user to main User table - updates userTableData state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
 
-	params: data - data from from in modal for adding user 
+	params: data - data from form inputs in modal for adding user 
 
 	returns: none
     */
@@ -343,7 +345,7 @@ class Account extends Component {
     /*
 	summary: makes api call to edit admin data in main Admin table - updates adminTableData state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
 
-	params: data - data from from in modal for editing admin 
+	params: data - data from form inputs in modal for editing admin 
 
 	returns: none
     */
@@ -369,7 +371,7 @@ class Account extends Component {
     /*
 	summary: makes api call to add admin to main Admin table - updates adminTableData state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
 
-	params: data - data from from in modal for adding user 
+	params: data - data from form inputs in modal for adding user 
 
 	returns: none
     */
@@ -446,7 +448,7 @@ class Account extends Component {
     }
     
     render() {
-        const {isPageLoading, activeItemMain, userData, passwordData, orgData, adminTableData, userTableData, currentlyLoadingIndex} = this.state;
+        const {isPageLoading, activeItemMain, userData, passwordData, orgData, adminTableData, organizations, userRoles, userTableData, currentlyLoadingIndex} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
@@ -473,7 +475,7 @@ class Account extends Component {
                         <MyAccount isLoading={currentlyLoadingIndex === 0} userData={userData} passwordData={passwordData} handleUpdateUserInformation={this.handleUpdateUserInformation} handleUpdatePasswordInformation={this.handleUpdatePasswordInformation} />
                     )}
                     {activeItemMain === 1 && (
-                        <ManageUsers isLoading={currentlyLoadingIndex === 1} userTableData={userTableData} tableRowClickFunction={this.handleUserTableButtonClick} handleEditUser={this.handleEditUser} handleDownloadUsers={this.handleDownloadUsers} handleAddUser={this.handleAddUser} handleDeleteUser={this.handleDeleteUser} />
+                        <ManageUsers isLoading={currentlyLoadingIndex === 1} userTableData={userTableData} orgs={organizations} roles={userRoles} tableRowClickFunction={this.handleUserTableButtonClick} handleEditUser={this.handleEditUser} handleDownloadUsers={this.handleDownloadUsers} handleAddUser={this.handleAddUser} handleDeleteUser={this.handleDeleteUser} />
                     )}
                     {activeItemMain === 2 && (
                         <ManageOrganization isLoading={currentlyLoadingIndex === activeItemMain} orgData={orgData} adminTableData={adminTableData} handleAddAdmin={this.handleAddAdmin} handleUpdateOrganization={this.handleUpdateOrganization} handleEditAdmin={this.handleEditAdmin} handleDeleteAdmin={this.handleDeleteAdmin} />

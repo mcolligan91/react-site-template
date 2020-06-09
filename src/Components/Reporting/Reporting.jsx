@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, Grid, Header, Message, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Modal, Loader } from 'semantic-ui-react';
+import { Button, Grid, Header, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Modal } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,6 +7,8 @@ import SideNav from './../../Shared/SideNav/SideNav';
 import SecondarySideNav from './../../Shared/SecondarySideNav/SecondarySideNav';
 import ErrorModal from './../../Shared/ErrorModal/ErrorModal';
 import LoadSpinnerFullPage from './../../Shared/LoadSpinnerFullPage/LoadSpinnerFullPage';
+import DataExports from './DataExports/DataExports';
+import CustomQuery from './CustomQuery/CustomQuery';
 
 import './reporting.scss';
 
@@ -30,11 +32,27 @@ class Reporting extends Component {
         }
     }
 
+
+    /*
+	summary: calls handleUpdateActivePage to update activeItemMain state
+
+	params: none
+
+	returns: none
+    */
     componentDidMount = () => {
         window.scrollTo(0, 0);
         this.handleUpdateActivePage(0);
     }
 
+
+    /*
+	summary: updates activeItemMain state with index for showing selected subpage, then checks loadedPageIndexes state to see if that subpage api call has already happened since the user has visited the main Manage Data module. If the subpage is not in the loadedPageIndexes array, the loadSubPageData function is called to load the subpage data
+
+	params: index - used for updating activeItemMain state with selected subpage index
+
+	returns: none
+    */
     handleUpdateActivePage = (index) => { 
         //for component SideNav, prop activeItem (activeItemMain)
         this.setState({ activeItemMain: index });
@@ -44,6 +62,14 @@ class Reporting extends Component {
         }
     }
 
+
+    /*
+	summary: updates loadedPageIndexes state with selected index, sets currentlyLoadingIndex state to selected index, then calls subpage loading function based on selected index 
+
+	params: index - used for updating loadedPageIndexes state with selected subpage index so function can be bypassed if user selects subpage again while still in main Account module (handleLoadDataExportsPage, handleLoadCustomQueryPage)
+
+	returns: none
+    */
     loadSubPageData = (index) => {
         const {loadedPageIndexes} = this.state;
         
@@ -64,6 +90,14 @@ class Reporting extends Component {
         }
     }
 
+
+    /*
+	summary: makes api call to load Data Exports subpage data - updates reportTableStatus state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     handleLoadDataExportsPage = () => {
         axios.get('/reporting/status').then(response => {
             if (response.data.success) {
@@ -79,6 +113,14 @@ class Reporting extends Component {
         });
     }
 
+
+    /*
+	summary: makes api call to load Custom Query subpage data - updates queryFilterMenuData and salesData states with response data on successful response, updates queryFilterCriteria with filter content info, calculates the amount of sideNav menu items and updates sideNavActiveIndexes state for keeping track of which menu accordions are open and closed (all will start out as open), calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     handleLoadCustomQueryPage = () => {
         axios.get('/reporting/sales-data').then(response => {
             if (response.data.success) {
@@ -117,11 +159,27 @@ class Reporting extends Component {
         });
     }
 
+
+    /*
+	summary: gets subpage index from clickEvent data and calls handleUpdateActivePage to update activeItemMain state
+
+	params: e and index from clickEvent data
+
+	returns: none
+    */
     //for component SideNav, prop handleItemClick
     handleItemClickMain = (e, { index }) => {
         this.handleUpdateActivePage(index);
     }
 
+
+    /*
+	summary: api call that triggers reporting tables to update in the back-end, updates reportTableStatus state with status info for status message display on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     handleUpdateReportTables = () => {
         this.setState({ isPageLoading: true });
 
@@ -139,6 +197,14 @@ class Reporting extends Component {
         });
     }
 
+
+    /*
+	summary: updates queryFilterCriteria state when user clicks checkbox in sidenav
+
+	params: e - click event data; data - clicked checkbox div value (e.g. 2020, Alabama) and category (e.g. 'timePeriod', 'location') 
+
+	returns: none
+    */
     handleSecondaryItemClick = (e, data) => {
         this.setState({ isQueryEdited: true });
 
@@ -162,6 +228,14 @@ class Reporting extends Component {
         }
     }
 
+
+    /*
+	summary: updates queryFilterCriteria when user clicks on any of the 'Select All' checkboxes in the sidenav menus
+
+	params: e - click event data; info - clicked checkbox div info (checked, label, type, etc.); data - data from the actual menu that was clicked (time period, location, or customer segment)
+
+	returns: none
+    */
     handleSecondaryItemSelectAll = (e, info, data) => {
         this.setState( {isQueryEdited: true });
 
@@ -186,6 +260,14 @@ class Reporting extends Component {
         this.setState({ queryFilterCriteria });
     }
 
+
+    /*
+	summary: updates sideNavActiveIndexes state when user clicks on menu item to trigger clicked menu accordion opening or closing
+
+	params: e - click event data; titleProps - data from menu title Accordion div (index, className, etc.) 
+
+	returns: none
+    */
     handleSideNavMenuClick = (e, titleProps) => {
         const {index} = titleProps;
         const {sideNavActiveIndexes} = this.state;
@@ -201,10 +283,26 @@ class Reporting extends Component {
         this.setState({ sideNavActiveIndexes: newIndex });
     }
 
+
+    /*
+	summary: updates menuModalData state with sidenav modal content based on what menu item was clicked, updates showMenuModal state to true so modal is displayed
+
+	params: e - click event data; data - query filter menu data from menu that was clicked on (category, content, title, etc.)
+
+	returns: none
+    */
     handleSideNavMenuClickMobile = (e, data) => {
         this.setState({ menuModalData: data, showMenuModal: true });
     }
 
+
+    /*
+	summary: updates queryFilterMenuData state when user clicks 'Show All' button on sidenav menu that is limiting the amount of menu items shown (currently the Location menu isn't showing all 50 states)
+
+	params: e - click event data; data - query filter menu data from menu that was clicked on (category, content, title, etc.)
+
+	returns: none
+    */
     handleExpandMenu = (e, data) => {
         const {queryFilterMenuData} = this.state;
         let targetMenu = queryFilterMenuData.find((obj => obj.category === data.category));
@@ -213,6 +311,14 @@ class Reporting extends Component {
         this.setState({ queryFilterMenuData });
     }
 
+
+    /*
+	summary: resets all sidenav menu items by unchecking any checkboxes that are checked, updates isQueryEdited state to false and updates queryFilterCriteria state with everything unchecked
+
+	params: none
+
+	returns: none
+    */
     handleClearFilters = () => {
         this.setState( {isQueryEdited: false });
 
@@ -226,10 +332,19 @@ class Reporting extends Component {
         this.setState({ queryFilterCriteria });
     }
 
+
+    /*
+	summary: api call that sends data in queryFilterCriteria state to server to update graphs based on user selection, updates salesData state with response data on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     handleUpdateGraphs = () => {
+        const {queryFilterCriteria} = this.state;
         this.setState({ isPageLoading: true });
 
-        axios.post('/reporting/sales-data').then(response => {
+        axios.post('/reporting/sales-data', queryFilterCriteria).then(response => {
             if (response.data.success) {
                 const {salesData} = response.data.data;
                 this.setState({ salesData });
@@ -244,29 +359,12 @@ class Reporting extends Component {
     }
 
     render() {
-        const {isPageLoading, isQueryEdited, currentlyLoadingIndex, reportTableStatus, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria, showMenuModal, menuModalData} = this.state;
+        const {isPageLoading, isQueryEdited, currentlyLoadingIndex, reportTableStatus, menuItemLimit, activeItemMain, sideNavActiveIndexes, queryFilterMenuData, queryFilterCriteria, showMenuModal, menuModalData, salesData} = this.state;
 
         //for component SideNav, prop menuInfo
         const mainSideNavInfo = [
             {index: 0, name: 'Data Exports', iconName: 'file alternate'},
             {index: 1, name: 'Custom Query', iconName: 'search'}
-        ];
-
-        //placeholder
-        let dropdownYears = [
-            {key: 1, value: 2015, text: 2015},
-            {key: 2, value: 2016, text: 2016},
-            {key: 3, value: 2017, text: 2017},
-            {key: 4, value: 2018, text: 2018},
-            {key: 5, value: 2019, text: 2019},
-            {key: 6, value: 2020, text: 2020}
-        ];
-
-        //placeholder
-        let dropdownOrgs = [
-            {key: 1, value: 'Org A', text: 'Org A'},
-            {key: 2, value: 'Org B', text: 'Org B'},
-            {key: 3, value: 'Org C', text: 'Org C'}
         ];
 
         const secondSideNavContent = (
@@ -346,71 +444,7 @@ class Reporting extends Component {
             menuItems: secondSideNavContent,
             menuItemsMobile: secondSideNavMobileContent
         };
-
-        //using image placeholders instead of real data for now
-        const customQueryGraphs = [
-            {
-                graphs: [
-                    {
-                        title: 'Year-Over-Year Sales Growth',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    },
-                    {
-                        title: 'Year-Over-Year Market Sales Growth',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    }
-                ]
-            },
-            {
-                graphs: [
-                    {
-                        title: 'Market Sales by Product Type',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    },
-                    {
-                        title: 'Estimated Market Sales by Product Type',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    }
-                ]
-            },
-            {
-                graphs: [
-                    {
-                        title: 'Market Sales by Customer Segment',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    },
-                    {
-                        title: 'Estimated Market Sales by Customer Segment',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    }
-                ]
-            },
-            {
-                graphs: [
-                    {
-                        title: 'Market Sales by Geographic Region',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    },
-                    {
-                        title: 'Estimated Market Sales by Geographic Region',
-                        data: <Image src={require('../../img/example-chart.JPG')} fluid />
-                    }
-                ]
-            }
-        ];
-
-        const reportStatusContainer = (
-            <Dimmer.Dimmable blurring dimmed={currentlyLoadingIndex === 0}>
-                <Dimmer active={currentlyLoadingIndex === 0}>
-                    <Loader>Loading</Loader>
-                </Dimmer>
-                <Message className={`report-status-message ${reportTableStatus.status === 1 ? 'positive' : 'warning'}`}>
-                    <Message.Header>{reportTableStatus.status === 1 ? 'Tables Updated' : 'Update In Progress'}</Message.Header>
-                    <p>{reportTableStatus.summary}</p>
-                </Message>
-            </Dimmer.Dimmable>
-        );
-
+            
         const errorModal = (
             <ErrorModal ref={(errorModal) => { this.errorModal = errorModal; }} />
         );
@@ -431,97 +465,12 @@ class Reporting extends Component {
                 <Grid className='manage-data-content-container'>
                     {activeItemMain === 0 && (
                         <>
-                            <Grid.Row centered>
-                                <Grid.Column width={12}>
-                                    <Grid className='data-exports-top-row' stackable doubling>
-                                        <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
-                                        <Grid.Row>
-                                            <Grid.Column width={8}>
-                                                {reportStatusContainer}
-                                            </Grid.Column>
-                                            <Grid.Column width={8}>
-                                                <Button className='main-button-color' fluid disabled={reportTableStatus.status === 2} onClick={this.handleUpdateReportTables}>Update</Button>
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                    </Grid>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row centered>
-                                <Grid.Column width={12}>
-                                    <Grid className='data-exports-middle-row' stackable doubling>
-                                        <Header as='h2' className='data-exports-header'>Update Data Exports</Header>
-                                        <Grid.Row>
-                                            <Grid.Column width={8}>
-                                                <Dropdown placeholder='Please select...' fluid selection options={dropdownOrgs} />
-                                            </Grid.Column>
-                                            <Grid.Column width={8}>
-                                                <Button className='main-button-color' fluid>Update</Button>
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                    </Grid>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row centered>
-                                <Grid.Column width={12}>
-                                    <Grid className='data-exports-bottom-row' stackable doubling>
-                                        <Header as='h2' className='data-exports-header'>Update Custom Report Tables</Header>
-                                        <Grid.Row>
-                                            <Grid.Column width={8}>
-                                                <span>Monthly Data Exports</span>
-                                                <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
-                                            </Grid.Column>
-                                            <Grid.Column width={8}>
-                                                <span>Quarterly Data Exports</span>
-                                                <Dropdown className='data-exports-dropdown' placeholder='Please select...' fluid selection options={dropdownYears} />
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                    </Grid>
-                                </Grid.Column>
-                            </Grid.Row>
+                            <DataExports isLoading={currentlyLoadingIndex === 0} reportTableStatus={reportTableStatus} handleUpdateReportTables={this.handleUpdateReportTables} />
                         </>
                     )}
                     {activeItemMain === 1 && (
                         <>
-                            <Grid className='custom-query-content-container'>
-                                <Grid.Column textAlign='right' width={16}>
-                                    {isQueryEdited && (
-                                        <Button className='inner-button' size='small' icon='undo' labelPosition='left' content='Clear All Filters' onClick={this.handleClearFilters} />
-                                    )}
-                                    <Button className='main-button-color' size='small' icon='save' labelPosition='left' content='Save Search' />
-                                    <Divider />
-                                </Grid.Column>
-                                <Grid.Column width={16}>
-                                    <Dimmer.Dimmable blurring dimmed={isQueryEdited}>
-                                        <Dimmer className='custom-query-dimmer' inverted verticalAlign='top' active={isQueryEdited}>
-                                            <Grid centered>
-                                                <Grid.Column width={8}>
-                                                    <Header as='h3'>You have changed the filter inputs so that they no longer match the graphs. Click <span className='dimmer-clear-graphs-text main-button-color' onClick={this.handleClearFilters}>here</span> to undo your changes.</Header>
-                                                    <Button className='main-button-color' fluid onClick={this.handleUpdateGraphs}>
-                                                        <Icon name='chart bar' />
-                                                        Update Graphs
-                                                    </Button>
-                                                </Grid.Column>
-                                            </Grid>
-                                        </Dimmer>
-                                        <Grid stackable doubling padded relaxed>
-                                            {customQueryGraphs.map((row, i) => {
-                                                return (
-                                                    <Grid.Row key={i}>
-                                                        {row.graphs.map((graph, j) => {
-                                                            return (
-                                                                <Grid.Column key={j} width={8} textAlign='center'>
-                                                                    <Header as='h3'>{graph.title}</Header>
-                                                                    {graph.data}
-                                                                </Grid.Column>
-                                                            )
-                                                        })}
-                                                    </Grid.Row>
-                                                )
-                                            })}
-                                        </Grid>
-                                    </Dimmer.Dimmable>
-                                </Grid.Column>
-                            </Grid>
+                            <CustomQuery isQueryEdited={isQueryEdited} salesData={salesData} handleUpdateGraphs={this.handleUpdateGraphs} handleClearFilters={this.handleClearFilters} />
                         </>
                     )}
                 </Grid>

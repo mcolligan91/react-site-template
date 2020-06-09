@@ -15,7 +15,6 @@ let yearOptions = [
     {key: 2018, value: 2018, text: 2018}
 ];
 
-//placeholder
 let monthOptions = [
     {key: 'All Months', value: 'All Months', text: 'All Months'},
     {key: 'January', value: 'January', text: 'January'},
@@ -34,6 +33,14 @@ let monthOptions = [
 
 class Product extends Component {
 
+    
+    /*
+	summary: will send api call to server and trigger upload template download (imcomplete)
+
+	params: none
+
+	returns: none
+    */
     handleDownloadProductUpload = () => {
         debugger;
     }

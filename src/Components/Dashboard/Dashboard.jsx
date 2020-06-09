@@ -20,6 +20,14 @@ class Dashboard extends Component {
         }
     }
 
+
+    /*
+	summary: makes api call and loads announcements, tasks, and events data and updates state for each on successful response, calls function to open ErrorModal and show error message on unsuccessful response
+
+	params: none
+
+	returns: none
+    */
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
@@ -39,6 +47,14 @@ class Dashboard extends Component {
         });
     }
 
+
+    /*
+	summary: updates showAnnouncements state to false after user clicks close icon to hide announcements message container 
+
+	params: none
+
+	returns: none
+    */
     handleHideAnnouncements = () => {
         this.setState({ showAnnouncements: false });
     } 
