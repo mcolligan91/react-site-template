@@ -13,27 +13,57 @@ class ModalForm extends Component {
         }
     }
 
+    
+    /*
+	summary: updates formData state with formData prop that populates each form field, updates isOpen state to true to open modal
+
+	params: none
+
+	returns: none
+    */
     handleOpenModal = (data) => {
         this.setState({ isOpen: true, formData: {...data} });
     }
 
+      
+    /*
+	summary: updates isOpen state to false to close modal
+
+	params: none
+
+	returns: none
+    */
     handleCloseModal = () => {
         this.setState({ isOpen: false });
     }
 
+
+    /*
+	summary: passes formData state to handleSubmit function in parent component, calls handleCloseModal function to close modal
+
+	params: none
+
+	returns: none
+    */
     handleSubmit = () => {
         const {formData} = this.state;
         this.props.handleSubmit(formData);
         this.handleCloseModal();
     }
 
-    
+       
+    /*
+	summary: updates formData state for changed field when user changes any form input data
+
+	params: e - click event data; {name, value} - name and value from clicked div 
+
+	returns: none
+    */
     handleChange = (e, { name, value }) => {
         const {formData} = this.state;
         formData[name] = value;
         this.setState({ formData });
     }
-
 
     render() {  
         const {isOpen, formData} = this.state;

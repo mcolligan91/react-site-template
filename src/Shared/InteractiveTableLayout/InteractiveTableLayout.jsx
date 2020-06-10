@@ -12,12 +12,28 @@ class InteractiveTableLayout extends Component {
         }
     }
 
+
+    /*
+	summary: updates tableData state with prop from parent component
+
+	params: none
+
+	returns: none
+    */
     componentDidMount = () => {
         const {tableContent} = this.props;
 
         this.setState({ tableData: tableContent });
     }
 
+
+    /*
+	summary: updates tableData state with prop from parent component after parent api call completes and parent state updates
+
+	params: none
+
+	returns: none
+    */
     componentWillReceiveProps = (newProps) => {
         const {tableData} = this.state;
 
@@ -26,10 +42,26 @@ class InteractiveTableLayout extends Component {
         }
     }
 
+
+    /*
+	summary: updates pageLength state that is used for determining how many table rows are displayed in the main table (10, 20, 50)
+
+	params: none
+
+	returns: none
+    */
     handleUpdatePageLength = (option) => {
         this.setState({ pageLength: option });
     }
 
+
+    /*
+	summary: determines if the user has clicked on a button within the table row and will trigger the tableRowClickFunction function in the parent component if they have
+
+	params: e - click event data; data - data from table row
+
+	returns: none
+    */
     handleItemClick = (e, data) => {
         if (e.target.nodeName === 'I') {
             this.props.tableRowClickFunction(e.target.getAttribute('functionreference'), data);

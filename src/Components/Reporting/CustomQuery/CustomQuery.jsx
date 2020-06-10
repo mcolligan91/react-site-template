@@ -6,7 +6,7 @@ import './custom-query.scss';
 class CustomQuery extends Component {
 
     render() {
-        const {isQueryEdited, salesData, handleUpdateGraphs, handleClearFilters} = this.props;
+        const {isQueryEdited, handleUpdateGraphs, handleClearFilters} = this.props;
 
         //using image placeholders instead of real data for now
         const customQueryGraphs = [

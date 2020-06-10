@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Header, Menu, Accordion, List, Icon, Checkbox, Divider, Image, Dimmer, Modal } from 'semantic-ui-react';
+import { Button, Grid, Menu, Accordion, List, Icon, Checkbox, Modal } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 

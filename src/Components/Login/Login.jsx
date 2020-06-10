@@ -36,7 +36,7 @@ class Login extends Component {
 	returns: none
     */
 	handleLogin = (e) => {
-		const {email, password} = this.state;
+		// const {email, password} = this.state;
 		//would send password and email to server and log user in, then update broswer session with user information
 
 		sessionStorage.setItem('loggedIn', true);

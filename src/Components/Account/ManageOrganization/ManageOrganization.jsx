@@ -23,6 +23,7 @@ class ManageOrganization extends Component {
         this.addAdminModal.handleOpenModal(formData);
     }
 
+    
     /*
 	summary: click handler for table rows in main Admin table
 

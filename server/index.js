@@ -673,7 +673,7 @@ app.post('/reporting/sales-data', (req, res) => {
 	}, 1000);
 
 	res.send(JSON.stringify({success: true, data: {salesData}}));
-})
+});
 
 //account
 let userData = {
@@ -809,5 +809,11 @@ app.delete('/account/users/:id', (req, res) => {
 	res.send(JSON.stringify({success: true }));
 });
 
+//contact
+app.post('/contact', (req, res) => {
+	setTimeout(() => {
+		//handle message
+	}, 1000);
 
-
+	res.send(JSON.stringify({success: true}));
+})

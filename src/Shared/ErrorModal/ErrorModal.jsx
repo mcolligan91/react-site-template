@@ -10,10 +10,26 @@ class ErrorModal extends Component {
         }
     }
 
+    
+    /*
+	summary: opens modal and updates errorMessage state with data from param
+
+	params: errorResponse - contains message for display in ErrorModal
+
+	returns: none
+    */
     handleOpenModal = (errorResponse) => {
         this.setState({ isModalOpen: true, errorMessage: errorResponse });
     }
 
+        
+    /*
+	summary: updates isOpen state to false to close modal, clears errorMessage state
+
+	params: none
+
+	returns: none
+    */
     handleCloseModal = () => {
         this.setState({ isModalOpen: false, errorMessage: null });
     }

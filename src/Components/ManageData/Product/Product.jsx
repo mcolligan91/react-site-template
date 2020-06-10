@@ -33,7 +33,6 @@ let monthOptions = [
 
 class Product extends Component {
 
-    
     /*
 	summary: will send api call to server and trigger upload template download (imcomplete)
 

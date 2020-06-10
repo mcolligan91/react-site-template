@@ -13,14 +13,38 @@ class ConfirmationModal extends Component {
         }
     }
 
+
+    /*
+	summary: opens modal and updates message and referenceId states with data from param
+
+	params: data - contains message for display in modal and reference ID number value of whatever will be deleted
+
+	returns: none
+    */
     handleOpenModal = (data) => {
         this.setState({ isOpen: true, message: data.message, referenceId: data.id });
     }
 
+    
+    /*
+	summary: updates isOpen state to false to close Contact Us modal
+
+	params: none
+
+	returns: none
+    */
     handleCloseModal = () => {
         this.setState({ isOpen: false });
     }
 
+
+    /*
+	summary: passes referenceId state to parent component to trigger function that will delete data from the db, then closes the modal
+
+	params: none
+
+	returns: none
+    */
     handleSubmit = () => {
         this.props.handleConfirm(this.state.referenceId);
         this.handleCloseModal();

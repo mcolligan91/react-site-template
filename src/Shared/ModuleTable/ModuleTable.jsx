@@ -5,6 +5,13 @@ import './module-table.scss';
 
 class ModuleTable extends Component {
 
+    /*
+	summary: determines if the user has clicked on a button within the table row and will trigger the handleTableButtonClick function in the parent component if they have
+
+	params: e - click event data; data - data from table row
+
+	returns: none
+    */
     handleItemClick = (e, data) => {
         if (e.target.nodeName === 'I') {
             this.props.handleTableButtonClick(e.target.getAttribute('functionreference'), data);

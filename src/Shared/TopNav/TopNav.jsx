@@ -5,27 +5,59 @@ import { withRouter } from 'react-router-dom';
 import './top-nav.scss';
 
 class TopNav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        showAccountDropdown: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            showAccountDropdown: false
+        }
     }
-  }
 
+  
+    /*
+	summary: directs router to selected module (Dashboard, Manage Data, Reporting, FAQs, Account) 
+
+	params: menuItem - data from clicked menu item div that contains url for router
+
+	returns: none
+    */
     handleItemClick = (menuItem) => {
         this.props.history.push(menuItem.url);
     }
 
+    
+    /*
+	summary: directs router to home page when main logo is clicked (Dashboard if logged in, Login if not logged in) 
+
+	params: none
+
+	returns: none
+    */
     handleMainLogoClick = () => {
         let loggedIn = sessionStorage.getItem('loggedIn'),
             path = loggedIn === 'true' ? '/home' : '/login';
         this.props.history.push(path);
     }
 
+
+    /*
+	summary: directs router to home page when main logo is clicked (Dashboard if logged in, Login if not logged in) 
+
+	params: e - click event data; { index } - index value from selected menu item to be passed to Account module for loading correct subpage (0 - My Account, 1 - Manage Users, 2 - Manage Organization)
+
+	returns: none
+    */
     handleAccountMenuClick = (e, { index }) => {
         this.props.history.push('/account', {index});
     }
 
+
+    /*
+	summary: will be api call that fires logout process, for now updates sessionStorage to 'log out' user and returns to main login page
+
+	params: none
+
+	returns: none
+    */
     handleLogOut = () => {
         sessionStorage.setItem('loggedIn', false);
         this.props.history.push('/login');
