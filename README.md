@@ -1,3 +1,11 @@
+*Instructions for setting up:
+cd into project directory and run command: npm install
+
+Instructions for running app:
+cd into project directory and run command: npm run dev
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
