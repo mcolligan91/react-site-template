@@ -4,6 +4,23 @@ cd into project directory and run command: npm install
 Instructions for running app:
 cd into project directory and run command: npm run dev
 
+	-the Node server will launch first, followed by the React development server - site will be running on http://localhost:3000/
+
+The front-end files are located in the /src folder
+	-Within the /src folder are subfolders:
+		/Components - main site modules (Dashboard, ManageData, Reporting, etc.)
+			-Some folders within /Components contain additional subfolders for each module subpage that can be accessed through the side navbar 
+		
+		/img - for images, currently contains placeholder image used for graphs on Reporting Module page
+
+		/Layout - contains the main topnav, bottomnav, and main page content container that has the React Router paths to the main urls to the site modules ('/home', '/manage-data', '/reporting', etc.)
+		
+		/Shared - shared components that are used throughout the app in the other files in /Components
+			-any reference to a shared component will be labeled with a commented-out note above it with the naming convention '//for component [shared component name], prop [prop name]'
+			
+The back-end is currently written in Node.js and is contained in a single file - server/index.js
+	-this file contains api endpoints and was included for the purpose of testing the axios functions and error handling and can be replaced with a proper back-end in future apps
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
